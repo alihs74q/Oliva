@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 type Route = 'home' | 'menu';
 
-const LOGO_IMAGE = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-oXZkpyNkOQnm5Ixg4U5x8pQZ1YNKB7.jpg';
+const LOGO_IMAGE = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SnBA5cdkv3FqylCr9a2LN1CjT2HruH.png';
 
 export default function Navbar({ navigate, route }: { navigate: (to: Route) => void; route: Route }) {
   const [scrolled, setScrolled] = useState(false);
@@ -50,15 +50,35 @@ export default function Navbar({ navigate, route }: { navigate: (to: Route) => v
       >
         <button
           onClick={() => go('home')}
-          className="flex items-center transition-transform hover:scale-[1.04]"
-          style={{ height: '42px' }}
+          className="flex items-center"
+          style={{
+            height: scrolled ? '54px' : '64px',
+            perspective: '1200px',
+            transition: 'height 500ms ease',
+          }}
           aria-label="Oliva — From Court to Cup"
+          onMouseEnter={(e) => {
+            const img = e.currentTarget.querySelector('img') as HTMLImageElement;
+            if (img) {
+              img.style.transform = 'rotateY(15deg) rotateX(5deg) scale(1.08)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            const img = e.currentTarget.querySelector('img') as HTMLImageElement;
+            if (img) {
+              img.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+            }
+          }}
         >
           <img
             src={LOGO_IMAGE}
             alt="Oliva — From Court to Cup"
-            className="h-full w-auto object-contain"
-            style={{ filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.45))' }}
+            className="h-full w-auto object-contain logo-3d"
+            style={{
+              filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.55))',
+              transformStyle: 'preserve-3d',
+              backfaceVisibility: 'hidden',
+            }}
             draggable={false}
           />
         </button>

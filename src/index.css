@@ -98,6 +98,16 @@ body { font-family:system-ui,-apple-system,sans-serif; background-color:#f5f5f4;
   0% { transform:translate(0,0) scale(1); opacity:1; }
   100% { transform:translate(-15px,-75px) scale(.2); opacity:0; }
 }
+@keyframes logo-float-3d {
+  0%,100% { transform:rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1); }
+  25% { transform:rotateY(-8deg) rotateX(4deg) rotateZ(2deg) scale(1.02); }
+  50% { transform:rotateY(0deg) rotateX(-3deg) rotateZ(-1deg) scale(1); }
+  75% { transform:rotateY(8deg) rotateX(-4deg) rotateZ(2deg) scale(1.02); }
+}
+.logo-3d {
+  animation: logo-float-3d 8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  transform-style: preserve-3d;
+}
 @keyframes rp2 {
   0% { transform:translate(0,0) scale(1); opacity:1; }
   100% { transform:translate(12px,-65px) scale(.35); opacity:0; }

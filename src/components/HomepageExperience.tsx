@@ -46,8 +46,11 @@ export default function HomepageExperience({
   return (
     <section style={{
       position: 'relative', width: '100%', minHeight: '100svh', overflow: 'hidden',
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      padding: 'clamp(20px,5vw,40px)',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start',
+      paddingTop: 'max(clamp(20px,5vw,40px), 80px)',
+      paddingLeft: 'clamp(20px,5vw,40px)',
+      paddingRight: 'clamp(20px,5vw,40px)',
+      paddingBottom: 'clamp(20px,5vw,40px)',
       background: 'linear-gradient(160deg,#1a2e1a,#0f1f0f 50%,#0a140a)',
     }}>
       {/* Logo */}
