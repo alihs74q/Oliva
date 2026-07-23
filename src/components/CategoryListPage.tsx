@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import OlivaLogo from './OlivaLogo'
 import type { Subcategory, SubcategoryDrink } from '../data/subcategories'
 
 export interface CategoryTheme {
@@ -35,7 +34,7 @@ export default function CategoryListPage({
       {/* Nav */}
       <nav style={{
         position: 'relative', zIndex: 10, height: 68, flexShrink: 0,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
         padding: '0 clamp(16px,4vw,40px)',
       }}>
         <button onClick={onBack}
@@ -54,10 +53,6 @@ export default function CategoryListPage({
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           BACK
         </button>
-        <button onClick={() => navigate('home')} style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer' }}>
-          <OlivaLogo size={34} showText={false} />
-          <span style={{ color: theme.text, fontWeight: 800, fontSize: 16, letterSpacing: '0.06em' }}>OLIVA</span>
-        </button>
       </nav>
 
       {/* Header */}
@@ -71,6 +66,29 @@ export default function CategoryListPage({
           margin: 0, fontSize: 'clamp(11px,1.4vw,14px)', fontWeight: 800, letterSpacing: '0.35em',
           color: theme.accent, textTransform: 'uppercase',
         }}>{subtitle}</p>
+        
+        {/* Animated Logo */}
+        <div style={{
+          margin: 'clamp(12px,2vh,20px) 0',
+          display: 'flex',
+          justifyContent: 'center',
+          perspective: '1200px',
+        }}>
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
+            alt="Oliva"
+            className="logo-3d"
+            style={{
+              height: 'clamp(80px,12vw,140px)',
+              width: 'auto',
+              objectFit: 'contain',
+              filter: `drop-shadow(0 6px 16px ${theme.glowColor}40)`,
+              transformStyle: 'preserve-3d',
+              backfaceVisibility: 'hidden',
+            }}
+          />
+        </div>
+        
         <h1 style={{
           margin: '4px 0 0', fontSize: 'clamp(36px,7vw,72px)', fontWeight: 900,
           color: theme.text, letterSpacing: '-0.03em', lineHeight: 1,
