@@ -34,7 +34,7 @@ export default function Navbar({ navigate, route }: { navigate: (to: Route) => v
       <div
         className="max-w-6xl mx-auto flex items-center justify-between transition-all duration-500"
         style={{
-          height: scrolled ? '58px' : '68px',
+          height: scrolled ? '78px' : '100px',
           paddingLeft: '20px',
           paddingRight: '14px',
           borderRadius: '999px',
@@ -52,7 +52,7 @@ export default function Navbar({ navigate, route }: { navigate: (to: Route) => v
           onClick={() => go('home')}
           className="flex items-center"
           style={{
-            height: scrolled ? '54px' : '64px',
+            height: scrolled ? '72px' : '90px',
             perspective: '1200px',
             transition: 'height 500ms ease',
           }}
