@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 type Route = 'home' | 'menu';
 
-const LOGO_IMAGE = '/oliva-logo.png';
+const LOGO_IMAGE = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-oXZkpyNkOQnm5Ixg4U5x8pQZ1YNKB7.jpg';
 
 export default function Navbar({ navigate, route }: { navigate: (to: Route) => void; route: Route }) {
   const [scrolled, setScrolled] = useState(false);
