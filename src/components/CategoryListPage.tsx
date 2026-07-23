@@ -55,12 +55,17 @@ export default function CategoryListPage({
         </button>
       </nav>
 
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: EASE }}
-        style={{ textAlign: 'center', padding: 'clamp(4px,1vh,12px) clamp(16px,4vw,40px) 0', flexShrink: 0 }}
+      {/* Scrollable content container */}
+      <div className="clp-scroll" style={{
+        flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
+        WebkitOverflowScrolling: 'touch',
+      }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: EASE }}
+          style={{ textAlign: 'center', padding: 'clamp(4px,1vh,12px) clamp(16px,4vw,40px) 0' }}
       >
         <p style={{
           margin: 0, fontSize: 'clamp(11px,1.4vw,14px)', fontWeight: 800, letterSpacing: '0.35em',
@@ -89,19 +94,17 @@ export default function CategoryListPage({
           />
         </div>
         
-        <h1 style={{
-          margin: '4px 0 0', fontSize: 'clamp(36px,7vw,72px)', fontWeight: 900,
-          color: theme.text, letterSpacing: '-0.03em', lineHeight: 1,
-        }}>{title}</h1>
-      </motion.div>
+          <h1 style={{
+            margin: '4px 0 0', fontSize: 'clamp(36px,7vw,72px)', fontWeight: 900,
+            color: theme.text, letterSpacing: '-0.03em', lineHeight: 1,
+          }}>{title}</h1>
+        </motion.div>
 
-      {/* Subcategory grid */}
-      <div className="clp-scroll" style={{
-        flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
-        padding: 'clamp(12px,2vh,24px) clamp(16px,4vw,40px) clamp(20px,3vh,40px)',
-        maxWidth: 960, margin: '0 auto', width: '100%',
-        WebkitOverflowScrolling: 'touch',
-      }}>
+        {/* Subcategory grid */}
+        <div style={{
+          padding: 'clamp(12px,2vh,24px) clamp(16px,4vw,40px) clamp(20px,3vh,40px)',
+          maxWidth: 960, margin: '0 auto', width: '100%',
+        }}>
         <div className="subcat-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
@@ -163,6 +166,7 @@ export default function CategoryListPage({
             )
           })}
         </div>
+        </div>
       </div>
 
       {/* Drink popup modal */}
@@ -185,7 +189,7 @@ export default function CategoryListPage({
   )
 }
 
-// ─── Drink popup modal ───────────────────────────────────────────────────────
+// ─── Drink popup modal ────────────────────────────────────────────────��──────
 function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: CategoryTheme; onClose: () => void }) {
   return (
     <motion.div
