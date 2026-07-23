@@ -15,7 +15,7 @@ import CategoryListPage, { type CategoryTheme } from './components/CategoryListP
 import { subcategoryData } from './data/subcategories';
 
 
-type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha' | 'padel' | 'sandwiches' | 'yogurt' | 'nuts';
+type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha';
 
 type ParsedRoute =
   | { name: 'home' }
@@ -27,12 +27,12 @@ type ParsedRoute =
 function parseRoute(): ParsedRoute {
   if (typeof window === 'undefined') return { name: 'home' };
   const hash = window.location.hash.replace(/^#/, '');
-  const listMatch = hash.match(/^menu\/(cold-drinks|hot-drinks|desserts|shisha|padel|sandwiches|yogurt|nuts)$/);
+  const listMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha)$/);
   if (listMatch) return { name: 'list', category: listMatch[1] as Category };
-  const detailMatch = hash.match(/^menu\/(cold-drinks|hot-drinks|desserts|shisha|padel|sandwiches|yogurt|nuts)\/(.+)$/);
+  const detailMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha)\/(.+)$/);
   if (detailMatch) return { name: 'detail', category: detailMatch[1] as Category, slug: detailMatch[2] };
-  if (hash === 'menu') return { name: 'menu' };
-  if (hash === 'gallery') return { name: 'gallery' };
+  if (hash === '/menu') return { name: 'menu' };
+  if (hash === '/gallery') return { name: 'gallery' };
   return { name: 'home' };
 }
 
@@ -70,47 +70,11 @@ const SHISHA_THEME: CategoryTheme = {
   accent: '#d4a017',
 };
 
-const PADEL_THEME: CategoryTheme = {
-  bgGradient: 'linear-gradient(160deg,#0f172a,#1e3a8a 55%,#1e40af)',
-  glowColor: '#60a5fa',
-  text: '#f1f5f9',
-  subtext: '#cbd5e1',
-  accent: '#93c5fd',
-};
-
-const SANDWICHES_THEME: CategoryTheme = {
-  bgGradient: 'linear-gradient(160deg,#7f1d1d,#991b1b 55%,#b91c1c)',
-  glowColor: '#ef4444',
-  text: '#fef2f2',
-  subtext: '#fca5a5',
-  accent: '#fca5a5',
-};
-
-const YOGURT_THEME: CategoryTheme = {
-  bgGradient: 'linear-gradient(160deg,#4c1d95,#7e22ce 55%,#6d28d9)',
-  glowColor: '#d946ef',
-  text: '#f5f3ff',
-  subtext: '#ddd6fe',
-  accent: '#e9d5ff',
-};
-
-const NUTS_THEME: CategoryTheme = {
-  bgGradient: 'linear-gradient(160deg,#78350f,#b45309 55%,#92400e)',
-  glowColor: '#f59e0b',
-  text: '#fefce8',
-  subtext: '#fed7aa',
-  accent: '#fcd34d',
-};
-
 const CATEGORY_DATA: Record<Category, { title: string; subtitle: string; theme: CategoryTheme; listHash: string }> = {
-  'cold-drinks': { title: 'Cold Drinks', subtitle: 'Chilled & Refreshing', theme: COLD_THEME, listHash: 'menu/cold-drinks' },
-  'hot-drinks': { title: 'Hot Drinks', subtitle: 'Warm & Aromatic', theme: HOT_THEME, listHash: 'menu/hot-drinks' },
-  'desserts': { title: 'Desserts', subtitle: 'Sweet Indulgence', theme: DESSERT_THEME, listHash: 'menu/desserts' },
-  'shisha': { title: 'Shisha', subtitle: 'Premium Flavors', theme: SHISHA_THEME, listHash: 'menu/shisha' },
-  'padel': { title: 'Padel', subtitle: 'Sports & Equipment', theme: PADEL_THEME, listHash: 'menu/padel' },
-  'sandwiches': { title: 'Sandwiches', subtitle: 'Fresh & Hearty', theme: SANDWICHES_THEME, listHash: 'menu/sandwiches' },
-  'yogurt': { title: 'Yogurt', subtitle: 'Creamy & Healthy', theme: YOGURT_THEME, listHash: 'menu/yogurt' },
-  'nuts': { title: 'Nuts', subtitle: 'Premium Selection', theme: NUTS_THEME, listHash: 'menu/nuts' },
+  'cold-drinks': { title: 'Cold Drinks', subtitle: 'Chilled & Refreshing', theme: COLD_THEME, listHash: '/menu/cold-drinks' },
+  'hot-drinks': { title: 'Hot Drinks', subtitle: 'Warm & Aromatic', theme: HOT_THEME, listHash: '/menu/hot-drinks' },
+  'desserts': { title: 'Desserts', subtitle: 'Sweet Indulgence', theme: DESSERT_THEME, listHash: '/menu/desserts' },
+  'shisha': { title: '2aragile', subtitle: 'Premium Flavors', theme: SHISHA_THEME, listHash: '/menu/shisha' },
 };
 
 export default function App() {
@@ -150,11 +114,11 @@ export default function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navigateHome = () => { window.location.hash = ''; };
-  const navigateMenu = () => { window.location.hash = 'menu'; };
-  const navigateGallery = () => { window.location.hash = 'gallery'; };
-  const navigateList = (cat: Category) => { window.location.hash = `menu/${CATEGORY_DATA[cat].listHash.split('/').pop()}`; };
-  const navigateDetail = (cat: Category, slug: string) => { window.location.hash = `menu/${cat}/${slug}`; };
+  const navigateHome = () => { window.location.hash = '/'; };
+  const navigateMenu = () => { window.location.hash = '/menu'; };
+  const navigateGallery = () => { window.location.hash = '/gallery'; };
+  const navigateList = (cat: Category) => { window.location.hash = CATEGORY_DATA[cat].listHash; };
+  const navigateDetail = (cat: Category, slug: string) => { window.location.hash = `/menu/${cat}/${slug}`; };
 
 
   const scrollToBooking = () => {

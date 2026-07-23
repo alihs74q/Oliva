@@ -1,9 +1,7 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import OlivaLogo from './OlivaLogo'
 import type { Subcategory, SubcategoryDrink } from '../data/subcategories'
-import { CategoryCardPreview } from './CategoryCardPreview'
-import { useCardTilt } from '../hooks/useCardTilt'
 
 export interface CategoryTheme {
   bgGradient: string
@@ -92,9 +90,60 @@ export default function CategoryListPage({
           gap: 'clamp(16px,2.5vh,28px)',
           width: '100%',
         }}>
-          {subcategories.map((sub, i) => (
-            <SubcategoryCard key={sub.id} sub={sub} theme={theme} index={i} isPlaceholder={sub.drinks.length === 0} onSelect={() => sub.drinks.length > 0 && setOpenSub(sub)} />
-          ))}
+          {subcategories.map((sub, i) => {
+            const isPlaceholder = sub.drinks.length === 0
+            return (
+              <motion.button
+                key={sub.id}
+                onClick={() => !isPlaceholder && setOpenSub(sub)}
+                disabled={isPlaceholder}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, ease: EASE, delay: Math.min(i * 0.05, 0.3) }}
+                whileTap={isPlaceholder ? {} : { scale: 0.97, transition: { duration: 0.12 } }}
+                style={{
+                  position: 'relative', overflow: 'hidden',
+                  background: `linear-gradient(145deg, ${sub.themeColor}40, ${sub.themeColor}15)`,
+                  border: `1.5px solid ${isPlaceholder ? 'rgba(255,255,255,0.1)' : `${sub.accentColor}55`}`,
+                  borderRadius: 24,
+                  padding: 'clamp(24px,3.2vh,36px) clamp(20px,2.5vw,28px)',
+                  cursor: isPlaceholder ? 'default' : 'pointer',
+                  boxShadow: isPlaceholder ? 'none' : `0 8px 24px ${sub.themeColor}30`,
+                  textAlign: 'left',
+                  opacity: isPlaceholder ? 0.45 : 1,
+                  display: 'flex', flexDirection: 'column', gap: 8,
+                  minHeight: 160,
+                  willChange: 'transform',
+                }}
+              >
+                <div style={{ width: 44, height: 4, borderRadius: 3, background: sub.accentColor, opacity: 0.8 }} />
+                <h3 style={{
+                  margin: 0, fontSize: 'clamp(22px,2.8vw,30px)', fontWeight: 900,
+                  color: theme.text, letterSpacing: '-0.02em', lineHeight: 1.1,
+                }}>{sub.name}</h3>
+                <p style={{
+                  margin: 0, fontSize: 'clamp(12px,1.1vw,14px)', color: theme.subtext,
+                  lineHeight: 1.5, fontWeight: 500,
+                }}>{sub.description}</p>
+                {!isPlaceholder && (
+                  <div style={{
+                    marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: 8,
+                    paddingTop: 10,
+                    color: sub.accentColor, fontSize: 13, fontWeight: 800, letterSpacing: '0.04em',
+                  }}>
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                      width: 30, height: 30, borderRadius: '50%',
+                      background: `${sub.accentColor}22`, border: `1px solid ${sub.accentColor}55`,
+                    }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </span>
+                    {sub.drinks.length} drinks
+                  </div>
+                )}
+              </motion.button>
+            )
+          })}
         </div>
       </div>
 
@@ -115,93 +164,6 @@ export default function CategoryListPage({
         }
       `}</style>
     </div>
-  )
-}
-
-// ─── Subcategory card with tilt effect ──────────────────────────────────────
-function SubcategoryCard({ sub, theme, index, isPlaceholder, onSelect }: { sub: Subcategory; theme: CategoryTheme; index: number; isPlaceholder: boolean; onSelect: () => void }) {
-  const { cardRef, tilt } = useCardTilt(!isPlaceholder)
-
-  return (
-    <motion.div
-      ref={cardRef}
-      onClick={onSelect}
-      disabled={isPlaceholder}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: EASE, delay: Math.min(index * 0.05, 0.3) }}
-      whileTap={isPlaceholder ? {} : { scale: 0.97, transition: { duration: 0.12 } }}
-      style={{
-        position: 'relative',
-        overflow: 'hidden',
-        background: `linear-gradient(145deg, ${sub.themeColor}40, ${sub.themeColor}15)`,
-        border: `1.5px solid ${isPlaceholder ? 'rgba(255,255,255,0.1)' : `${sub.accentColor}55`}`,
-        borderRadius: 24,
-        padding: 'clamp(24px,3.2vh,36px) clamp(20px,2.5vw,28px)',
-        cursor: isPlaceholder ? 'default' : 'pointer',
-        boxShadow: isPlaceholder ? 'none' : `0 8px 24px ${sub.themeColor}30`,
-        textAlign: 'left',
-        opacity: isPlaceholder ? 0.45 : 1,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 8,
-        minHeight: 160,
-        willChange: 'transform',
-        transform: `perspective(1200px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${tilt.scale})`,
-        transition: tilt.scale === 1 ? 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none',
-        transformStyle: 'preserve-3d',
-      } as any}
-    >
-      <div style={{ width: 44, height: 4, borderRadius: 3, background: sub.accentColor, opacity: 0.8 }} />
-      <h3 style={{
-        margin: 0,
-        fontSize: 'clamp(22px,2.8vw,30px)',
-        fontWeight: 900,
-        color: theme.text,
-        letterSpacing: '-0.02em',
-        lineHeight: 1.1,
-      }}>
-        {sub.name}
-      </h3>
-      <p style={{
-        margin: 0,
-        fontSize: 'clamp(12px,1.1vw,14px)',
-        color: theme.subtext,
-        lineHeight: 1.5,
-        fontWeight: 500,
-      }}>
-        {sub.description}
-      </p>
-      {!isPlaceholder && (
-        <div style={{
-          marginTop: 'auto',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 8,
-          paddingTop: 10,
-          color: sub.accentColor,
-          fontSize: 13,
-          fontWeight: 800,
-          letterSpacing: '0.04em',
-        }}>
-          <span style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 30,
-            height: 30,
-            borderRadius: '50%',
-            background: `${sub.accentColor}22`,
-            border: `1px solid ${sub.accentColor}55`,
-          }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </span>
-          {sub.drinks.length} drinks
-        </div>
-      )}
-    </motion.div>
   )
 }
 
