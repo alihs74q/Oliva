@@ -149,22 +149,13 @@ export const dessertsSubcategories: Subcategory[] = [
 
 export const shishaSubcategories: Subcategory[] = [
   {
-    id: 'fresh-shisha',
-    name: 'Fresh Flavors',
-    description: 'Cool and refreshing',
-    themeColor: '#65a30d',
-    accentColor: '#bef264',
-    drinks: [
-      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', image: null },
-    ],
-  },
-  {
-    id: 'classic-shisha',
-    name: 'Classic Flavors',
-    description: 'Traditional and bold',
+    id: 'flavors',
+    name: 'Flavors',
+    description: 'All our premium selections',
     themeColor: '#a16207',
     accentColor: '#fcd34d',
     drinks: [
+      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', image: null },
       { name: 'Double Apple', description: 'Classic dual apple flavor, sweet and smooth.', price: '$5.50', image: null },
       { name: 'Grape', description: 'Rich and sweet grape flavor.', price: '$5.50', image: null },
       { name: 'Tanbak', description: 'Strong traditional tobacco flavor.', price: '$7.50', image: null },
