@@ -71,6 +71,29 @@ export default function CategoryListPage({
           margin: 0, fontSize: 'clamp(11px,1.4vw,14px)', fontWeight: 800, letterSpacing: '0.35em',
           color: theme.accent, textTransform: 'uppercase',
         }}>{subtitle}</p>
+        
+        {/* Animated Logo */}
+        <div style={{
+          margin: 'clamp(12px,2vh,20px) 0',
+          display: 'flex',
+          justifyContent: 'center',
+          perspective: '1200px',
+        }}>
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
+            alt="Oliva"
+            className="logo-3d"
+            style={{
+              height: 'clamp(80px,12vw,140px)',
+              width: 'auto',
+              objectFit: 'contain',
+              filter: `drop-shadow(0 6px 16px ${theme.glowColor}40)`,
+              transformStyle: 'preserve-3d',
+              backfaceVisibility: 'hidden',
+            }}
+          />
+        </div>
+        
         <h1 style={{
           margin: '4px 0 0', fontSize: 'clamp(36px,7vw,72px)', fontWeight: 900,
           color: theme.text, letterSpacing: '-0.03em', lineHeight: 1,
