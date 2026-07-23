@@ -58,7 +58,7 @@ export default function HomepageExperience({
         style={{ marginBottom: 'clamp(16px,3vh,28px)' }}
       >
         <img
-          src="https://images.pexels.com/photos/14281590/pexels-photo-14281590.jpeg?auto=compress&cs=tinysrgb&w=400"
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-7vdw2NsA2Wofs4TtAyO49iJkZo8nn1.jpg"
           alt="Oliva"
           style={{
             width: 'clamp(72px,12vw,100px)', height: 'clamp(72px,12vw,100px)',
