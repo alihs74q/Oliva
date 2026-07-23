@@ -79,10 +79,10 @@ export default function CategoryListPage({
             alt="Oliva"
             className="logo-3d"
             style={{
-              height: 'clamp(80px,12vw,140px)',
+              height: 'clamp(160px,24vw,280px)',
               width: 'auto',
               objectFit: 'contain',
-              filter: `drop-shadow(0 6px 16px ${theme.glowColor}40)`,
+              filter: `drop-shadow(0 8px 24px ${theme.glowColor}60)`,
               transformStyle: 'preserve-3d',
               backfaceVisibility: 'hidden',
             }}
