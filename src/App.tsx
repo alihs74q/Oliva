@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import LoadingIntro from './components/LoadingIntro';
 import Background from './components/Background';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
@@ -107,7 +106,6 @@ const CATEGORY_DATA: Record<Category, { title: string; subtitle: string; theme: 
 };
 
 export default function App() {
-  const [appReady, setAppReady] = useState(false);
   const [route, setRoute] = useState<ParsedRoute>(parseRoute);
 
   useEffect(() => {
@@ -143,10 +141,6 @@ export default function App() {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  if (!appReady) {
-    return <LoadingIntro onComplete={() => setAppReady(true)} />;
-  }
 
   const navigateHome = () => { window.location.hash = '/'; };
   const navigateMenu = () => { window.location.hash = '/menu'; };
