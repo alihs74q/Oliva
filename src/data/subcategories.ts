@@ -38,12 +38,12 @@ export const coldDrinksSubcategories: Subcategory[] = [
     accentColor: '#fcd34d',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_milkshakes_202607240432-DyeXQYjJj3Qg2lXxkb8gT9y7V0T2mz.jpeg',
     drinks: [
-      { name: 'Cookies & Cream', description: 'Crushed cookies blended into silky cream.', price: '$4.50', image: null },
-      { name: 'Strawberry Whip', description: 'Fresh strawberries with whipped cream.', price: '$4', image: null },
-      { name: 'Choco-Nut Milkshake', description: 'Chocolate and nut blend, rich and creamy.', price: '$4', image: null },
-      { name: 'Vanilla Milkshake', description: 'Classic vanilla bean milkshake.', price: '$4', image: null },
-      { name: 'Lotus Milkshake', description: 'Lotus biscuit blended into creamy indulgence.', price: '$4.50', image: null },
-      { name: 'Oliva Milkshake', description: 'Our signature house-special milkshake.', price: '$5', image: null },
+      { name: 'Cookies & Cream', description: 'Crushed cookies blended into silky cream.', price: '$4.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Make_cookies_brown_not_oreo_202607240518-iKktANVkffo9wb6QbbcuqxY2ChOrwx.jpeg' },
+      { name: 'Strawberry Whip', description: 'Fresh strawberries with whipped cream.', price: '$4', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Strawberry_whip_milkshakes_202607240519-XGTJ17Ap1la3ozcF0mlFK2Y7N9HQqZ.jpeg' },
+      { name: 'Choco-Nut Milkshake', description: 'Chocolate and nut blend, rich and creamy.', price: '$4', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_choco_nut_202607240519-6mC8PWh61UYLCgVfOb8SdAZVcD0oJo.jpeg' },
+      { name: 'Vanilla Milkshake', description: 'Classic vanilla bean milkshake.', price: '$4', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_vanilla_milkshakes_202607240520-CSxRiddqcNF8XKDMaS0NDdhwTaSgYp.jpeg' },
+      { name: 'Lotus Milkshake', description: 'Lotus biscuit blended into creamy indulgence.', price: '$4.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_lotus_milkshake_202607240521-VWPZhDpaqRMBGqeEMWZyjAZrVKWVQA.jpeg' },
+      { name: 'Oliva Milkshake', description: '??????????????', price: '$5', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Make_drink_sooooo_blur_202607240524-oqfptwROqTmiIQ6F4op2kh9LR8JRA6.jpeg' },
     ],
   },
   {
