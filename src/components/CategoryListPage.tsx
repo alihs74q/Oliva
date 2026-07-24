@@ -180,7 +180,6 @@ export default function CategoryListPage({
                 }}>
                   {sub.image ? (
                     <img src={sub.image} alt={sub.name} draggable={false}
-                      loading="lazy" decoding="async"
                       style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }} />
                   ) : (
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={sub.accentColor} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
@@ -306,7 +305,6 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
       }}>
         {drink.image ? (
           <img src={drink.image} alt={drink.name} draggable={false}
-            loading="lazy" decoding="async"
             style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16 }} />
         ) : (
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={sub.accentColor} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>

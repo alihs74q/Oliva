@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import OptimizedImage from './OptimizedImage'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -116,15 +115,7 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
                 }
               `}</style>
               {card.image ? (
-                <OptimizedImage
-                  src={card.image}
-                  alt={card.label}
-                  objectFit="cover"
-                  quality={78}
-                  sizes="(max-width: 640px) 72px, (max-width: 1024px) 88px, 96px"
-                  placeholderColor="#1a2e1a"
-                  style={{ borderRadius: 18 }}
-                />
+                <img src={card.image} alt={card.label} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 18 }} />
               ) : (
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={card.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />

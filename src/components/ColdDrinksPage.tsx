@@ -126,7 +126,6 @@ function ProductPanel({ drink, dir, reducedMotion }: {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {drink.image ? (
             <img src={drink.image} alt={drink.name} draggable={false}
-              loading="lazy" decoding="async"
               style={{ maxHeight: 'clamp(140px,34vh,380px)', objectFit: 'contain', filter: 'drop-shadow(0 24px 64px rgba(0,0,0,0.55))', userSelect: 'none' }} />
           ) : (
             <ColdDrinkPlaceholder size={placeholderSize} />
@@ -203,9 +202,8 @@ function DrinkGridCard({ drink, isActive, onClick }: {
     >
       <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
         {drink.image ? (
-  <img src={drink.image} alt={drink.name} draggable={false}
-  loading="lazy" decoding="async"
-  style={{ maxHeight: 80, maxWidth: '100%', objectFit: 'contain', filter: 'drop-shadow(0 6px 16px rgba(0,0,0,0.45))', userSelect: 'none' }} />
+          <img src={drink.image} alt={drink.name} draggable={false}
+            style={{ maxHeight: 80, maxWidth: '100%', objectFit: 'contain', filter: 'drop-shadow(0 6px 16px rgba(0,0,0,0.45))', userSelect: 'none' }} />
         ) : (
           <ColdDrinkPlaceholder size={54} />
         )}
