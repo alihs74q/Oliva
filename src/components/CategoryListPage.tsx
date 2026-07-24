@@ -189,7 +189,7 @@ export default function CategoryListPage({
   )
 }
 
-// ─── Drink popup modal ────────────────────────────────────────────────��──────
+// ─── Drink popup modal ────────────���───────────────────────────────────��──────
 function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: CategoryTheme; onClose: () => void }) {
   return (
     <motion.div
@@ -269,7 +269,7 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
       {/* Image placeholder / image */}
       <div style={{
         flexShrink: 0,
-        width: 'clamp(64px,10vw,84px)', height: 'clamp(64px,10vw,84px)',
+        width: 'clamp(100px,16vw,140px)', height: 'clamp(100px,16vw,140px)',
         borderRadius: 18,
         background: drink.image ? 'transparent' : `linear-gradient(135deg, ${sub.accentColor}30, ${sub.themeColor}30)`,
         border: `1.5px dashed ${sub.accentColor}55`,
@@ -290,8 +290,8 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
 
       {/* Info */}
       <div style={{ flex: 1, minWidth: 0 }}>
-        <h4 style={{ margin: 0, fontSize: 'clamp(16px,1.8vw,20px)', fontWeight: 800, color: theme.text, lineHeight: 1.2, letterSpacing: '-0.01em' }}>{drink.name}</h4>
-        <p style={{ margin: '4px 0 0', fontSize: 'clamp(12px,1.1vw,14px)', color: theme.subtext, lineHeight: 1.45, fontWeight: 500 }}>{drink.description}</p>
+        <h4 style={{ margin: 0, fontSize: 'clamp(18px,2.4vw,26px)', fontWeight: 800, color: theme.text, lineHeight: 1.2, letterSpacing: '-0.01em' }}>{drink.name}</h4>
+        <p style={{ margin: '6px 0 0', fontSize: 'clamp(14px,1.6vw,18px)', color: theme.subtext, lineHeight: 1.5, fontWeight: 500 }}>{drink.description}</p>
       </div>
 
       {/* Price badge */}
