@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-// All images that need to be preloaded before the app reveals
+// Only preload hero + menu category card images for faster loading
 const IMAGES_TO_PRELOAD = [
-  // Hero / homepage logo
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-7vdw2NsA2Wofs4TtAyO49iJkZo8nn1.jpg',
-  // Homepage experience hero background
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Style_of_cub_cold_drink_202607240431-TrhRjFxd4wxoAx2gsQCFMQNxRLCWI3.jpeg',
-  // Menu category cards (same images shown in HomepageExperience + Menu)
+  // Menu category cards (7 images)
   'https://images.pexels.com/photos/15851583/pexels-photo-15851583/free-photo-of-cappuccino-in-cup-on-table.jpeg?auto=compress&cs=tinysrgb&w=400',
   'https://images.pexels.com/photos/22873679/pexels-photo-22873679.jpeg?auto=compress&cs=tinysrgb&w=400',
   'https://images.pexels.com/photos/16544183/pexels-photo-16544183/free-photo-of-sweet-cakes-on-plate.jpeg?auto=compress&cs=tinysrgb&w=400',
