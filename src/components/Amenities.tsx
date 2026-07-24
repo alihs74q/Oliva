@@ -47,7 +47,23 @@ export default function Amenities() {
               style={{ animationDelay: `${i * 100}ms` }}
             >
               {/* Image placeholder */}
-              <div className={`relative h-32 rounded-xl bg-gradient-to-br ${item.accent} border-2 border-dashed border-stone-200 group-hover:border-[#4a6741]/40 transition-colors duration-300 flex items-center justify-center mb-5`}>
+              <style>{`
+                @keyframes glowPulse {
+                  0%, 100% {
+                    box-shadow: 0 0 8px #4a6741, 0 0 16px #4a6741, 0 0 32px rgba(74, 103, 65, 0.3);
+                    filter: brightness(1);
+                  }
+                  50% {
+                    box-shadow: 0 0 12px #4a6741, 0 0 24px #4a6741, 0 0 40px rgba(74, 103, 65, 0.5);
+                    filter: brightness(1.05);
+                  }
+                }
+              `}</style>
+              <div className={`relative h-32 rounded-xl bg-gradient-to-br ${item.accent} flex items-center justify-center mb-5 transition-all duration-300`}
+                style={{
+                  animation: 'glowPulse 3s ease-in-out infinite',
+                  boxShadow: '0 0 8px #4a6741, 0 0 16px #4a6741, 0 0 32px rgba(74, 103, 65, 0.3)',
+                }}>
                 <div className="flex flex-col items-center gap-1">
                   <item.icon size={32} className="text-[#4a6741]/40 group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-xs text-stone-400">Add image</span>
