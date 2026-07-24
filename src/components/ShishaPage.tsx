@@ -112,7 +112,7 @@ function ShishaModal({ item, onClose }: { item: ShishaItem; onClose: () => void 
               boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
             }}>
               {item.image ? (
-                <img src={item.image} alt={item.name} draggable={false}
+                <img src={item.image} alt={item.name} draggable={false} crossOrigin="anonymous"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -183,7 +183,7 @@ function ShishaGridCard({ item, index, onClick }: { item: ShishaItem; index: num
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         {item.image ? (
-          <img src={item.image} alt={item.name} draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src={item.image} alt={item.name} draggable={false} crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         ) : (
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="3" width="18" height="18" rx="3" />
