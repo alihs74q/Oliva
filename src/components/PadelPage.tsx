@@ -11,7 +11,7 @@ interface PadelItem {
 }
 
 const PADEL_ITEMS: PadelItem[] = [
-  { title: '1H Court', description: 'Full hour of play', price: '$20', image: 'https://images.pexels.com/photos/3808516/pexels-photo-3808516.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { title: '1H Court', description: 'Full hour of play', price: '$20', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9vR3KMaQrDDBQVuX3Ksa5fIbkllRIY.png' },
   { title: '1.5H Court', description: 'Extended playtime', price: '$30', image: 'https://images.pexels.com/photos/3808516/pexels-photo-3808516.jpeg?auto=compress&cs=tinysrgb&w=400' },
   { title: '1H Coaching', description: 'Professional lessons', price: '$30', image: 'https://images.pexels.com/photos/4197604/pexels-photo-4197604.jpeg?auto=compress&cs=tinysrgb&w=400' },
   { title: 'Grip', description: 'Premium quality', price: '$5', image: 'https://images.pexels.com/photos/3808506/pexels-photo-3808506.jpeg?auto=compress&cs=tinysrgb&w=400' },
