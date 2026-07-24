@@ -4,16 +4,17 @@ import type { CategoryTheme } from './CategoryListPage'
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
 interface PadelItem {
-  name: string
+  title: string
+  description: string
   price: string
 }
 
 const PADEL_ITEMS: PadelItem[] = [
-  { name: '1 Hour Court', price: '$20' },
-  { name: '1.5 Hours Court', price: '$30' },
-  { name: '1 Hour Coaching', price: '$30' },
-  { name: 'Premium Grip', price: '$5' },
-  { name: 'Professional Ball Set', price: '$9.99' },
+  { title: '1H Court', description: 'Full hour of play', price: '$20' },
+  { title: '1.5H Court', description: 'Extended playtime', price: '$30' },
+  { title: '1H Coaching', description: 'Professional lessons', price: '$30' },
+  { title: 'Grip', description: 'Premium quality', price: '$5' },
+  { title: 'Ball Set', description: '3 professional balls', price: '$9.99' },
 ]
 
 export default function PadelPage({
@@ -116,29 +117,53 @@ export default function PadelPage({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: idx * 0.1, ease: EASE }}
                 style={{
-                  background: `rgba(255, 255, 255, 0.05)`,
-                  border: `1px solid ${theme.accent}40`,
-                  borderRadius: 'clamp(12px, 2vw, 20px)',
-                  padding: 'clamp(20px, 3vw, 28px)',
+                  background: `rgba(6, 182, 212, 0.08)`,
+                  border: `2px solid ${theme.accent}60`,
+                  borderRadius: '16px',
+                  padding: 'clamp(24px, 4vw, 32px)',
                   cursor: 'pointer',
                   transition: 'all 300ms cubic-bezier(0.34, 1.56, 0.64, 1)',
-                  backdropFilter: 'blur(8px)',
+                  backdropFilter: 'blur(10px)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                 }}
                 whileHover={{
-                  background: `rgba(255, 255, 255, 0.08)`,
+                  background: `rgba(6, 182, 212, 0.15)`,
                   borderColor: theme.accent,
-                  transform: 'translateY(-4px)',
+                  transform: 'translateY(-6px)',
+                  boxShadow: `0 8px 24px ${theme.accent}30`,
                 }}
               >
-                <h3 style={{
-                  margin: '0 0 12px', fontSize: 'clamp(18px, 2.5vw, 24px)', fontWeight: 700,
-                  color: theme.text, lineHeight: 1.2, fontFamily: "'Segoe UI', system-ui, sans-serif",
-                }}>
-                  {item.name}
-                </h3>
+                <div>
+                  <h3 style={{
+                    margin: '0 0 8px',
+                    fontSize: 'clamp(22px, 2.8vw, 28px)',
+                    fontWeight: 800,
+                    color: theme.accent,
+                    lineHeight: 1.1,
+                    fontFamily: "'Segoe UI', system-ui, sans-serif",
+                    letterSpacing: '-0.01em',
+                  }}>
+                    {item.title}
+                  </h3>
+                  <p style={{
+                    margin: '0 0 16px',
+                    fontSize: 'clamp(14px, 1.8vw, 16px)',
+                    color: theme.subtext,
+                    lineHeight: 1.4,
+                    fontWeight: 500,
+                    fontFamily: "'Segoe UI', system-ui, sans-serif",
+                  }}>
+                    {item.description}
+                  </p>
+                </div>
                 <p style={{
-                  margin: 0, fontSize: 'clamp(24px, 4vw, 32px)', fontWeight: 900,
-                  color: theme.accent, letterSpacing: '-0.01em',
+                  margin: 0,
+                  fontSize: 'clamp(28px, 5vw, 36px)',
+                  fontWeight: 900,
+                  color: theme.accent,
+                  letterSpacing: '-0.02em',
                 }}>
                   {item.price}
                 </p>
