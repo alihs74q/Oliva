@@ -162,7 +162,7 @@ export const shishaSubcategories: Subcategory[] = [
     themeColor: '#a16207',
     accentColor: '#fcd34d',
     drinks: [
-      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png' },
+      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-F71OMWoZiiE6OUlcqHLaZKO4aEhkHm.png' },
       { name: 'Double Apple', description: 'Classic dual apple flavor, sweet and smooth.', price: '$5.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png' },
       { name: 'Grape', description: 'Rich and sweet grape flavor.', price: '$5.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png' },
       { name: 'Tanbak', description: 'Strong traditional tobacco flavor.', price: '$7.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png' },
