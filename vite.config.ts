@@ -105,4 +105,21 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  build: {
+    // Aggressive minification for smaller output
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console logs in production
+      },
+    },
+    // Compress larger chunks
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'framer-motion'],
+        },
+      },
+    },
+  },
 });
