@@ -18,9 +18,10 @@ const CARDS: CatCard[] = [
   { id: 'shisha', label: 'Shisha', desc: 'Premium flavors — fresh mint, double apple & classic blends', gradient: 'linear-gradient(135deg,#eab308,#a16207)', accent: '#fef08a', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/27303141487567135-FZOtUqnJn852MBeJeyIeP3bhfQy8iL.jpg' },
   { id: 'sandwiches', label: 'Sandwiches', desc: 'Fresh & delicious — tuna, turkey, halloumi & more', gradient: 'linear-gradient(135deg,#f97316,#dc2626)', accent: '#fed7aa', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sandwich%20PNG-ALWYL1Ttrugnx7fPbCpNyn3mu4AcTN.jpg' },
   { id: 'yogurt', label: 'Yogurt', desc: 'Creamy & refreshing — Greek yogurt with fresh toppings', gradient: 'linear-gradient(135deg,#d946ef,#be185d)', accent: '#f9a8d4', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/14988611256100392-VcfSLudrmQ98JzCToSTWUmeOANUBaV.jpg' },
+  { id: 'padel', label: 'Padel', desc: 'Rackets, coaching & gear for your game', gradient: 'linear-gradient(135deg,#06b6d4,#0891b2)', accent: '#06f6d4', image: 'https://images.pexels.com/photos/3808516/pexels-photo-3808516.jpeg?auto=compress&cs=tinysrgb&w=400' },
 ]
 
-export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, onShisha, onSandwiches, onYogurt }: {
+export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, onShisha, onSandwiches, onYogurt, onPadel }: {
   onBack?: () => void
   onHotDrinks?: () => void
   onColdDrinks?: () => void
@@ -28,9 +29,10 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
   onShisha?: () => void
   onSandwiches?: () => void
   onYogurt?: () => void
+  onPadel?: () => void
 }) {
   const handlers: Record<string, (() => void) | undefined> = {
-    hot: onHotDrinks, cold: onColdDrinks, dessert: onDesserts, shisha: onShisha, sandwiches: onSandwiches, yogurt: onYogurt,
+    hot: onHotDrinks, cold: onColdDrinks, dessert: onDesserts, shisha: onShisha, sandwiches: onSandwiches, yogurt: onYogurt, padel: onPadel,
   }
 
   return (

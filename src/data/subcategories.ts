@@ -182,15 +182,32 @@ export const sandwichesSubcategories: Subcategory[] = [
 
 export const yogurtSubcategories: Subcategory[] = [
   {
-    id: 'yogurt-main',
-    name: 'Yogurt',
-    description: 'Creamy & Refreshing',
+    id: 'greek',
+    name: 'Greek Yogurt',
+    description: 'Smooth creamy Greek yogurt',
     themeColor: '#d946ef',
-    accentColor: '#f472b6',
+    accentColor: '#f9a8d4',
     drinks: [
       { name: 'Greek Yogurt', description: 'Smooth and creamy Greek yogurt.', price: '$3', image: null },
       { name: 'Mango Greek Yogurt', description: 'Greek yogurt with fresh mango flavor.', price: '$3', image: null },
       { name: 'Toppings', description: 'Granola, nuts, and fruit toppings.', price: '$1', image: null },
+    ],
+  },
+]
+
+export const padelSubcategories: Subcategory[] = [
+  {
+    id: 'padel-packages',
+    name: 'Court & Coaching',
+    description: 'Premium padel experiences',
+    themeColor: '#06b6d4',
+    accentColor: '#06f6d4',
+    drinks: [
+      { name: '1 Hour Court', description: 'Full hour of padel court play for up to 4 players', price: '$20', image: null },
+      { name: '1.5 Hours Court', description: 'Extended session with 1.5 hours of court time', price: '$30', image: null },
+      { name: '1 Hour Coaching', description: 'Professional padel coaching session for skill development', price: '$30', image: null },
+      { name: 'Premium Grip', description: 'High-quality grip tape for enhanced racket control', price: '$5', image: null },
+      { name: 'Professional Ball Set', description: 'Pack of 3 official padel balls', price: '$9.99', image: null },
     ],
   },
 ]
@@ -202,4 +219,5 @@ export const subcategoryData: Record<string, Subcategory[]> = {
   'shisha': shishaSubcategories,
   'sandwiches': sandwichesSubcategories,
   'yogurt': yogurtSubcategories,
+  'padel': padelSubcategories,
 }

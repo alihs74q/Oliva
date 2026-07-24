@@ -15,7 +15,7 @@ import CategoryListPage, { type CategoryTheme } from './components/CategoryListP
 import { subcategoryData } from './data/subcategories';
 
 
-type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha' | 'sandwiches' | 'yogurt';
+type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha' | 'sandwiches' | 'yogurt' | 'padel';
 
 type ParsedRoute =
   | { name: 'home' }
@@ -27,9 +27,9 @@ type ParsedRoute =
 function parseRoute(): ParsedRoute {
   if (typeof window === 'undefined') return { name: 'home' };
   const hash = window.location.hash.replace(/^#/, '');
-  const listMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha|sandwiches|yogurt)$/);
+  const listMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha|sandwiches|yogurt|padel)$/);
   if (listMatch) return { name: 'list', category: listMatch[1] as Category };
-  const detailMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha|sandwiches|yogurt)\/(.+)$/);
+  const detailMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha|sandwiches|yogurt|padel)\/(.+)$/);
   if (detailMatch) return { name: 'detail', category: detailMatch[1] as Category, slug: detailMatch[2] };
   if (hash === '/menu') return { name: 'menu' };
   if (hash === '/gallery') return { name: 'gallery' };
@@ -86,6 +86,14 @@ const YOGURT_THEME: CategoryTheme = {
   accent: '#f472b6',
 };
 
+const PADEL_THEME: CategoryTheme = {
+  bgGradient: 'linear-gradient(160deg,#003a4d,#006b8f 55%,#004d6b)',
+  glowColor: '#06f6d4',
+  text: '#f0f9fa',
+  subtext: '#7dd3fc',
+  accent: '#06f6d4',
+};
+
 const CATEGORY_DATA: Record<Category, { title: string; subtitle: string; theme: CategoryTheme; listHash: string }> = {
   'cold-drinks': { title: 'Cold Drinks', subtitle: 'Chilled & Refreshing', theme: COLD_THEME, listHash: '/menu/cold-drinks' },
   'hot-drinks': { title: 'Hot Drinks', subtitle: 'Warm & Aromatic', theme: HOT_THEME, listHash: '/menu/hot-drinks' },
@@ -93,6 +101,7 @@ const CATEGORY_DATA: Record<Category, { title: string; subtitle: string; theme: 
   'shisha': { title: 'Shisha', subtitle: 'Premium Flavors', theme: SHISHA_THEME, listHash: '/menu/shisha' },
   'sandwiches': { title: 'Sandwiches', subtitle: 'Fresh & Delicious', theme: SANDWICHES_THEME, listHash: '/menu/sandwiches' },
   'yogurt': { title: 'Yogurt', subtitle: 'Creamy & Refreshing', theme: YOGURT_THEME, listHash: '/menu/yogurt' },
+  'padel': { title: 'Padel', subtitle: 'Court & Coaching', theme: PADEL_THEME, listHash: '/menu/padel' },
 };
 
 export default function App() {
@@ -160,6 +169,7 @@ export default function App() {
               onShisha={() => navigateList('shisha')}
               onSandwiches={() => navigateList('sandwiches')}
               onYogurt={() => navigateList('yogurt')}
+              onPadel={() => navigateList('padel')}
             />
           </main>
           <SiteFooter navigate={navigateMenu} onBook={scrollToBooking} />
