@@ -106,8 +106,8 @@ export default function CategoryListPage({
           maxWidth: 960, margin: '0 auto', width: '100%',
         }}>
         <div className="subcat-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+          display: 'flex',
+          flexDirection: 'column',
           gap: 'clamp(16px,2.5vh,28px)',
           width: '100%',
         }}>
@@ -127,41 +127,67 @@ export default function CategoryListPage({
                   background: `linear-gradient(145deg, ${sub.themeColor}40, ${sub.themeColor}15)`,
                   border: `1.5px solid ${isPlaceholder ? 'rgba(255,255,255,0.1)' : `${sub.accentColor}55`}`,
                   borderRadius: 24,
-                  padding: 'clamp(24px,3.2vh,36px) clamp(20px,2.5vw,28px)',
+                  padding: 'clamp(16px,2.5vh,24px)',
                   cursor: isPlaceholder ? 'default' : 'pointer',
                   boxShadow: isPlaceholder ? 'none' : `0 8px 24px ${sub.themeColor}30`,
                   textAlign: 'left',
                   opacity: isPlaceholder ? 0.45 : 1,
-                  display: 'flex', flexDirection: 'column', gap: 8,
-                  minHeight: 160,
+                  display: 'flex', flexDirection: 'row', alignItems: 'stretch', gap: 'clamp(12px,2vw,20px)',
+                  minHeight: '140px',
                   willChange: 'transform',
                 }}
               >
-                <div style={{ width: 44, height: 4, borderRadius: 3, background: sub.accentColor, opacity: 0.8 }} />
-                <h3 style={{
-                  margin: 0, fontSize: 'clamp(22px,2.8vw,30px)', fontWeight: 900,
-                  color: theme.text, letterSpacing: '-0.02em', lineHeight: 1.1,
-                }}>{sub.name}</h3>
-                <p style={{
-                  margin: 0, fontSize: 'clamp(12px,1.1vw,14px)', color: theme.subtext,
-                  lineHeight: 1.5, fontWeight: 500,
-                }}>{sub.description}</p>
-                {!isPlaceholder && (
-                  <div style={{
-                    marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: 8,
-                    paddingTop: 10,
-                    color: sub.accentColor, fontSize: 13, fontWeight: 800, letterSpacing: '0.04em',
-                  }}>
-                    <span style={{
-                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                      width: 30, height: 30, borderRadius: '50%',
-                      background: `${sub.accentColor}22`, border: `1px solid ${sub.accentColor}55`,
-                    }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                    </span>
-                    Press to see
+                {/* Left: Text content */}
+                <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ width: 44, height: 4, borderRadius: 3, background: sub.accentColor, opacity: 0.8 }} />
+                  <div>
+                    <h3 style={{
+                      margin: 0, fontSize: 'clamp(18px,2.4vw,26px)', fontWeight: 900,
+                      color: theme.text, letterSpacing: '-0.02em', lineHeight: 1.1,
+                    }}>{sub.name}</h3>
+                    <p style={{
+                      margin: '6px 0 0', fontSize: 'clamp(12px,1.4vw,16px)', color: theme.subtext,
+                      lineHeight: 1.5, fontWeight: 500,
+                    }}>{sub.description}</p>
                   </div>
-                )}
+                  {!isPlaceholder && (
+                    <div style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 8,
+                      color: sub.accentColor, fontSize: 13, fontWeight: 800, letterSpacing: '0.04em',
+                    }}>
+                      <span style={{
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        width: 30, height: 30, borderRadius: '50%',
+                        background: `${sub.accentColor}22`, border: `1px solid ${sub.accentColor}55`,
+                      }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                      </span>
+                      Press to see
+                    </div>
+                  )}
+                </div>
+
+                {/* Right: Image */}
+                <div style={{
+                  flexShrink: 0,
+                  width: 'clamp(100px,15vw,130px)',
+                  borderRadius: 16,
+                  background: sub.image ? 'transparent' : `linear-gradient(135deg, ${sub.accentColor}30, ${sub.themeColor}30)`,
+                  border: `1.5px dashed ${sub.accentColor}55`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  overflow: 'hidden', position: 'relative',
+                }}>
+                  {sub.image ? (
+                    <img src={sub.image} alt={sub.name} draggable={false}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }} />
+                  ) : (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={sub.accentColor} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <polyline points="21,15 16,10 5,21" />
+                    </svg>
+                  )}
+                </div>
               </motion.button>
             )
           })}
@@ -189,7 +215,7 @@ export default function CategoryListPage({
   )
 }
 
-// ─── Drink popup modal ────────────���───────────────────────────────────��──────
+// ─── Drink popup modal ────────────�����───────────────────────────────────��──────
 function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: CategoryTheme; onClose: () => void }) {
   return (
     <motion.div

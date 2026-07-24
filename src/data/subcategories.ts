@@ -12,6 +12,7 @@ export interface Subcategory {
   themeColor: string
   accentColor: string
   drinks: SubcategoryDrink[]
+  image?: string | null
 }
 
 export const coldDrinksSubcategories: Subcategory[] = [
