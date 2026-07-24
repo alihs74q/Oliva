@@ -363,17 +363,6 @@ function DrinkCard({ drink, index }: { drink: SubcategoryDrink; sub: Subcategory
         {/* Price sticky note */}
         <PriceStickyNote price={drink.price} />
       </div>
-
-      {/* Description under the photo — playful & classy */}
-      <p style={{
-        margin: 0,
-        fontFamily: '"Georgia", "Times New Roman", serif',
-        fontStyle: 'italic',
-        fontSize: 'clamp(14px,1.7vw,17px)',
-        color: '#555',
-        lineHeight: 1.55,
-        fontWeight: 500,
-      }}>{drink.description}</p>
     </motion.div>
   )
 }
