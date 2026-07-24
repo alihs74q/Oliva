@@ -79,9 +79,9 @@ export const coldDrinksSubcategories: Subcategory[] = [
     themeColor: '#0891b2',
     accentColor: '#67e8f9',
     drinks: [
-      { name: 'Razzlychee Ice Tea', description: 'Raspberry and lychee iced tea.', price: '$3', image: null },
-      { name: 'Tropical Ice Tea', description: 'Tropical fruit iced tea.', price: '$3', image: null },
-      { name: 'Ice Tea Peach', description: 'Refreshing peach iced tea.', price: '$3', image: null },
+      { name: 'Razzlychee Iced Tea', description: 'Raspberry and lychee iced tea.', price: '$3', image: null },
+      { name: 'Tropical Iced Tea', description: 'Tropical fruit iced tea.', price: '$3', image: null },
+      { name: 'Peach Iced Tea', description: 'Refreshing peach iced tea.', price: '$3', image: null },
       { name: 'Kiwi Mojito', description: 'Kiwi and mint mocktail, crisp and cool.', price: '$3', image: null },
       { name: 'Passion Crush', description: 'Passion fruit crushed with ice.', price: '$3.50', image: null },
       { name: 'Summer Mix', description: 'A refreshing blend of summer fruits.', price: '$3.50', image: null },
@@ -97,11 +97,14 @@ export const hotDrinksSubcategories: Subcategory[] = [
     themeColor: '#b45309',
     accentColor: '#fdba74',
     drinks: [
-      { name: 'Café Latte (Vanilla, Hazelnut)', description: 'Smooth espresso with silky steamed milk.', price: '$3', image: null },
-      { name: 'Hot Chocolate', description: 'Rich dark cocoa with steamed milk and a touch of cream.', price: '$3', image: null },
-      { name: 'Espresso', description: 'Rich single-origin shot, bold and intensely aromatic.', price: '$3', image: null },
-      { name: 'Cappuccino', description: 'Velvety microfoam over a double espresso shot.', price: '$3', image: null },
-      { name: 'Tea', description: 'Fresh garden tea leaves steeped to perfection.', price: '', image: null },
+      { name: 'Café Latte (Vanilla, Hazelnut)', description: 'Smooth espresso with silky steamed milk.', price: '$3', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_drink_with_cafe_latte_202607232038-sILwH2u7ucm7zxNQAC2O01CToZpFtE.jpeg' },
+      { name: 'Hot Chocolate', description: 'Rich dark cocoa with steamed milk and a touch of cream.', price: '$3', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_hot_chocolat_202607232038-ITId7cFtZGHzdKXocxmd6zYk8ZaNbA.jpeg' },
+      { name: 'Cappuccino', description: 'Velvety microfoam over a double espresso shot.', price: '$3', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_design_with_white_202607232112-q3frxaTSt5VAZ2p4JNC9ZchDWhvYS9.jpeg' },
+      { name: 'Espresso', description: 'Rich single-origin shot, bold and intensely aromatic.', price: '$1.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_espresso_cub_202607232041-DuTLgmfeNonKK3t469sh1OztnIlMS8.jpeg' },
+      { name: 'Tea', description: 'Fresh garden tea leaves steeped to perfection.', price: '$1.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Mint%20Tea%20-%20Healthier%20Steps-K09FCIl8LarX2J4jW8Xjz2jdz4SGtN.jpg' },
+      { name: 'Ginger and Honey', description: 'Warm ginger with soothing honey.', price: '$1.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%F0%9F%8D%B5%E2%9C%A8%20Boost%20your%20wellness%20with%20Turmeric%20Ginger%20Detox%E2%80%A6-ZuXGzKnSKAtkGGw6dF8zluNlgAMTZb.jpg' },
+      { name: 'Chamomile', description: 'Relaxing chamomile flowers steeped to calm.', price: '$1.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5%20motivos%20para%20tomar%20ch%C3%A1%20de%20camomila-krP5Rh6ygGTtzKuGO8YcYO9HoI9VgX.jpg' },
+      { name: 'Green Tea', description: 'Fresh green tea with natural antioxidants.', price: '$1.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Download%20Cup%20of%20tea%20with%20mint%20leaves%20on%20transparent%20background%20for%20free-dVWvZk3WigRlkFEKZQtfcDFOwMcIY0.jpg' },
     ],
   },
 ]
@@ -114,9 +117,9 @@ export const dessertsSubcategories: Subcategory[] = [
     themeColor: '#92400e',
     accentColor: '#fcd34d',
     drinks: [
-      { name: 'Choco Cake', description: 'Taste the best chocolate in Lebanon.', price: '$3', image: null },
-      { name: 'Strawberry Cake', description: 'Soft vanilla sponge with fresh strawberry cream.', price: '$4', image: null },
-      { name: 'Honey Cake', description: 'Warm honey layers soaked in golden syrup.', price: '$3.5', image: null },
+      { name: 'Lazy Cake', description: 'No-bake indulgence with layers of flavor.', price: '$3.50', image: null },
+      { name: 'Fondant', description: 'Warm chocolate center with delicious fondant.', price: '$5', image: null },
+      { name: 'Chocolate Cake', description: 'Rich dark chocolate cake perfection.', price: '$5', image: null },
     ],
   },
   {
@@ -126,8 +129,8 @@ export const dessertsSubcategories: Subcategory[] = [
     themeColor: '#be185d',
     accentColor: '#f9a8d4',
     drinks: [
-      { name: 'Lotus Cheesecake', description: 'Creamy cheesecake topped with caramel biscuit crumble.', price: '$5', image: null },
-      { name: 'New York Cheesecake', description: 'Classic dense cheesecake with berry compote.', price: '$4.5', image: null },
+      { name: 'Oreo Cheesecake', description: 'Creamy cheesecake with Oreo cookie crumble.', price: '$5', image: null },
+      { name: 'Raspberry Cheesecake', description: 'Smooth cheesecake with fresh raspberry sauce.', price: '$5', image: null },
     ],
   },
   {
@@ -137,33 +140,74 @@ export const dessertsSubcategories: Subcategory[] = [
     themeColor: '#15803d',
     accentColor: '#86efac',
     drinks: [
-      { name: 'Pistachio Slice', description: 'Buttery layers with roasted pistachio cream.', price: '$4.5', image: null },
-      { name: 'Butter Croissant', description: 'Flaky French-style croissant, baked fresh daily.', price: '$3', image: null },
+      { name: 'Vanilla Mushroom Muffin', description: 'Soft vanilla muffin with mushroom top.', price: '$4', image: null },
+      { name: 'Chocolate Mushroom Muffin', description: 'Rich chocolate muffin with mushroom crown.', price: '$4', image: null },
+      { name: 'Croissant', description: 'Flaky French-style croissant, baked fresh daily.', price: '$3', image: null },
     ],
   },
 ]
 
 export const shishaSubcategories: Subcategory[] = [
   {
-    id: 'fresh-shisha',
-    name: 'Fresh Flavors',
-    description: 'Cool and refreshing',
-    themeColor: '#65a30d',
-    accentColor: '#bef264',
-    drinks: [
-      { name: '7amed w na3na3', description: 'Fresh mint and lemon flavor.', price: '$2.99', image: null },
-      { name: 'Lemon & Mint', description: 'A fresh lemon and mint flavor.', price: '$2.99', image: null },
-    ],
-  },
-  {
-    id: 'classic-shisha',
-    name: 'Classic Flavors',
-    description: 'Traditional and bold',
+    id: 'flavors',
+    name: 'Flavors',
+    description: 'All our premium selections',
     themeColor: '#a16207',
     accentColor: '#fcd34d',
     drinks: [
-      { name: 'Tefe7ten', description: 'Classic double apple flavor.', price: '$2.99', image: null },
-      { name: 'Tanbak', description: 'Strong traditional tobacco flavor.', price: '$3.99', image: null },
+      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', image: null },
+      { name: 'Double Apple', description: 'Classic dual apple flavor, sweet and smooth.', price: '$5.50', image: null },
+      { name: 'Grape', description: 'Rich and sweet grape flavor.', price: '$5.50', image: null },
+      { name: 'Tanbak', description: 'Strong traditional tobacco flavor.', price: '$7.50', image: null },
+    ],
+  },
+]
+
+export const sandwichesSubcategories: Subcategory[] = [
+  {
+    id: 'sandwiches-main',
+    name: 'Sandwiches',
+    description: 'Fresh & Delicious',
+    themeColor: '#8b4513',
+    accentColor: '#fbbf24',
+    drinks: [
+      { name: 'Tuna Cado', description: 'Fresh tuna with creamy avocado.', price: '$5', image: null },
+      { name: 'Turkey and Cheese', description: 'Sliced turkey with melted cheese.', price: '$5', image: null },
+      { name: 'Hallum Pesto', description: 'Grilled halloumi with fresh pesto.', price: '$6', image: null },
+      { name: 'Chicken Cesar Salad', description: 'Grilled chicken with Caesar dressing.', price: '$6.50', image: null },
+      { name: 'Nuts', description: 'Mixed nuts and seeds blend.', price: '$2.50', image: null },
+    ],
+  },
+]
+
+export const yogurtSubcategories: Subcategory[] = [
+  {
+    id: 'greek',
+    name: 'Greek Yogurt',
+    description: 'Smooth creamy Greek yogurt',
+    themeColor: '#d946ef',
+    accentColor: '#f9a8d4',
+    drinks: [
+      { name: 'Greek Yogurt', description: 'Smooth and creamy Greek yogurt.', price: '$3', image: null },
+      { name: 'Mango Greek Yogurt', description: 'Greek yogurt with fresh mango flavor.', price: '$3', image: null },
+      { name: 'Toppings', description: 'Granola, nuts, and fruit toppings.', price: '$1', image: null },
+    ],
+  },
+]
+
+export const padelSubcategories: Subcategory[] = [
+  {
+    id: 'padel-packages',
+    name: 'Court & Coaching',
+    description: 'Premium padel experiences',
+    themeColor: '#06b6d4',
+    accentColor: '#06f6d4',
+    drinks: [
+      { name: '1 Hour Court', description: 'Full hour of padel court play for up to 4 players', price: '$20', image: null },
+      { name: '1.5 Hours Court', description: 'Extended session with 1.5 hours of court time', price: '$30', image: null },
+      { name: '1 Hour Coaching', description: 'Professional padel coaching session for skill development', price: '$30', image: null },
+      { name: 'Premium Grip', description: 'High-quality grip tape for enhanced racket control', price: '$5', image: null },
+      { name: 'Professional Ball Set', description: 'Pack of 3 official padel balls', price: '$9.99', image: null },
     ],
   },
 ]
@@ -173,4 +217,7 @@ export const subcategoryData: Record<string, Subcategory[]> = {
   'hot-drinks': hotDrinksSubcategories,
   'desserts': dessertsSubcategories,
   'shisha': shishaSubcategories,
+  'sandwiches': sandwichesSubcategories,
+  'yogurt': yogurtSubcategories,
+  'padel': padelSubcategories,
 }

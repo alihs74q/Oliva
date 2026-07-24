@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import OlivaLogo from './OlivaLogo'
 import type { Subcategory, SubcategoryDrink } from '../data/subcategories'
 
 export interface CategoryTheme {
@@ -35,7 +34,7 @@ export default function CategoryListPage({
       {/* Nav */}
       <nav style={{
         position: 'relative', zIndex: 10, height: 68, flexShrink: 0,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
         padding: '0 clamp(16px,4vw,40px)',
       }}>
         <button onClick={onBack}
@@ -54,36 +53,58 @@ export default function CategoryListPage({
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           BACK
         </button>
-        <button onClick={() => navigate('home')} style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer' }}>
-          <OlivaLogo size={34} showText={false} />
-          <span style={{ color: theme.text, fontWeight: 800, fontSize: 16, letterSpacing: '0.06em' }}>OLIVA</span>
-        </button>
       </nav>
 
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: EASE }}
-        style={{ textAlign: 'center', padding: 'clamp(4px,1vh,12px) clamp(16px,4vw,40px) 0', flexShrink: 0 }}
+      {/* Scrollable content container */}
+      <div className="clp-scroll" style={{
+        flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
+        WebkitOverflowScrolling: 'touch',
+      }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: EASE }}
+          style={{ textAlign: 'center', padding: 'clamp(4px,1vh,12px) clamp(16px,4vw,40px) 0' }}
       >
         <p style={{
           margin: 0, fontSize: 'clamp(11px,1.4vw,14px)', fontWeight: 800, letterSpacing: '0.35em',
           color: theme.accent, textTransform: 'uppercase',
         }}>{subtitle}</p>
-        <h1 style={{
-          margin: '4px 0 0', fontSize: 'clamp(36px,7vw,72px)', fontWeight: 900,
-          color: theme.text, letterSpacing: '-0.03em', lineHeight: 1,
-        }}>{title}</h1>
-      </motion.div>
+        
+        {/* Animated Logo */}
+        <div style={{
+          margin: 'clamp(12px,2vh,20px) 0',
+          display: 'flex',
+          justifyContent: 'center',
+          perspective: '1200px',
+        }}>
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
+            alt="Oliva"
+            className="logo-3d"
+            style={{
+              height: 'clamp(160px,24vw,280px)',
+              width: 'auto',
+              objectFit: 'contain',
+              filter: `drop-shadow(0 8px 24px ${theme.glowColor}60)`,
+              transformStyle: 'preserve-3d',
+              backfaceVisibility: 'hidden',
+            }}
+          />
+        </div>
+        
+          <h1 style={{
+            margin: '4px 0 0', fontSize: 'clamp(36px,7vw,72px)', fontWeight: 900,
+            color: theme.text, letterSpacing: '-0.03em', lineHeight: 1,
+          }}>{title}</h1>
+        </motion.div>
 
-      {/* Subcategory grid */}
-      <div className="clp-scroll" style={{
-        flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
-        padding: 'clamp(12px,2vh,24px) clamp(16px,4vw,40px) clamp(20px,3vh,40px)',
-        maxWidth: 960, margin: '0 auto', width: '100%',
-        WebkitOverflowScrolling: 'touch',
-      }}>
+        {/* Subcategory grid */}
+        <div style={{
+          padding: 'clamp(12px,2vh,24px) clamp(16px,4vw,40px) clamp(20px,3vh,40px)',
+          maxWidth: 960, margin: '0 auto', width: '100%',
+        }}>
         <div className="subcat-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
@@ -138,12 +159,13 @@ export default function CategoryListPage({
                     }}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                     </span>
-                    {sub.drinks.length} drinks
+                    Press to see
                   </div>
                 )}
               </motion.button>
             )
           })}
+        </div>
         </div>
       </div>
 
@@ -167,7 +189,7 @@ export default function CategoryListPage({
   )
 }
 
-// ─── Drink popup modal ───────────────────────────────────────────────────────
+// ─── Drink popup modal ────────────���───────────────────────────────────��──────
 function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: CategoryTheme; onClose: () => void }) {
   return (
     <motion.div
@@ -247,7 +269,7 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
       {/* Image placeholder / image */}
       <div style={{
         flexShrink: 0,
-        width: 'clamp(64px,10vw,84px)', height: 'clamp(64px,10vw,84px)',
+        width: 'clamp(100px,16vw,140px)', height: 'clamp(100px,16vw,140px)',
         borderRadius: 18,
         background: drink.image ? 'transparent' : `linear-gradient(135deg, ${sub.accentColor}30, ${sub.themeColor}30)`,
         border: `1.5px dashed ${sub.accentColor}55`,
@@ -268,8 +290,8 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
 
       {/* Info */}
       <div style={{ flex: 1, minWidth: 0 }}>
-        <h4 style={{ margin: 0, fontSize: 'clamp(16px,1.8vw,20px)', fontWeight: 800, color: theme.text, lineHeight: 1.2, letterSpacing: '-0.01em' }}>{drink.name}</h4>
-        <p style={{ margin: '4px 0 0', fontSize: 'clamp(12px,1.1vw,14px)', color: theme.subtext, lineHeight: 1.45, fontWeight: 500 }}>{drink.description}</p>
+        <h4 style={{ margin: 0, fontSize: 'clamp(18px,2.4vw,26px)', fontWeight: 800, color: theme.text, lineHeight: 1.2, letterSpacing: '-0.01em' }}>{drink.name}</h4>
+        <p style={{ margin: '6px 0 0', fontSize: 'clamp(14px,1.6vw,18px)', color: theme.subtext, lineHeight: 1.5, fontWeight: 500 }}>{drink.description}</p>
       </div>
 
       {/* Price badge */}

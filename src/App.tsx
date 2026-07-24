@@ -13,9 +13,10 @@ import HotDrinksPage from './components/HotDrinksPage';
 import ShishaPage from './components/ShishaPage';
 import CategoryListPage, { type CategoryTheme } from './components/CategoryListPage';
 import { subcategoryData } from './data/subcategories';
+import PadelPage from './components/PadelPage';
 
 
-type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha';
+type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha' | 'sandwiches' | 'yogurt' | 'padel';
 
 type ParsedRoute =
   | { name: 'home' }
@@ -27,9 +28,9 @@ type ParsedRoute =
 function parseRoute(): ParsedRoute {
   if (typeof window === 'undefined') return { name: 'home' };
   const hash = window.location.hash.replace(/^#/, '');
-  const listMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha)$/);
+  const listMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha|sandwiches|yogurt|padel)$/);
   if (listMatch) return { name: 'list', category: listMatch[1] as Category };
-  const detailMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha)\/(.+)$/);
+  const detailMatch = hash.match(/^\/menu\/(cold-drinks|hot-drinks|desserts|shisha|sandwiches|yogurt|padel)\/(.+)$/);
   if (detailMatch) return { name: 'detail', category: detailMatch[1] as Category, slug: detailMatch[2] };
   if (hash === '/menu') return { name: 'menu' };
   if (hash === '/gallery') return { name: 'gallery' };
@@ -70,11 +71,38 @@ const SHISHA_THEME: CategoryTheme = {
   accent: '#d4a017',
 };
 
+const SANDWICHES_THEME: CategoryTheme = {
+  bgGradient: 'linear-gradient(160deg,#5c2e0a,#8b4513 55%,#6e3410)',
+  glowColor: '#f59e0b',
+  text: '#fdf6e3',
+  subtext: '#c9a57b',
+  accent: '#fbbf24',
+};
+
+const YOGURT_THEME: CategoryTheme = {
+  bgGradient: 'linear-gradient(160deg,#4a1a5a,#8b1a7a 55%,#6e1256)',
+  glowColor: '#d946ef',
+  text: '#fdf2f8',
+  subtext: '#d4a5d8',
+  accent: '#f472b6',
+};
+
+const PADEL_THEME: CategoryTheme = {
+  bgGradient: 'linear-gradient(160deg,#003a4d,#006b8f 55%,#004d6b)',
+  glowColor: '#06f6d4',
+  text: '#f0f9fa',
+  subtext: '#7dd3fc',
+  accent: '#06f6d4',
+};
+
 const CATEGORY_DATA: Record<Category, { title: string; subtitle: string; theme: CategoryTheme; listHash: string }> = {
   'cold-drinks': { title: 'Cold Drinks', subtitle: 'Chilled & Refreshing', theme: COLD_THEME, listHash: '/menu/cold-drinks' },
   'hot-drinks': { title: 'Hot Drinks', subtitle: 'Warm & Aromatic', theme: HOT_THEME, listHash: '/menu/hot-drinks' },
   'desserts': { title: 'Desserts', subtitle: 'Sweet Indulgence', theme: DESSERT_THEME, listHash: '/menu/desserts' },
-  'shisha': { title: '2aragile', subtitle: 'Premium Flavors', theme: SHISHA_THEME, listHash: '/menu/shisha' },
+  'shisha': { title: 'Shisha', subtitle: 'Premium Flavors', theme: SHISHA_THEME, listHash: '/menu/shisha' },
+  'sandwiches': { title: 'Sandwiches', subtitle: 'Fresh & Delicious', theme: SANDWICHES_THEME, listHash: '/menu/sandwiches' },
+  'yogurt': { title: 'Yogurt', subtitle: 'Creamy & Refreshing', theme: YOGURT_THEME, listHash: '/menu/yogurt' },
+  'padel': { title: 'Padel', subtitle: 'Court & Coaching', theme: PADEL_THEME, listHash: '/menu/padel' },
 };
 
 export default function App() {
@@ -132,7 +160,7 @@ export default function App() {
     return (
       <>
         <div className="relative min-h-screen">
-          <Navbar navigate={navigateMenu} route={'menu'} />
+          <Navbar navigate={(to) => { if (to === 'home') navigateHome(); else navigateMenu(); }} route={'menu'} />
           <main className="relative z-10">
             <Menu
               onBack={navigateHome}
@@ -140,6 +168,9 @@ export default function App() {
               onColdDrinks={() => navigateList('cold-drinks')}
               onDesserts={() => navigateList('desserts')}
               onShisha={() => navigateList('shisha')}
+              onSandwiches={() => navigateList('sandwiches')}
+              onYogurt={() => navigateList('yogurt')}
+              onPadel={() => navigateList('padel')}
             />
           </main>
           <SiteFooter navigate={navigateMenu} onBook={scrollToBooking} />
@@ -152,6 +183,20 @@ export default function App() {
   // Category list page
   if (route.name === 'list') {
     const data = CATEGORY_DATA[route.category];
+    
+    // Padel gets its own custom page
+    if (route.category === 'padel') {
+      return (
+        <>
+          <PadelPage
+            theme={data.theme}
+            onBack={navigateMenu}
+          />
+          <WhatsAppButton />
+        </>
+      );
+    }
+    
     return (
       <>
         <CategoryListPage
@@ -209,6 +254,8 @@ export default function App() {
             onColdDrinks={() => navigateList('cold-drinks')}
             onDesserts={() => navigateList('desserts')}
             onShisha={() => navigateList('shisha')}
+            onSandwiches={() => navigateList('sandwiches')}
+            onYogurt={() => navigateList('yogurt')}
           />
           <div style={{ position: 'relative', zIndex: 20 }}>
             <ContactSection />
