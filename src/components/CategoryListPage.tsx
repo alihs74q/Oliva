@@ -258,18 +258,40 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: EASE, delay: 0.08 + index * 0.05 }}
       style={{
-        display: 'flex', alignItems: 'center', gap: 'clamp(14px,2vw,20px)',
+        display: 'flex', alignItems: 'stretch', gap: 'clamp(16px,3vw,24px)',
         background: `linear-gradient(135deg, ${sub.themeColor}25, ${sub.themeColor}10)`,
         border: `1.5px solid ${sub.accentColor}33`,
         borderRadius: 20,
-        padding: 'clamp(14px,2vh,20px)',
+        padding: 'clamp(16px,2.5vh,24px)',
         boxShadow: `0 4px 16px ${sub.themeColor}15`,
+        minHeight: '160px',
       }}
     >
-      {/* Image placeholder / image */}
+      {/* Left side: Info and Price */}
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div>
+          <h4 style={{ margin: 0, fontSize: 'clamp(18px,2.4vw,26px)', fontWeight: 800, color: theme.text, lineHeight: 1.2, letterSpacing: '-0.01em' }}>{drink.name}</h4>
+          <p style={{ margin: '8px 0 0', fontSize: 'clamp(14px,1.6vw,18px)', color: theme.subtext, lineHeight: 1.5, fontWeight: 500 }}>{drink.description}</p>
+        </div>
+
+        {/* Price badge */}
+        <div style={{
+          padding: 'clamp(8px,1.2vw,12px) clamp(14px,2vw,20px)',
+          borderRadius: 14,
+          background: `linear-gradient(145deg, ${sub.accentColor}, ${sub.themeColor})`,
+          color: '#fff',
+          fontSize: 'clamp(16px,1.8vw,22px)', fontWeight: 900, letterSpacing: '-0.02em',
+          width: 'fit-content',
+          boxShadow: `0 4px 12px ${sub.themeColor}44`,
+          fontFamily: '"Georgia", "Times New Roman", serif',
+          fontStyle: 'italic',
+        }}>{drink.price}</div>
+      </div>
+
+      {/* Right side: Image */}
       <div style={{
         flexShrink: 0,
-        width: 'clamp(100px,16vw,140px)', height: 'clamp(100px,16vw,140px)',
+        width: 'clamp(120px,18vw,160px)',
         borderRadius: 18,
         background: drink.image ? 'transparent' : `linear-gradient(135deg, ${sub.accentColor}30, ${sub.themeColor}30)`,
         border: `1.5px dashed ${sub.accentColor}55`,
@@ -287,26 +309,6 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
           </svg>
         )}
       </div>
-
-      {/* Info */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <h4 style={{ margin: 0, fontSize: 'clamp(18px,2.4vw,26px)', fontWeight: 800, color: theme.text, lineHeight: 1.2, letterSpacing: '-0.01em' }}>{drink.name}</h4>
-        <p style={{ margin: '6px 0 0', fontSize: 'clamp(14px,1.6vw,18px)', color: theme.subtext, lineHeight: 1.5, fontWeight: 500 }}>{drink.description}</p>
-      </div>
-
-      {/* Price badge */}
-      <div style={{
-        flexShrink: 0,
-        padding: 'clamp(8px,1.2vw,12px) clamp(14px,2vw,20px)',
-        borderRadius: 14,
-        background: `linear-gradient(145deg, ${sub.accentColor}, ${sub.themeColor})`,
-        color: '#fff',
-        fontSize: 'clamp(16px,1.8vw,22px)', fontWeight: 900, letterSpacing: '-0.02em',
-        whiteSpace: 'nowrap',
-        boxShadow: `0 4px 12px ${sub.themeColor}44`,
-        fontFamily: '"Georgia", "Times New Roman", serif',
-        fontStyle: 'italic',
-      }}>{drink.price}</div>
     </motion.div>
   )
 }
