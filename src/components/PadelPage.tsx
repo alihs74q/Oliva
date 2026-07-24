@@ -57,14 +57,45 @@ export default function PadelPage({
         flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
         WebkitOverflowScrolling: 'touch',
       }}>
-        {/* Header */}
+        {/* Header with Image */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: EASE }}
           style={{
+            position: 'relative',
+            height: 'clamp(240px, 35vh, 380px)',
+            marginBottom: 'clamp(20px, 3vh, 40px)',
+            borderRadius: 'clamp(12px, 2vw, 20px)',
+            overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+          }}
+        >
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ICoaEDFS2acvkeYqAp1z1uT2HyEtlp.png"
+            alt="Oliva Padel Court"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(6,182,212,0.3) 100%)',
+          }} />
+        </motion.div>
+
+        {/* Header Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: EASE, delay: 0.1 }}
+          style={{
             textAlign: 'center',
-            padding: 'clamp(20px,3vh,40px) clamp(16px,4vw,40px) clamp(12px,2vh,24px)',
+            padding: '0 clamp(16px,4vw,40px) clamp(12px,2vh,24px)',
           }}
         >
           <p style={{
@@ -73,7 +104,7 @@ export default function PadelPage({
           }}>Court & Coaching</p>
           
           <h1 style={{
-            margin: 'clamp(12px,2vh,16px) 0 0', fontSize: 'clamp(48px,8vw,80px)', fontWeight: 900,
+            margin: 'clamp(8px,1.5vh,12px) 0 0', fontSize: 'clamp(40px,6vw,60px)', fontWeight: 900,
             color: theme.text, letterSpacing: '-0.02em', lineHeight: 1, fontFamily: "'Segoe UI', system-ui, sans-serif",
           }}>Padel</h1>
         </motion.div>
