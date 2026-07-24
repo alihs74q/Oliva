@@ -248,7 +248,6 @@ export default function App() {
         <Navbar navigate={(to) => { if (to === 'home') navigateHome(); else navigateMenu(); }} route={'home'} />
         <main className="relative z-10">
           <HomepageExperience
-            onEnterGallery={navigateGallery}
             onViewMenu={navigateMenu}
             onHotDrinks={() => navigateList('hot-drinks')}
             onColdDrinks={() => navigateList('cold-drinks')}

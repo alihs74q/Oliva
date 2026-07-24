@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
 export default function HomepageExperience({
-  onEnterGallery,
   onViewMenu,
   onHotDrinks,
   onColdDrinks,
@@ -12,7 +11,6 @@ export default function HomepageExperience({
   onSandwiches,
   onYogurt,
 }: {
-  onEnterGallery: () => void
   onViewMenu: () => void
   onHotDrinks: () => void
   onColdDrinks: () => void
@@ -108,14 +106,24 @@ export default function HomepageExperience({
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: EASE, delay: 0.3 }}
           onClick={onViewMenu}
-          whileTap={{ scale: 0.96, transition: { duration: 0.12 } }}
+          whileHover={{ scale: 1.06, y: -4, transition: { type: 'spring', stiffness: 320, damping: 14 } }}
+          whileTap={{ scale: 0.94, transition: { duration: 0.1 } }}
           style={{
-            marginTop: 'clamp(24px,4vh,40px)', padding: 'clamp(14px,2vw,18px) clamp(32px,5vw,48px)',
-            borderRadius: 999, border: 'none', cursor: 'pointer',
-            background: 'linear-gradient(135deg,#4ade80,#16a34a)',
-            color: '#052e16', fontSize: 'clamp(14px,1.6vw,16px)', fontWeight: 800,
-            letterSpacing: '0.08em', textTransform: 'uppercase',
-            boxShadow: '0 8px 24px rgba(74,222,128,0.3)',
+            marginTop: 'clamp(24px,4vh,40px)',
+            padding: 'clamp(18px,2.5vw,26px) clamp(44px,6vw,72px)',
+            borderRadius: 999, border: '2.5px solid rgba(134,239,172,0.5)', cursor: 'pointer',
+            background: 'linear-gradient(135deg,#22c55e,#16a34a,#15803d)',
+            color: '#f0fdf4',
+            fontSize: 'clamp(20px,2.8vw,32px)',
+            fontWeight: 900,
+            fontFamily: '"Georgia", "Times New Roman", serif',
+            fontStyle: 'italic',
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            boxShadow: '0 12px 40px rgba(34,197,94,0.45), inset 0 1px 0 rgba(134,239,172,0.3)',
+            textShadow: '0 1px 6px rgba(0,0,0,0.25)',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
           View Menu
@@ -133,39 +141,6 @@ export default function HomepageExperience({
           gap: 'clamp(14px,2vw,24px)',
         }}
       >
-        {/* The Experience — ghost pill with smooth transition */}
-        <motion.button
-          onClick={onEnterGallery}
-          whileHover={{ y: -2, transition: { duration: 0.2 } }}
-          whileTap={{ scale: 0.96, transition: { duration: 0.12 } }}
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10, cursor: 'pointer',
-            padding: 'clamp(14px,2vw,18px) clamp(24px,3vw,32px)',
-            borderRadius: 999, border: '2px solid rgba(134,239,172,0.4)',
-            background: 'rgba(134,239,172,0.08)',
-            color: '#86efac', fontSize: 'clamp(13px,1.4vw,15px)', fontWeight: 800,
-            letterSpacing: '0.1em', textTransform: 'uppercase',
-            backdropFilter: 'none',
-            transition: 'background 0.3s ease, border-color 0.3s ease, color 0.3s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(134,239,172,0.18)'
-            e.currentTarget.style.borderColor = 'rgba(134,239,172,0.7)'
-            e.currentTarget.style.color = '#bbf7d0'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(134,239,172,0.08)'
-            e.currentTarget.style.borderColor = 'rgba(134,239,172,0.4)'
-            e.currentTarget.style.color = '#86efac'
-          }}
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="3" />
-            <path d="M12 1v6m0 10v6m11-11h-6M7 12H1m17.5-6.5l-4.2 4.2M9.7 14.3l-4.2 4.2m13-0l-4.2-4.2M9.7 9.7L5.5 5.5" />
-          </svg>
-          The Experience
-        </motion.button>
-
         {/* Book a Padel — WhatsApp + racket */}
         <a
           href="https://olivacourt.lovable.app"
