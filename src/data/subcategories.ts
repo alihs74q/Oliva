@@ -22,7 +22,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Fresh fruit blended to perfection',
     themeColor: '#16a34a',
     accentColor: '#86efac',
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_ice_latte_202607240436-usn6yapWeBnBbXqTUSLyBMTAtUq2gT.jpeg',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Style_of_cub_cold_drink_202607240431-TrhRjFxd4wxoAx2gsQCFMQNxRLCWI3.jpeg',
     drinks: [
       { name: 'Foral Fusion', description: 'A vibrant blend of fresh fruit flavors.', price: '$3.50', image: null },
       { name: 'Mango', description: 'Ripe mango blended to perfection.', price: '$3.50', image: null },
@@ -83,7 +83,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Cool, fruity, and refreshing',
     themeColor: '#0891b2',
     accentColor: '#67e8f9',
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Style_of_cub_cold_drink_202607240431-TrhRjFxd4wxoAx2gsQCFMQNxRLCWI3.jpeg',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cubs_with_ice_tea_202607240439-nvfxQ18zvpbu66MPvhJBdGmXFLvIPq.jpeg',
     drinks: [
       { name: 'Razzlychee Iced Tea', description: 'Raspberry and lychee iced tea.', price: '$3', image: null },
       { name: 'Tropical Iced Tea', description: 'Tropical fruit iced tea.', price: '$3', image: null },
