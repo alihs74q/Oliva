@@ -13,6 +13,7 @@ import HotDrinksPage from './components/HotDrinksPage';
 import ShishaPage from './components/ShishaPage';
 import CategoryListPage, { type CategoryTheme } from './components/CategoryListPage';
 import { subcategoryData } from './data/subcategories';
+import PadelPage from './components/PadelPage';
 
 
 type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha' | 'sandwiches' | 'yogurt' | 'padel';
@@ -182,6 +183,20 @@ export default function App() {
   // Category list page
   if (route.name === 'list') {
     const data = CATEGORY_DATA[route.category];
+    
+    // Padel gets its own custom page
+    if (route.category === 'padel') {
+      return (
+        <>
+          <PadelPage
+            theme={data.theme}
+            onBack={navigateMenu}
+          />
+          <WhatsAppButton />
+        </>
+      );
+    }
+    
     return (
       <>
         <CategoryListPage
