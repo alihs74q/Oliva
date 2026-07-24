@@ -543,8 +543,8 @@ export default function DessertsPage({ navigate, onBack, initialSlug }: { naviga
 
   return (
     <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-      {/* Cream canvas with soft pink corner */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: `linear-gradient(135deg, ${cream} 0%, ${softPink} 100%)`, transition: 'background 0.8s cubic-bezier(0.4,0,0.2,1)' }} />
+      {/* White canvas */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: '#ffffff' }} />
 
       {/* Soft pink organic blob (top-right) — static */}
       <div style={{ position: 'absolute', top: '-12%', right: '-8%', width: '46vw', height: '46vw', maxWidth: 520, maxHeight: 520, borderRadius: '50% 42% 58% 48% / 48% 58% 42% 52%', background: rgba(shade(dessert.themeColor, 74), 0.5), filter: 'blur(8px)', zIndex: 1, transition: 'background 0.8s cubic-bezier(0.4,0,0.2,1)', pointerEvents: 'none' }} />
