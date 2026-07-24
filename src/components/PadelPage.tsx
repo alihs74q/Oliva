@@ -7,14 +7,15 @@ interface PadelItem {
   title: string
   description: string
   price: string
+  image: string
 }
 
 const PADEL_ITEMS: PadelItem[] = [
-  { title: '1H Court', description: 'Full hour of play', price: '$20' },
-  { title: '1.5H Court', description: 'Extended playtime', price: '$30' },
-  { title: '1H Coaching', description: 'Professional lessons', price: '$30' },
-  { title: 'Grip', description: 'Premium quality', price: '$5' },
-  { title: 'Ball Set', description: '3 professional balls', price: '$9.99' },
+  { title: '1H Court', description: 'Full hour of play', price: '$20', image: 'https://images.pexels.com/photos/3808516/pexels-photo-3808516.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { title: '1.5H Court', description: 'Extended playtime', price: '$30', image: 'https://images.pexels.com/photos/3808516/pexels-photo-3808516.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { title: '1H Coaching', description: 'Professional lessons', price: '$30', image: 'https://images.pexels.com/photos/4197604/pexels-photo-4197604.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { title: 'Grip', description: 'Premium quality', price: '$5', image: 'https://images.pexels.com/photos/3808506/pexels-photo-3808506.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { title: 'Ball Set', description: '3 professional balls', price: '$9.99', image: 'https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400' },
 ]
 
 export default function PadelPage({
@@ -156,8 +157,11 @@ export default function PadelPage({
                   transition: 'all 300ms cubic-bezier(0.34, 1.56, 0.64, 1)',
                   backdropFilter: 'blur(10px)',
                   display: 'flex',
-                  flexDirection: 'column',
+                  flexDirection: 'row',
                   justifyContent: 'space-between',
+                  alignItems: 'stretch',
+                  gap: 'clamp(16px, 3vw, 24px)',
+                  minHeight: '140px',
                 }}
                 whileHover={{
                   background: `rgba(6, 182, 212, 0.15)`,
@@ -166,38 +170,65 @@ export default function PadelPage({
                   boxShadow: `0 8px 24px ${theme.accent}30`,
                 }}
               >
-                <div>
-                  <h3 style={{
-                    margin: '0 0 8px',
-                    fontSize: 'clamp(22px, 2.8vw, 28px)',
-                    fontWeight: 800,
-                    color: theme.accent,
-                    lineHeight: 1.1,
-                    fontFamily: "'Segoe UI', system-ui, sans-serif",
-                    letterSpacing: '-0.01em',
-                  }}>
-                    {item.title}
-                  </h3>
+                {/* Left side: Text */}
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  flex: 1,
+                }}>
+                  <div>
+                    <h3 style={{
+                      margin: '0 0 8px',
+                      fontSize: 'clamp(22px, 2.8vw, 28px)',
+                      fontWeight: 800,
+                      color: theme.accent,
+                      lineHeight: 1.1,
+                      fontFamily: "'Segoe UI', system-ui, sans-serif",
+                      letterSpacing: '-0.01em',
+                    }}>
+                      {item.title}
+                    </h3>
+                    <p style={{
+                      margin: '0 0 16px',
+                      fontSize: 'clamp(14px, 1.8vw, 16px)',
+                      color: theme.subtext,
+                      lineHeight: 1.4,
+                      fontWeight: 500,
+                      fontFamily: "'Segoe UI', system-ui, sans-serif",
+                    }}>
+                      {item.description}
+                    </p>
+                  </div>
                   <p style={{
-                    margin: '0 0 16px',
-                    fontSize: 'clamp(14px, 1.8vw, 16px)',
-                    color: theme.subtext,
-                    lineHeight: 1.4,
-                    fontWeight: 500,
-                    fontFamily: "'Segoe UI', system-ui, sans-serif",
+                    margin: 0,
+                    fontSize: 'clamp(28px, 5vw, 36px)',
+                    fontWeight: 900,
+                    color: theme.accent,
+                    letterSpacing: '-0.02em',
                   }}>
-                    {item.description}
+                    {item.price}
                   </p>
                 </div>
-                <p style={{
-                  margin: 0,
-                  fontSize: 'clamp(28px, 5vw, 36px)',
-                  fontWeight: 900,
-                  color: theme.accent,
-                  letterSpacing: '-0.02em',
+
+                {/* Right side: Image */}
+                <div style={{
+                  width: 'clamp(100px, 20%, 140px)',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  flexShrink: 0,
                 }}>
-                  {item.price}
-                </p>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
+                  />
+                </div>
               </motion.div>
             ))}
           </div>
