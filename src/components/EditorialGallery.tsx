@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import { buildSrcSet } from '../utils/imageOptimization'
 
 // ── Gallery images — replace any URL here to swap a photo ──────────────────
 // Each entry: { src, alt, span (grid placement), anim (animation style) }
@@ -93,7 +94,13 @@ function GalleryItem({ item, index }: { item: typeof GALLERY_IMAGES[number]; ind
     >
       <motion.img
         src={item.src}
+        srcSet={buildSrcSet(item.src, 78)}
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         alt={item.alt}
+        loading={index === 0 ? 'eager' : 'lazy'}
+        decoding="async"
+        // @ts-ignore
+        fetchpriority={index === 0 ? 'high' : 'auto'}
         className="w-full h-full object-cover"
         style={{ y }}
         initial={{ scale: 1.08 }}

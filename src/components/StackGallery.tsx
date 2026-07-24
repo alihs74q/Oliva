@@ -7,6 +7,7 @@ import {
   useMotionValue,
   type MotionValue,
 } from 'framer-motion'
+import { buildSrcSet, optimizedSrc } from '../utils/imageOptimization'
 
 type GalleryCard = {
   title: string
@@ -179,7 +180,9 @@ function GalleryCardView({
         >
           {/* Image with 3D depth parallax */}
           <motion.img
-            src={card.image}
+            src={optimizedSrc(card.image, 800, 82)}
+            srcSet={buildSrcSet(card.image, 82)}
+            sizes="(max-width: 640px) 94vw, min(94vw, 680px)"
             alt={card.title}
             className="absolute inset-0 w-full h-full object-cover"
             style={{
@@ -190,7 +193,10 @@ function GalleryCardView({
               translateZ: 40,
             }}
             draggable={false}
-            loading={index < 1 ? 'eager' : 'lazy'}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            // @ts-ignore
+            fetchpriority={index === 0 ? 'high' : 'auto'}
           />
           {/* Gradient wash for text legibility */}
           <div

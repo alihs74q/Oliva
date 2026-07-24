@@ -1,23 +1,34 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
+import { buildSrcSet, optimizedSrc, svgPlaceholder } from '../utils/imageOptimization'
 
 interface OptimizedImageProps {
-  src: string;
-  alt: string;
-  style?: React.CSSProperties;
-  className?: string;
-  width?: number;
-  height?: number;
-  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down';
-  priority?: boolean;
+  src: string
+  alt: string
+  style?: React.CSSProperties
+  className?: string
+  /** Natural width in px — used to derive srcset widths and prevent layout shift */
+  width?: number
+  /** Natural height in px — used to derive aspect ratio and prevent layout shift */
+  height?: number
+  objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down'
+  /**
+   * true  → eager load + fetchpriority="high" (LCP / hero images)
+   * false → lazy IntersectionObserver-based load (default)
+   */
+  priority?: boolean
+  /**
+   * CSS sizes attribute, e.g. "(max-width: 640px) 100vw, 50vw"
+   * Helps the browser pick the right srcset entry before layout is known.
+   */
+  sizes?: string
+  /** Base color for the blur placeholder rectangle. */
+  placeholderColor?: string
+  /** Called when the real image finishes loading */
+  onLoad?: () => void
+  quality?: number
+  draggable?: boolean
 }
 
-/**
- * OptimizedImage component with:
- * - Lazy loading (IntersectionObserver)
- * - Automatic WebP conversion with fallback
- * - Blur placeholder while loading
- * - Responsive sizing
- */
 export default function OptimizedImage({
   src,
   alt,
@@ -27,96 +38,81 @@ export default function OptimizedImage({
   height,
   objectFit = 'cover',
   priority = false,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+  placeholderColor = '#1a2e1a',
+  onLoad,
+  quality = 80,
+  draggable = false,
 }: OptimizedImageProps) {
-  const [isLoaded, setIsLoaded] = useState(priority);
-  const [isVisible, setIsVisible] = useState(priority);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const [revealed, setRevealed] = useState(priority)
+  const [loaded, setLoaded] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
 
+  // IntersectionObserver — only for non-priority images
   useEffect(() => {
-    if (priority) return;
+    if (priority) return
+    const el = imgRef.current
+    if (!el) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
+          setRevealed(true)
+          observer.unobserve(entry.target)
         }
       },
-      { rootMargin: '50px' }
-    );
+      { rootMargin: '200px' } // start loading 200 px before entering viewport
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [priority])
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
-
-    return () => {
-      if (imgRef.current) {
-        observer.unobserve(imgRef.current);
-      }
-    };
-  }, [priority]);
-
-  // Convert blob storage URLs to optimized versions
-  // Reduce quality and size for faster loading
-  const optimizedSrc = src.includes('blob.vercel-storage.com')
-    ? `${src}?format=webp&quality=75&width=${width || 500}`
-    : src;
+  const realSrc = revealed ? optimizedSrc(src, width ?? 800, quality) : svgPlaceholder(placeholderColor)
+  const srcSet  = revealed ? buildSrcSet(src, quality) : undefined
 
   return (
     <div
       style={{
         position: 'relative',
-        width: width || '100%',
-        height: height || 'auto',
-        backgroundColor: '#f0f0f0',
+        width: width ? `${width}px` : '100%',
+        height: height ? `${height}px` : '100%',
         overflow: 'hidden',
+        // Show placeholder background until image loads
+        backgroundImage: loaded ? undefined : `url("${svgPlaceholder(placeholderColor)}")`,
+        backgroundSize: 'cover',
       }}
     >
-      {/* Blur placeholder */}
-      {!isLoaded && (
-        <img
-          src={src}
-          alt=""
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            filter: 'blur(20px)',
-            opacity: 0.5,
-            objectFit,
-          }}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Main image - only loads when visible */}
       <img
         ref={imgRef}
-        src={isVisible ? optimizedSrc : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="1"%3E%3C/svg%3E'}
+        src={realSrc}
+        srcSet={srcSet}
+        sizes={sizes}
         alt={alt}
-        onLoad={() => setIsLoaded(true)}
+        width={width}
+        height={height}
+        draggable={draggable}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        // @ts-ignore — fetchpriority is valid HTML but not in React types yet
+        fetchpriority={priority ? 'high' : 'auto'}
+        onLoad={() => { setLoaded(true); onLoad?.() }}
         onError={() => {
-          // Fallback to original if optimization fails
-          if (isVisible && imgRef.current) {
-            imgRef.current.src = src;
+          // Fallback: try the raw URL if the optimized version failed
+          if (imgRef.current && imgRef.current.src !== src) {
+            imgRef.current.src = src
           }
         }}
         style={{
-          position: 'relative',
-          zIndex: 1,
+          display: 'block',
           width: '100%',
           height: '100%',
           objectFit,
-          opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.3s ease-in-out',
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 0.35s ease',
           ...style,
         }}
         className={className}
-        loading="lazy"
-        decoding="async"
       />
     </div>
-  );
+  )
 }

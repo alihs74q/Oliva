@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import OptimizedImage from './OptimizedImage'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -46,8 +47,14 @@ export default function HomepageExperience({
         style={{ marginBottom: 'clamp(16px,3vh,28px)' }}
       >
         <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-7vdw2NsA2Wofs4TtAyO49iJkZo8nn1.jpg"
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-7vdw2NsA2Wofs4TtAyO49iJkZo8nn1.jpg?w=200&q=82&fmt=webp"
           alt="Oliva"
+          width={100}
+          height={100}
+          loading="eager"
+          decoding="async"
+          // @ts-ignore
+          fetchpriority="high"
           style={{
             width: 'clamp(72px,12vw,100px)', height: 'clamp(72px,12vw,100px)',
             borderRadius: '50%', objectFit: 'cover',

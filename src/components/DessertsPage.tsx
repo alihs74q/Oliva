@@ -171,6 +171,7 @@ function ProductPanel({ dessert, dir, reducedMotion }: {
           }}>{dessert.price}</div>
           {dessert.image && (
             <img src={dessert.image} alt={dessert.name} draggable={false}
+              loading="lazy" decoding="async"
               style={{
                 width: '100%', height: '100%',
                 objectFit: 'contain',
@@ -308,6 +309,7 @@ function DessertCard({ dessert, dist, cardW, cardH, onClick }: {
         {!dessert.image && <div style={{ position: 'absolute', inset: '18px', borderRadius: '50% 50% 46% 54% / 54% 48% 52% 46%', background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,0.35) 0%, transparent 60%)', pointerEvents: 'none' }} />}
         {dessert.image && (
           <img src={dessert.image} alt={dessert.name} draggable={false}
+            loading="lazy" decoding="async"
             style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', userSelect: 'none', filter: 'drop-shadow(0 10px 26px rgba(40,20,8,0.4))', position: 'relative', zIndex: 2 }} />
         )}
       </div>
