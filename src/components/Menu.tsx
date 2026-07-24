@@ -49,6 +49,7 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
           borderRadius: 999, padding: '10px 20px', cursor: 'pointer',
           color: '#e2e8f0', fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
           marginBottom: 'clamp(24px,4vh,40px)',
+          position: 'relative', zIndex: 20,
         }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           BACK

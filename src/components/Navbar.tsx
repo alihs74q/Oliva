@@ -57,6 +57,8 @@ export default function Navbar({ navigate, route }: { navigate: (to: Route) => v
             transition: 'height 500ms ease',
             marginTop: scrolled ? '-31px' : '-36px',
             marginBottom: scrolled ? '-31px' : '-36px',
+            position: 'relative',
+            zIndex: 1,
           }}
           aria-label="Oliva — From Court to Cup"
           onMouseEnter={(e) => {
