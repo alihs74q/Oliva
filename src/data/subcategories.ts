@@ -24,10 +24,10 @@ export const coldDrinksSubcategories: Subcategory[] = [
     accentColor: '#86efac',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Style_of_cub_cold_drink_202607240431-TrhRjFxd4wxoAx2gsQCFMQNxRLCWI3.jpeg',
     drinks: [
-      { name: 'Foral Fusion', description: 'A vibrant blend of fresh fruit flavors.', price: '$3.50', image: null },
-      { name: 'Mango', description: 'Ripe mango blended to perfection.', price: '$3.50', image: null },
-      { name: 'Strawberry', description: 'Fresh strawberries, creamy and sweet.', price: '$3.50', image: null },
-      { name: 'Passion Fruit', description: 'Tropical passion fruit, tangy and refreshing.', price: '$3.50', image: null },
+      { name: 'Foral Fusion', description: 'A vibrant blend of fresh fruit flavors.', price: '$3.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Remove_cub_keep_berry_202607240514-HSn503Mf9tacmA8abgIBzX6GJZV2aA.jpeg' },
+      { name: 'Mango', description: 'Ripe mango blended to perfection.', price: '$3.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_mango_smoothies_202607240514-6etjX8dIMf211zgwAI0qADkDRfXIYK.jpeg' },
+      { name: 'Strawberry', description: 'Fresh strawberries, creamy and sweet.', price: '$3.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_strawberry_smoothies_202607240515-ErzxOqHxsILoXGGWoxfURuwvjKOfLR.jpeg' },
+      { name: 'Passion Fruit', description: 'Tropical passion fruit, tangy and refreshing.', price: '$3.50', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_passion_fruit_smoothie_202607240515-gcFfTy9CTasTxniOrouIbIFZszEfSE.jpeg' },
     ],
   },
   {
