@@ -22,6 +22,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Fresh fruit blended to perfection',
     themeColor: '#16a34a',
     accentColor: '#86efac',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_random_coffee_202607240435-Jlh98IPRiNqu5beF4Olijhgf0PMwEz.jpeg',
     drinks: [
       { name: 'Foral Fusion', description: 'A vibrant blend of fresh fruit flavors.', price: '$3.50', image: null },
       { name: 'Mango', description: 'Ripe mango blended to perfection.', price: '$3.50', image: null },
@@ -35,6 +36,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Thick, creamy, and indulgent',
     themeColor: '#d97706',
     accentColor: '#fcd34d',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Style_of_cub_cold_drink_202607240431-TrhRjFxd4wxoAx2gsQCFMQNxRLCWI3.jpeg',
     drinks: [
       { name: 'Cookies & Cream', description: 'Crushed cookies blended into silky cream.', price: '$4.50', image: null },
       { name: 'Strawberry Whip', description: 'Fresh strawberries with whipped cream.', price: '$4', image: null },
@@ -50,6 +52,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Blended iced coffee indulgence',
     themeColor: '#92400e',
     accentColor: '#fdba74',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_ice_latte_202607240436-usn6yapWeBnBbXqTUSLyBMTAtUq2gT.jpeg',
     drinks: [
       { name: 'Mocha Frappe', description: 'Rich mocha blended with ice and cream.', price: '$4', image: null },
       { name: 'Caramel Frappe', description: 'Smooth caramel blended with ice and coffee.', price: '$4', image: null },
@@ -64,6 +67,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Chilled espresso with cold milk',
     themeColor: '#0ea5e9',
     accentColor: '#7dd3fc',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cubs_with_ice_tea_202607240439-nvfxQ18zvpbu66MPvhJBdGmXFLvIPq.jpeg',
     drinks: [
       { name: 'Iced Spanish Latte', description: 'Condensed milk sweetness over iced espresso.', price: '$3.50', image: null },
       { name: 'Iced Mocha Latte', description: 'Chocolate and espresso over ice.', price: '$3.50', image: null },
@@ -79,6 +83,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Cool, fruity, and refreshing',
     themeColor: '#0891b2',
     accentColor: '#67e8f9',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_milkshakes_202607240432-5iq6CAWleTgDwTFVYEXSSIIo6znWip.jpeg',
     drinks: [
       { name: 'Razzlychee Iced Tea', description: 'Raspberry and lychee iced tea.', price: '$3', image: null },
       { name: 'Tropical Iced Tea', description: 'Tropical fruit iced tea.', price: '$3', image: null },
