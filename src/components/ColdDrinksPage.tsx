@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { coldDrinks, backgroundImage } from '../data/coldDrinks'
+import { coldDrinks } from '../data/coldDrinks'
 import OlivaLogo from './OlivaLogo'
 import FlavorPicker from './FlavorPicker'
 
@@ -94,7 +94,7 @@ function ProductPanel({ drink, dir, reducedMotion }: {
         <span style={{
           fontSize: bgWordFontSize(drink.shortName), fontWeight: 900,
           letterSpacing: '-0.04em', lineHeight: 1,
-          color: 'rgba(255,255,255,0.07)', whiteSpace: 'nowrap', userSelect: 'none',
+          color: 'rgba(0,0,0,0.04)', whiteSpace: 'nowrap', userSelect: 'none',
         }}>{drink.shortName}</span>
       </div>
 
@@ -110,11 +110,11 @@ function ProductPanel({ drink, dir, reducedMotion }: {
       }}>
         {/* Left: text */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px,1.6vh,16px)' }}>
-          <p style={{ margin: 0, fontSize: 'clamp(9px,1vw,11px)', fontWeight: 700, letterSpacing: '0.3em', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase' }}>Cold Drinks</p>
-          <h2 style={{ margin: 0, fontSize: 'clamp(24px,3.8vw,60px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textShadow: '0 2px 16px rgba(0,0,0,0.35)' }}>
+          <p style={{ margin: 0, fontSize: 'clamp(9px,1vw,11px)', fontWeight: 700, letterSpacing: '0.3em', color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase' }}>Cold Drinks</p>
+          <h2 style={{ margin: 0, fontSize: 'clamp(24px,3.8vw,60px)', fontWeight: 800, color: '#111', letterSpacing: '-0.02em', lineHeight: 1.05 }}>
             {drink.name}
           </h2>
-          <p style={{ margin: 0, fontSize: 'clamp(13px,1.2vw,16px)', color: 'rgba(255,255,255,0.72)', lineHeight: 1.6, maxWidth: 320 }}>
+          <p style={{ margin: 0, fontSize: 'clamp(13px,1.2vw,16px)', color: 'rgba(0,0,0,0.55)', lineHeight: 1.6, maxWidth: 320 }}>
             {drink.description}
           </p>
           <div style={{ marginTop: '4px' }}>
@@ -146,16 +146,16 @@ function ArrowBtn({ dir, onClick, disabled }: { dir: 'left' | 'right'; onClick: 
         position: 'absolute', top: '50%', transform: 'translateY(-50%)',
         [dir === 'left' ? 'left' : 'right']: 'clamp(6px,1.2vw,16px)', zIndex: 20,
         width: 'clamp(38px,4.5vw,50px)', height: 'clamp(38px,4.5vw,50px)', borderRadius: '50%',
-        background: 'rgba(255,255,255,0.13)', backdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255,255,255,0.22)',
+        background: 'rgba(0,0,0,0.06)',
+        border: '1px solid rgba(0,0,0,0.12)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         cursor: disabled ? 'default' : 'pointer', opacity: disabled ? 0.35 : 1,
         transition: 'background 0.2s, opacity 0.3s', padding: 0,
       }}
-      onMouseOver={e => { if (!disabled) e.currentTarget.style.background = 'rgba(255,255,255,0.26)' }}
-      onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.13)' }}
+      onMouseOver={e => { if (!disabled) e.currentTarget.style.background = 'rgba(0,0,0,0.12)' }}
+      onMouseOut={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.06)' }}
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
         style={{ transform: dir === 'right' ? 'scaleX(-1)' : 'none' }}>
         <path d="M15 18l-6-6 6-6" />
       </svg>
@@ -169,7 +169,7 @@ function Dots({ total, active, onDot }: { total: number; active: number; onDot: 
     <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
       {Array.from({ length: total }, (_, i) => (
         <button key={i} onClick={() => onDot(i)} aria-label={`Drink ${i + 1}`}
-          style={{ width: i === active ? 28 : 8, height: 8, borderRadius: 4, background: i === active ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.45s cubic-bezier(0.4,0,0.2,1)' }} />
+          style={{ width: i === active ? 28 : 8, height: 8, borderRadius: 4, background: i === active ? 'rgba(0,0,0,0.7)' : 'rgba(0,0,0,0.18)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.45s cubic-bezier(0.4,0,0.2,1)' }} />
       ))}
     </div>
   )
@@ -218,7 +218,7 @@ function DrinkGridCard({ drink, isActive, onClick }: {
         )}
       </div>
       <div>
-        <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#fff', lineHeight: 1.2 }}>{drink.name}</p>
+        <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#111', lineHeight: 1.2 }}>{drink.name}</p>
 
       </div>
     </motion.button>
@@ -383,25 +383,8 @@ export default function ColdDrinksPage({ navigate, onBack, initialSlug }: { navi
   return (
     <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
-      {/* ── Background: fixed blurred photo + per-drink tint ─────────────────── */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-        {/* Photo layer — scaled so blurred edges are clipped, never moves */}
-        <div style={{
-          position: 'absolute', inset: '-7%',
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover', backgroundPosition: 'center',
-          filter: 'blur(20px)',
-        }} />
-        {/* Per-drink tint — CSS transition only, photo stays fixed */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundColor: drink.themeColor,
-          opacity: 0.6,
-          transition: 'background-color 0.9s cubic-bezier(0.22,1,0.36,1)',
-        }} />
-        {/* Dark vignette for consistent text readability */}
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.30)' }} />
-      </div>
+      {/* ── Background: white ────────────────────────────────────────────────── */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: '#ffffff' }} />
 
       {/* ── Nav ──────────────────────────────────────────────────────────────── */}
       <nav style={{
@@ -412,23 +395,23 @@ export default function ColdDrinksPage({ navigate, onBack, initialSlug }: { navi
         <button onClick={() => navigate('home')}
           style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none', cursor: 'pointer' }}>
           <OlivaLogo size={38} showText={false} />
-          <span style={{ color: '#fff', fontWeight: 800, fontSize: 17, letterSpacing: '0.05em', textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>OLIVA</span>
+          <span style={{ color: '#111', fontWeight: 800, fontSize: 17, letterSpacing: '0.05em' }}>OLIVA</span>
         </button>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px,3vw,28px)' }}>
           {(['Home', 'Menu'] as const).map(label => (
             <button key={label}
               onClick={() => navigate(label.toLowerCase() as NavRoute)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.72)', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em', transition: 'color 0.2s' }}
-              onMouseOver={e => (e.currentTarget.style.color = '#fff')}
-              onMouseOut={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.72)')}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(0,0,0,0.55)', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em', transition: 'color 0.2s' }}
+              onMouseOver={e => (e.currentTarget.style.color = '#000')}
+              onMouseOut={e => (e.currentTarget.style.color = 'rgba(0,0,0,0.55)')}
             >{label}</button>
           ))}
           {onBack ? (
             <button onClick={onBack}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', borderRadius: 999, background: 'rgba(255,255,255,0.13)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.24)', color: '#fff', fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', cursor: 'pointer', transition: 'background 0.2s' }}
-              onMouseOver={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.24)')}
-              onMouseOut={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.13)')}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', borderRadius: 999, background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.15)', color: '#111', fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', cursor: 'pointer', transition: 'background 0.2s' }}
+              onMouseOver={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.12)')}
+              onMouseOut={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.06)')}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -437,9 +420,9 @@ export default function ColdDrinksPage({ navigate, onBack, initialSlug }: { navi
             </button>
           ) : (
             <button onClick={() => navigate('menu')}
-              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', borderRadius: 999, background: 'rgba(255,255,255,0.13)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.24)', color: '#fff', fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', cursor: 'pointer', transition: 'background 0.2s' }}
-              onMouseOver={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.24)')}
-              onMouseOut={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.13)')}
+              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', borderRadius: 999, background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.15)', color: '#111', fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', cursor: 'pointer', transition: 'background 0.2s' }}
+              onMouseOver={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.12)')}
+              onMouseOut={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.06)')}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -461,20 +444,19 @@ export default function ColdDrinksPage({ navigate, onBack, initialSlug }: { navi
         }}
         onPointerDown={onPD}
       >
-        {/* Glass panel + arrows wrapper */}
+        {/* Panel + arrows wrapper */}
         <div style={{
           position: 'relative', width: '100%', maxWidth: 1080,
           flex: 1, minHeight: 0,
           display: 'flex', alignItems: 'stretch',
         }}>
-          {/* Frosted glass panel */}
+          {/* Clean white panel */}
           <div style={{
             flex: 1,
-            background: 'rgba(255,255,255,0.08)',
-            backdropFilter: 'blur(22px) saturate(1.5)',
-            border: '1px solid rgba(255,255,255,0.17)',
+            background: '#ffffff',
+            border: '1px solid rgba(0,0,0,0.07)',
             borderRadius: 'clamp(16px,2.2vw,28px)',
-            boxShadow: '0 32px 80px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.2)',
+            boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
             overflow: 'hidden',
             position: 'relative',
           }}>

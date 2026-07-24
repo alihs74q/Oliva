@@ -240,14 +240,14 @@ function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: Category
           position: 'relative', zIndex: 1,
           width: 'min(620px, 94vw)',
           maxHeight: 'calc(100svh - 48px)',
-          background: `linear-gradient(160deg, ${sub.themeColor}, ${sub.themeColor}cc)`,
-          border: `1.5px solid ${sub.accentColor}44`,
+          background: '#ffffff',
+          border: `1.5px solid ${sub.accentColor}33`,
           borderRadius: 'clamp(22px,3vw,32px)',
           padding: 'clamp(20px,3vw,36px)',
           display: 'flex', flexDirection: 'column', gap: 'clamp(14px,2vh,20px)',
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
-          boxShadow: `0 20px 60px rgba(0,0,0,0.5)`,
+          boxShadow: `0 20px 60px rgba(0,0,0,0.25)`,
           willChange: 'transform',
         }}
       >
@@ -255,13 +255,13 @@ function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: Category
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexShrink: 0 }}>
           <div>
             <div style={{ width: 44, height: 4, borderRadius: 3, background: sub.accentColor, marginBottom: 10 }} />
-            <p style={{ margin: 0, fontSize: 11, fontWeight: 800, letterSpacing: '0.3em', color: theme.subtext, textTransform: 'uppercase' }}>Menu</p>
-            <h3 style={{ margin: '4px 0 0', fontSize: 'clamp(26px,3.4vw,36px)', fontWeight: 900, color: theme.text, letterSpacing: '-0.02em' }}>{sub.name}</h3>
+            <p style={{ margin: 0, fontSize: 11, fontWeight: 800, letterSpacing: '0.3em', color: '#888', textTransform: 'uppercase' }}>Menu</p>
+            <h3 style={{ margin: '4px 0 0', fontSize: 'clamp(26px,3.4vw,36px)', fontWeight: 900, color: '#111', letterSpacing: '-0.02em' }}>{sub.name}</h3>
           </div>
           <button onClick={onClose} aria-label="Close"
-            style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: theme.text, transition: 'background 0.2s ease' }}
-            onMouseOver={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.2)')}
-            onMouseOut={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+            style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.1)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#333', transition: 'background 0.2s ease' }}
+            onMouseOver={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.12)')}
+            onMouseOut={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.06)')}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
           </button>
@@ -321,31 +321,31 @@ function DrinkCard({ drink, index }: { drink: SubcategoryDrink; sub: Subcategory
       transition={{ duration: 0.3, ease: EASE, delay: 0.08 + index * 0.05 }}
       style={{
         display: 'flex', flexDirection: 'column', gap: 'clamp(12px,1.8vh,16px)',
-        background: '#15271c',
-        border: '1px solid rgba(134,239,172,0.14)',
+        background: '#f8f8f8',
+        border: '1px solid rgba(0,0,0,0.07)',
         borderRadius: 20,
         padding: 'clamp(14px,2vh,20px)',
-        boxShadow: '0 6px 22px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.04)',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.07)',
       }}
     >
       {/* Top row: image · name · price sticky note */}
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'clamp(12px,2vw,18px)' }}>
-        {/* Image — smaller, modern soft-green rim */}
+        {/* Image — smaller, modern light rim */}
         <div style={{
           flexShrink: 0,
           width: 'clamp(72px,12vw,96px)', height: 'clamp(72px,12vw,96px)',
           borderRadius: 14,
-          background: '#0f1f16',
-          border: '1px solid rgba(134,239,172,0.22)',
+          background: '#e8f0eb',
+          border: '1px solid rgba(0,0,0,0.1)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           overflow: 'hidden', position: 'relative',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.32)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
         }}>
           {drink.image ? (
-            <img src={drink.image} alt={drink.name} draggable={false}
+            <img src={drink.image} alt={drink.name} draggable={false} crossOrigin="anonymous"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(134,239,172,0.6)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
               <circle cx="8.5" cy="8.5" r="1.5" />
               <polyline points="21,15 16,10 5,21" />
@@ -356,24 +356,13 @@ function DrinkCard({ drink, index }: { drink: SubcategoryDrink; sub: Subcategory
         {/* Name */}
         <h4 style={{
           flex: 1, minWidth: 0, margin: 0, alignSelf: 'center',
-          fontSize: 'clamp(18px,2.6vw,26px)', fontWeight: 800, color: '#f4f7f2',
+          fontSize: 'clamp(18px,2.6vw,26px)', fontWeight: 800, color: '#111',
           lineHeight: 1.2, letterSpacing: '-0.01em',
         }}>{drink.name}</h4>
 
         {/* Price sticky note */}
         <PriceStickyNote price={drink.price} />
       </div>
-
-      {/* Description under the photo — playful & classy */}
-      <p style={{
-        margin: 0,
-        fontFamily: '"Georgia", "Times New Roman", serif',
-        fontStyle: 'italic',
-        fontSize: 'clamp(14px,1.7vw,17px)',
-        color: '#c9b98f',
-        lineHeight: 1.55,
-        fontWeight: 500,
-      }}>{drink.description}</p>
     </motion.div>
   )
 }

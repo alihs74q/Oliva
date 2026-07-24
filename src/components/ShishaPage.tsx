@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import OlivaLogo from './OlivaLogo'
-import { shishaItems, backgroundImage } from '../data/shisha'
+import { shishaItems } from '../data/shisha'
 
 type NavRoute = 'home' | 'menu' | 'cold-drinks' | 'desserts' | 'hot-drinks' | 'shisha' | 'shisha-list'
 
@@ -31,12 +31,11 @@ function ShishaCard({ item, index }: { item: typeof shishaItems[number]; index: 
       style={{
         display: 'flex', alignItems: 'center',
         gap: 'clamp(12px,2vw,20px)',
-        background: 'rgba(255,255,255,0.07)',
-        backdropFilter: 'blur(14px) saturate(1.3)',
-        border: '1px solid rgba(255,255,255,0.13)',
+        background: '#f8f8f8',
+        border: '1px solid rgba(0,0,0,0.07)',
         borderRadius: 20,
         padding: 'clamp(14px,2vh,22px) clamp(14px,2vw,22px)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
         flexShrink: 0,
       }}
     >
@@ -51,12 +50,12 @@ function ShishaCard({ item, index }: { item: typeof shishaItems[number]; index: 
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         {item.image
-          ? <img src={item.image} alt={item.name} draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ? <img src={item.image} alt={item.name} draggable={false} crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           : <ImagePlaceholder />}
       </div>
       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <p style={{ margin: 0, fontSize: 'clamp(14px,1.6vw,19px)', fontWeight: 700, color: '#fff', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{item.name}</p>
-        <p style={{ margin: 0, fontSize: 'clamp(11px,1vw,13px)', color: 'rgba(255,255,255,0.52)', lineHeight: 1.45 }}>{item.description}</p>
+        <p style={{ margin: 0, fontSize: 'clamp(14px,1.6vw,19px)', fontWeight: 700, color: '#111', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{item.name}</p>
+        <p style={{ margin: 0, fontSize: 'clamp(11px,1vw,13px)', color: 'rgba(0,0,0,0.5)', lineHeight: 1.45 }}>{item.description}</p>
       </div>
       <motion.p
         initial={{ opacity: 0 }}
@@ -76,15 +75,7 @@ export default function ShishaPage({ navigate, onBack }: { navigate: (to: NavRou
     <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
       {/* Background */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-        <motion.div
-          initial={{ scale: 1.04 }} animate={{ scale: 1 }}
-          transition={{ duration: 2.4, ease: EASE }}
-          style={{ position: 'absolute', inset: '-6%', backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(10px)' }}
-        />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(5,3,0,0.76) 0%, rgba(12,8,2,0.72) 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(0,0,0,0.35) 100%)', pointerEvents: 'none' }} />
-      </div>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: '#ffffff' }} />
 
       {/* Nav */}
       <motion.nav
@@ -97,7 +88,7 @@ export default function ShishaPage({ navigate, onBack }: { navigate: (to: NavRou
             onClick={onBack}
             whileHover={{ x: -2, background: 'rgba(255,255,255,0.22)' }}
             whileTap={{ scale: 0.95 }}
-            style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.11)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.22)', borderRadius: 999, padding: '8px 18px', cursor: 'pointer', color: '#fff', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em' }}
+            style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.15)', borderRadius: 999, padding: '8px 18px', cursor: 'pointer', color: '#111', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em' }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
             BACK TO 2ARAGILE
@@ -105,9 +96,9 @@ export default function ShishaPage({ navigate, onBack }: { navigate: (to: NavRou
         ) : (
           <motion.button
             onClick={() => navigate('menu')}
-            whileHover={{ x: -2, background: 'rgba(255,255,255,0.22)' }}
+            whileHover={{ x: -2, background: 'rgba(0,0,0,0.12)' }}
             whileTap={{ scale: 0.95 }}
-            style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.11)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.22)', borderRadius: 999, padding: '8px 18px', cursor: 'pointer', color: '#fff', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em' }}
+            style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.15)', borderRadius: 999, padding: '8px 18px', cursor: 'pointer', color: '#111', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em' }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
             MENU
@@ -115,7 +106,7 @@ export default function ShishaPage({ navigate, onBack }: { navigate: (to: NavRou
         )}
         <button onClick={() => navigate('home')} style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', cursor: 'pointer' }}>
           <OlivaLogo size={34} showText={false} />
-          <span style={{ color: '#fff', fontWeight: 800, fontSize: 15, letterSpacing: '0.06em', textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}>OLIVA</span>
+          <span style={{ color: '#111', fontWeight: 800, fontSize: 15, letterSpacing: '0.06em' }}>OLIVA</span>
         </button>
       </motion.nav>
 
@@ -132,14 +123,14 @@ export default function ShishaPage({ navigate, onBack }: { navigate: (to: NavRou
           <div style={{ marginBottom: 'clamp(4px,1vh,12px)', opacity: 0.18 }}>
             <img src="/shisha.png" alt="" aria-hidden draggable={false} style={{ width: 'clamp(44px,5.5vw,68px)', height: 'auto', filter: 'invert(1)' }} />
           </div>
-          <p style={{ margin: '0 0 clamp(6px,1vh,12px)', fontSize: 'clamp(9px,1vw,11px)', fontWeight: 700, letterSpacing: '0.38em', color: 'rgba(255,255,255,0.42)', textTransform: 'uppercase' }}>
+          <p style={{ margin: '0 0 clamp(6px,1vh,12px)', fontSize: 'clamp(9px,1vw,11px)', fontWeight: 700, letterSpacing: '0.38em', color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase' }}>
             Café &amp; Lounge
           </p>
-          <h1 style={{ margin: '0 0 clamp(8px,1.2vh,14px)', fontSize: 'clamp(44px,7vw,96px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 0.93, color: '#fff', textShadow: '0 4px 28px rgba(0,0,0,0.45)' }}>
+          <h1 style={{ margin: '0 0 clamp(8px,1.2vh,14px)', fontSize: 'clamp(44px,7vw,96px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 0.93, color: '#111' }}>
             SHISHA
           </h1>
           <div style={{ width: 'clamp(36px,4vw,54px)', height: 3, borderRadius: 2, background: 'linear-gradient(90deg,#D4A017,#f5c540)', marginBottom: 'clamp(10px,1.6vh,20px)' }} />
-          <p style={{ margin: '0 0 clamp(16px,2.6vh,32px)', fontSize: 'clamp(13px,1.3vw,17px)', color: 'rgba(255,255,255,0.62)', lineHeight: 1.6, maxWidth: 270 }}>
+          <p style={{ margin: '0 0 clamp(16px,2.6vh,32px)', fontSize: 'clamp(13px,1.3vw,17px)', color: 'rgba(0,0,0,0.55)', lineHeight: 1.6, maxWidth: 270 }}>
             Relax and enjoy your favorite flavor.
           </p>
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE, delay: 0.38 }}>
@@ -155,7 +146,7 @@ export default function ShishaPage({ navigate, onBack }: { navigate: (to: NavRou
           <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            style={{ margin: 0, flexShrink: 0, fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', color: 'rgba(255,255,255,0.32)', textTransform: 'uppercase' }}
+            style={{ margin: 0, flexShrink: 0, fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', color: 'rgba(0,0,0,0.38)', textTransform: 'uppercase' }}
           >
             Our Flavors
           </motion.p>
