@@ -1,17 +1,6 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
-
-interface CatCard {
-  id: string
-  label: string
-  desc: string
-  gradient: string
-  accent: string
-  image: string | null
-  onClick: () => void
-}
 
 export default function HomepageExperience({
   onEnterGallery,
@@ -32,8 +21,6 @@ export default function HomepageExperience({
   onSandwiches: () => void
   onYogurt: () => void
 }) {
-  const [showCats, setShowCats] = useState(false)
-
   const cards: CatCard[] = [
     { id: 'hot', label: 'Hot Drinks', desc: 'Warm & aromatic classics', gradient: 'linear-gradient(135deg,#f97316,#dc2626)', accent: '#fed7aa', image: 'https://images.pexels.com/photos/15851583/pexels-photo-15851583/free-photo-of-cappuccino-in-cup-on-table.jpeg?auto=compress&cs=tinysrgb&w=400', onClick: onHotDrinks },
     { id: 'cold', label: 'Cold Drinks', desc: 'Chilled & refreshing', gradient: 'linear-gradient(135deg,#0ea5e9,#2563eb)', accent: '#bae6fd', image: 'https://images.pexels.com/photos/22873679/pexels-photo-22873679.jpeg?auto=compress&cs=tinysrgb&w=400', onClick: onColdDrinks },
@@ -120,7 +107,7 @@ export default function HomepageExperience({
         <motion.button
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: EASE, delay: 0.3 }}
-          onClick={() => setShowCats(s => !s)}
+          onClick={onViewMenu}
           whileTap={{ scale: 0.96, transition: { duration: 0.12 } }}
           style={{
             marginTop: 'clamp(24px,4vh,40px)', padding: 'clamp(14px,2vw,18px) clamp(32px,5vw,48px)',
@@ -131,74 +118,9 @@ export default function HomepageExperience({
             boxShadow: '0 8px 24px rgba(74,222,128,0.3)',
           }}
         >
-          {showCats ? 'Back' : 'View Menu'}
+          View Menu
         </motion.button>
       </div>
-
-      {/* Category cards — smooth slide up */}
-      <AnimatePresence>
-        {showCats && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.4, ease: EASE }}
-            style={{
-              marginTop: 'clamp(28px,5vh,48px)', width: '100%', maxWidth: 900,
-              display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-              gap: 'clamp(14px,2vw,20px)',
-            }}
-          >
-            {cards.map((card, i) => (
-              <motion.button
-                key={card.id}
-                onClick={card.onClick}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease: EASE, delay: i * 0.06 }}
-                whileTap={{ scale: 0.96, transition: { duration: 0.12 } }}
-                style={{
-                  position: 'relative', overflow: 'hidden', cursor: 'pointer',
-                  background: card.gradient, borderRadius: 24, border: 'none',
-                  padding: 'clamp(20px,3vw,28px)', textAlign: 'left',
-                  minHeight: 180, display: 'flex', flexDirection: 'column', gap: 10,
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-                  willChange: 'transform',
-                }}
-              >
-                {/* Image */}
-                <div style={{
-                  width: 'clamp(56px,8vw,72px)', height: 'clamp(56px,8vw,72px)',
-                  borderRadius: 16, flexShrink: 0,
-                  background: card.image ? 'transparent' : `${card.accent}30`,
-                  border: card.image ? 'none' : `2px dashed ${card.accent}60`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  overflow: 'hidden',
-                }}>
-                  {card.image ? (
-                    <img src={card.image} alt={card.label} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }} />
-                  ) : (
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={card.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
-                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                      <circle cx="8.5" cy="8.5" r="1.5" />
-                      <polyline points="21,15 16,10 5,21" />
-                    </svg>
-                  )}
-                </div>
-
-                <h3 style={{
-                  margin: 0, fontSize: 'clamp(20px,2.6vw,28px)', fontWeight: 900,
-                  color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1,
-                }}>{card.label}</h3>
-                <p style={{
-                  margin: 0, fontSize: 'clamp(13px,1.3vw,16px)', fontWeight: 600,
-                  color: 'rgba(255,255,255,0.85)', lineHeight: 1.4,
-                }}>{card.desc}</p>
-              </motion.button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Buttons row */}
       <motion.div
