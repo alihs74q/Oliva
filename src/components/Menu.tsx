@@ -96,10 +96,24 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
               width: 'clamp(72px,10vw,96px)', height: 'clamp(72px,10vw,96px)',
               borderRadius: 20, flexShrink: 0,
               background: card.image ? 'transparent' : `${card.accent}30`,
-              border: card.image ? 'none' : `2px dashed ${card.accent}60`,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               overflow: 'hidden',
-            }}>
+              boxShadow: card.image ? `0 0 0 1.5px transparent, 0 0 24px ${card.accent}` : 'none',
+              animation: card.image ? 'glowPulse 3s ease-in-out infinite' : 'none',
+              '--glow-color': card.accent,
+            } as React.CSSProperties & { '--glow-color': string }}>
+              <style>{`
+                @keyframes glowPulse {
+                  0%, 100% {
+                    box-shadow: 0 0 8px var(--glow-color), 0 0 16px var(--glow-color), 0 0 32px rgba(var(--glow-color-rgb), 0.3);
+                    filter: brightness(1);
+                  }
+                  50% {
+                    box-shadow: 0 0 12px var(--glow-color), 0 0 24px var(--glow-color), 0 0 40px rgba(var(--glow-color-rgb), 0.5);
+                    filter: brightness(1.05);
+                  }
+                }
+              `}</style>
               {card.image ? (
                 <img src={card.image} alt={card.label} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 18 }} />
               ) : (

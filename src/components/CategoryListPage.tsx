@@ -133,7 +133,7 @@ export default function CategoryListPage({
                   textAlign: 'left',
                   opacity: isPlaceholder ? 0.45 : 1,
                   display: 'flex', flexDirection: 'row', alignItems: 'stretch', gap: 'clamp(12px,2vw,20px)',
-                  minHeight: '140px',
+                  minHeight: '180px',
                   willChange: 'transform',
                 }}
               >
@@ -142,11 +142,11 @@ export default function CategoryListPage({
                   <div style={{ width: 44, height: 4, borderRadius: 3, background: sub.accentColor, opacity: 0.8 }} />
                   <div>
                     <h3 style={{
-                      margin: 0, fontSize: 'clamp(18px,2.4vw,26px)', fontWeight: 900,
+                      margin: 0, fontSize: 'clamp(22px,3vw,32px)', fontWeight: 900,
                       color: theme.text, letterSpacing: '-0.02em', lineHeight: 1.1,
                     }}>{sub.name}</h3>
                     <p style={{
-                      margin: '6px 0 0', fontSize: 'clamp(12px,1.4vw,16px)', color: theme.subtext,
+                      margin: '6px 0 0', fontSize: 'clamp(14px,1.8vw,18px)', color: theme.subtext,
                       lineHeight: 1.5, fontWeight: 500,
                     }}>{sub.description}</p>
                   </div>
@@ -170,7 +170,8 @@ export default function CategoryListPage({
                 {/* Right: Image */}
                 <div style={{
                   flexShrink: 0,
-                  width: 'clamp(100px,15vw,130px)',
+                  width: 'clamp(140px,20vw,180px)',
+                  height: 'clamp(140px,20vw,180px)',
                   borderRadius: 16,
                   background: sub.image ? 'transparent' : `linear-gradient(135deg, ${sub.accentColor}30, ${sub.themeColor}30)`,
                   border: `1.5px dashed ${sub.accentColor}55`,
@@ -295,7 +296,7 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
       {/* Image placeholder / image */}
       <div style={{
         flexShrink: 0,
-        width: 'clamp(100px,16vw,140px)', height: 'clamp(100px,16vw,140px)',
+        width: 'clamp(140px,22vw,180px)', height: 'clamp(140px,22vw,180px)',
         borderRadius: 18,
         background: drink.image ? 'transparent' : `linear-gradient(135deg, ${sub.accentColor}30, ${sub.themeColor}30)`,
         border: `1.5px dashed ${sub.accentColor}55`,
@@ -316,18 +317,18 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
 
       {/* Info */}
       <div style={{ flex: 1, minWidth: 0 }}>
-        <h4 style={{ margin: 0, fontSize: 'clamp(18px,2.4vw,26px)', fontWeight: 800, color: theme.text, lineHeight: 1.2, letterSpacing: '-0.01em' }}>{drink.name}</h4>
-        <p style={{ margin: '6px 0 0', fontSize: 'clamp(14px,1.6vw,18px)', color: theme.subtext, lineHeight: 1.5, fontWeight: 500 }}>{drink.description}</p>
+        <h4 style={{ margin: 0, fontSize: 'clamp(20px,2.8vw,28px)', fontWeight: 800, color: theme.text, lineHeight: 1.2, letterSpacing: '-0.01em' }}>{drink.name}</h4>
+        <p style={{ margin: '6px 0 0', fontSize: 'clamp(15px,1.8vw,20px)', color: theme.subtext, lineHeight: 1.5, fontWeight: 500 }}>{drink.description}</p>
       </div>
 
       {/* Price badge */}
       <div style={{
         flexShrink: 0,
-        padding: 'clamp(8px,1.2vw,12px) clamp(14px,2vw,20px)',
+        padding: 'clamp(10px,1.4vw,14px) clamp(16px,2.2vw,24px)',
         borderRadius: 14,
         background: `linear-gradient(145deg, ${sub.accentColor}, ${sub.themeColor})`,
         color: '#fff',
-        fontSize: 'clamp(16px,1.8vw,22px)', fontWeight: 900, letterSpacing: '-0.02em',
+        fontSize: 'clamp(18px,2.1vw,26px)', fontWeight: 900, letterSpacing: '-0.02em',
         whiteSpace: 'nowrap',
         boxShadow: `0 4px 12px ${sub.themeColor}44`,
         fontFamily: '"Georgia", "Times New Roman", serif',
