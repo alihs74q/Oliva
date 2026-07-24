@@ -14,6 +14,7 @@ import ShishaPage from './components/ShishaPage';
 import CategoryListPage, { type CategoryTheme } from './components/CategoryListPage';
 import { subcategoryData } from './data/subcategories';
 import PadelPage from './components/PadelPage';
+import { useOfflineSupport } from './hooks/useOfflineSupport';
 
 
 type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha' | 'sandwiches' | 'yogurt' | 'padel';
@@ -107,6 +108,7 @@ const CATEGORY_DATA: Record<Category, { title: string; subtitle: string; theme: 
 
 export default function App() {
   const [route, setRoute] = useState<ParsedRoute>(parseRoute);
+  const offlineStatus = useOfflineSupport();
 
   useEffect(() => {
     const onHashChange = () => {

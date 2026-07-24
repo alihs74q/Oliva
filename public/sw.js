@@ -1,9 +1,12 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { fileURLToPath, URL } from 'node:url';
-import { VitePWA } from 'vite-plugin-pwa';
+const CACHE_NAME = 'oliva-v1';
+const IMAGE_CACHE = 'oliva-images-v1';
+const URLS_TO_CACHE = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+];
 
-// All remote image URLs — pre-cached on first visit so they're instant forever after
+// All images to pre-cache on first visit
 const IMAGE_URLS = [
   // Subcategory card images
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Style_of_cub_cold_drink_202607240431-TrhRjFxd4wxoAx2gsQCFMQNxRLCWI3.jpeg',
@@ -40,91 +43,121 @@ const IMAGE_URLS = [
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/14988611256100392-VcfSLudrmQ98JzCToSTWUmeOANUBaV.jpg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Drinks_in_one_photo_202607240530-NwdLjbfbz8vvpIqLwGgdeA8gzsRCXc.jpeg',
   // Shisha flavor images
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png', // Lemon Mint
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png', // Double Apple
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png', // Grape
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png', // Tanbak
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png',
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png',
 ];
 
-export default defineConfig({
-  plugins: [
-    react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'auto',
-      workbox: {
-        // Cache all app shell assets (JS, CSS, HTML, fonts)
-        globPatterns: ['**/*.{js,css,html,ico,svg,woff2}'],
-        // CacheFirst for all remote images — serve from cache instantly, never re-download
-        runtimeCaching: [
-          {
-            urlPattern: ({ url }) =>
-              url.hostname === 'hebbkx1anhila5yf.public.blob.vercel-storage.com' ||
-              url.hostname.includes('pexels.com'),
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'oliva-images-v1',
-              expiration: {
-                maxEntries: 150,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
-              },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-        ],
-        // Pre-fetch every known image in the background on first install
-        additionalManifestEntries: IMAGE_URLS.map((url) => ({
-          url,
-          revision: null,
-        })),
-        skipWaiting: true,
-        clientsClaim: true,
-      },
-      manifest: {
-        name: 'Oliva — Padel & Café',
-        short_name: 'Oliva',
-        description: "A grove, two courts, and the slowest afternoon you've ever had.",
-        theme_color: '#1b5e20',
-        background_color: '#1a2e1a',
-        display: 'standalone',
-        icons: [
-          {
-            src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-7vdw2NsA2Wofs4TtAyO49iJkZo8nn1.jpg',
-            sizes: '192x192',
-            type: 'image/jpeg',
-          },
-          {
-            src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-7vdw2NsA2Wofs4TtAyO49iJkZo8nn1.jpg',
-            sizes: '512x512',
-            type: 'image/jpeg',
-          },
-        ],
-      },
-    }),
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
-  build: {
-    // Aggressive minification for smaller output
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console logs in production
-      },
-    },
-    // Compress larger chunks
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'framer-motion'],
-        },
-      },
-    },
-  },
+// Install event - cache app shell + pre-cache all images
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(URLS_TO_CACHE);
+    }).then(() => {
+      // Pre-cache all images in background
+      return caches.open(IMAGE_CACHE).then((cache) => {
+        // Download images in chunks to avoid overwhelming the network
+        const chunkSize = 5;
+        const chunks = [];
+        for (let i = 0; i < IMAGE_URLS.length; i += chunkSize) {
+          chunks.push(IMAGE_URLS.slice(i, i + chunkSize));
+        }
+
+        const downloadChunk = (chunkIndex) => {
+          if (chunkIndex >= chunks.length) {
+            self.skipWaiting(); // Activate service worker immediately
+            return Promise.resolve();
+          }
+
+          const chunk = chunks[chunkIndex];
+          return Promise.all(
+            chunk.map((url) =>
+              fetch(url, { mode: 'no-cors' })
+                .then((response) => {
+                  if (response.status === 200) {
+                    cache.put(url, response);
+                  }
+                })
+                .catch(() => {
+                  // Silently fail individual image downloads
+                  console.log(`[v0] Failed to pre-cache: ${url}`);
+                })
+            )
+          ).then(() => downloadChunk(chunkIndex + 1));
+        };
+
+        return downloadChunk(0);
+      });
+    })
+  );
+});
+
+// Activate event - clean up old caches
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter(
+            (name) =>
+              name.includes('oliva') &&
+              name !== CACHE_NAME &&
+              name !== IMAGE_CACHE
+          )
+          .map((name) => caches.delete(name))
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+// Fetch event - serve from cache, fallback to network
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // Skip non-GET requests
+  if (request.method !== 'GET') return;
+
+  // Strategy: CacheFirst for images, NetworkFirst for others
+  if (
+    url.hostname === 'hebbkx1anhila5yf.public.blob.vercel-storage.com' ||
+    url.pathname.includes('.jpg') ||
+    url.pathname.includes('.jpeg') ||
+    url.pathname.includes('.png') ||
+    url.pathname.includes('.gif')
+  ) {
+    // CacheFirst: try cache first, fallback to network
+    event.respondWith(
+      caches.match(request).then((response) => {
+        if (response) {
+          return response;
+        }
+        return fetch(request, { mode: 'no-cors' }).then((response) => {
+          // Cache successful responses
+          if (response.status === 200) {
+            const cache = caches.open(IMAGE_CACHE);
+            cache.then((c) => c.put(request, response.clone()));
+          }
+          return response;
+        });
+      })
+    );
+  } else {
+    // NetworkFirst: try network first, fallback to cache
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.status === 200) {
+            const cache = caches.open(CACHE_NAME);
+            cache.then((c) => c.put(request, response.clone()));
+          }
+          return response;
+        })
+        .catch(() => {
+          return caches.match(request);
+        })
+    );
+  }
 });
