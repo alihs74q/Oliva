@@ -11,6 +11,7 @@ interface CatCard {
   image: string | null
 }
 
+// imgBg: solid background color shown behind the image in the card
 const CARDS: CatCard[] = [
   { id: 'hot', label: 'Hot Drinks', desc: 'Warm & aromatic classics — espresso, cappuccino, Turkish coffee & more', gradient: 'linear-gradient(135deg,#f97316,#dc2626)', accent: '#fed7aa', image: 'https://images.pexels.com/photos/15851583/pexels-photo-15851583/free-photo-of-cappuccino-in-cup-on-table.jpeg?auto=compress&cs=tinysrgb&w=400' },
   { id: 'cold', label: 'Cold Drinks', desc: 'Chilled & refreshing — iced lattes, fresh juices, smoothies & shakes', gradient: 'linear-gradient(135deg,#0ea5e9,#2563eb)', accent: '#bae6fd', image: 'https://images.pexels.com/photos/22873679/pexels-photo-22873679.jpeg?auto=compress&cs=tinysrgb&w=400' },
@@ -20,6 +21,17 @@ const CARDS: CatCard[] = [
   { id: 'yogurt', label: 'Yogurt', desc: 'Creamy & refreshing — Greek yogurt with fresh toppings', gradient: 'linear-gradient(135deg,#d946ef,#be185d)', accent: '#f9a8d4', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/14988611256100392-VcfSLudrmQ98JzCToSTWUmeOANUBaV.jpg' },
   { id: 'padel', label: 'Padel', desc: 'Rackets, coaching & gear for your game', gradient: 'linear-gradient(135deg,#06b6d4,#0891b2)', accent: '#06f6d4', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0a6RZwqQSo38UmBftouiTQtlg9C8Rc.png' },
 ]
+
+// Solid background per category type
+const IMG_BG: Record<string, string> = {
+  hot:         '#f97316',   // solid orange  — hot drinks
+  cold:        '#e8f4fc',   // ice white     — cold drinks
+  dessert:     '#1a3a2a',   // dark green    — desserts
+  shisha:      '#1a3a2a',   // dark green    — shisha
+  sandwiches:  '#1a3a2a',   // dark green    — sandwiches
+  yogurt:      '#1a3a2a',   // dark green    — yogurt
+  padel:       '#1a3a2a',   // dark green    — padel
+}
 
 export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, onShisha, onSandwiches, onYogurt, onPadel }: {
   onBack?: () => void
@@ -91,33 +103,20 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
               willChange: 'transform',
             }}
           >
-            {/* Image placeholder — big */}
+            {/* Image — smaller, solid-color bg, modern dark-green border */}
             <div style={{
-              width: 'clamp(72px,10vw,96px)', height: 'clamp(72px,10vw,96px)',
-              borderRadius: 20, flexShrink: 0,
-              background: card.image ? 'transparent' : `${card.accent}30`,
+              width: 'clamp(58px,8vw,72px)', height: 'clamp(58px,8vw,72px)',
+              borderRadius: 14, flexShrink: 0,
+              background: IMG_BG[card.id] ?? '#1a3a2a',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               overflow: 'hidden',
-              boxShadow: card.image ? `0 0 0 1.5px transparent, 0 0 24px ${card.accent}` : 'none',
-              animation: card.image ? 'glowPulse 3s ease-in-out infinite' : 'none',
-              '--glow-color': card.accent,
-            } as React.CSSProperties & { '--glow-color': string }}>
-              <style>{`
-                @keyframes glowPulse {
-                  0%, 100% {
-                    box-shadow: 0 0 8px var(--glow-color), 0 0 16px var(--glow-color), 0 0 32px rgba(var(--glow-color-rgb), 0.3);
-                    filter: brightness(1);
-                  }
-                  50% {
-                    box-shadow: 0 0 12px var(--glow-color), 0 0 24px var(--glow-color), 0 0 40px rgba(var(--glow-color-rgb), 0.5);
-                    filter: brightness(1.05);
-                  }
-                }
-              `}</style>
+              border: '2px solid #1a3a2a',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            }}>
               {card.image ? (
-                <img src={card.image} alt={card.label} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 18 }} />
+                <img src={card.image} alt={card.label} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={card.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                   <circle cx="8.5" cy="8.5" r="1.5" />
                   <polyline points="21,15 16,10 5,21" />

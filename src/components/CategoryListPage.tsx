@@ -167,20 +167,21 @@ export default function CategoryListPage({
                   )}
                 </div>
 
-                {/* Right: Image */}
+                {/* Right: Image — smaller, solid bg, modern dark-green border */}
                 <div style={{
                   flexShrink: 0,
-                  width: 'clamp(140px,20vw,180px)',
-                  height: 'clamp(140px,20vw,180px)',
+                  width: 'clamp(100px,15vw,130px)',
+                  height: 'clamp(100px,15vw,130px)',
                   borderRadius: 16,
-                  background: sub.image ? 'transparent' : `linear-gradient(135deg, ${sub.accentColor}30, ${sub.themeColor}30)`,
-                  border: `1.5px dashed ${sub.accentColor}55`,
+                  background: sub.image ? '#1a3a2a' : `${sub.accentColor}18`,
+                  border: '2px solid #1a3a2a',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   overflow: 'hidden', position: 'relative',
+                  boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
                 }}>
                   {sub.image ? (
                     <img src={sub.image} alt={sub.name} draggable={false}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }} />
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={sub.accentColor} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
                       <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -293,19 +294,20 @@ function DrinkCard({ drink, sub, theme, index }: { drink: SubcategoryDrink; sub:
         boxShadow: `0 4px 16px ${sub.themeColor}15`,
       }}
     >
-      {/* Image placeholder / image */}
+      {/* Image — smaller, solid bg, modern dark-green border */}
       <div style={{
         flexShrink: 0,
-        width: 'clamp(140px,22vw,180px)', height: 'clamp(140px,22vw,180px)',
-        borderRadius: 18,
-        background: drink.image ? 'transparent' : `linear-gradient(135deg, ${sub.accentColor}30, ${sub.themeColor}30)`,
-        border: `1.5px dashed ${sub.accentColor}55`,
+        width: 'clamp(100px,16vw,130px)', height: 'clamp(100px,16vw,130px)',
+        borderRadius: 16,
+        background: drink.image ? '#1a3a2a' : `${sub.accentColor}18`,
+        border: '2px solid #1a3a2a',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         overflow: 'hidden', position: 'relative',
+        boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
       }}>
         {drink.image ? (
           <img src={drink.image} alt={drink.name} draggable={false}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16 }} />
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         ) : (
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={sub.accentColor} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />

@@ -200,12 +200,21 @@ function DrinkGridCard({ drink, isActive, onClick }: {
         transition: 'background 0.18s, border-color 0.18s',
       }}
     >
-      <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 80 }}>
+      {/* Image — smaller, solid ice-white bg, modern dark-green border */}
+      <div style={{
+        width: 72, height: 72, flexShrink: 0,
+        borderRadius: 14,
+        background: '#e8f4fc',
+        border: '2px solid #1a3a2a',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        overflow: 'hidden',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.28)',
+      }}>
         {drink.image ? (
           <img src={drink.image} alt={drink.name} draggable={false}
-            style={{ maxHeight: 80, maxWidth: '100%', objectFit: 'contain', filter: 'drop-shadow(0 6px 16px rgba(0,0,0,0.45))', userSelect: 'none' }} />
+            style={{ width: '100%', height: '100%', objectFit: 'cover', userSelect: 'none' }} />
         ) : (
-          <ColdDrinkPlaceholder size={54} />
+          <ColdDrinkPlaceholder size={44} />
         )}
       </div>
       <div>

@@ -40,7 +40,16 @@ function ShishaCard({ item, index }: { item: typeof shishaItems[number]; index: 
         flexShrink: 0,
       }}
     >
-      <div style={{ width: 'clamp(62px,9vw,84px)', height: 'clamp(62px,9vw,84px)', flexShrink: 0, borderRadius: 13, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+      {/* Image — smaller, solid dark-green bg, modern dark-green border */}
+      <div style={{
+        width: 'clamp(56px,7vw,70px)', height: 'clamp(56px,7vw,70px)', flexShrink: 0,
+        borderRadius: 13,
+        background: '#1a3a2a',
+        border: '2px solid #1a3a2a',
+        overflow: 'hidden',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
         {item.image
           ? <img src={item.image} alt={item.name} draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           : <ImagePlaceholder />}
