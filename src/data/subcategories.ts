@@ -36,7 +36,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Thick, creamy, and indulgent',
     themeColor: '#d97706',
     accentColor: '#fcd34d',
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_random_coffee_202607240435-Jlh98IPRiNqu5beF4Olijhgf0PMwEz.jpeg',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_milkshakes_202607240432-DyeXQYjJj3Qg2lXxkb8gT9y7V0T2mz.jpeg',
     drinks: [
       { name: 'Cookies & Cream', description: 'Crushed cookies blended into silky cream.', price: '$4.50', image: null },
       { name: 'Strawberry Whip', description: 'Fresh strawberries with whipped cream.', price: '$4', image: null },
@@ -52,7 +52,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Blended iced coffee indulgence',
     themeColor: '#92400e',
     accentColor: '#fdba74',
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cubs_with_ice_tea_202607240439-nvfxQ18zvpbu66MPvhJBdGmXFLvIPq.jpeg',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_random_coffee_202607240435-Rqt8wvMWeMz7dwq7AGPXffMLOVnKpd.jpeg',
     drinks: [
       { name: 'Mocha Frappe', description: 'Rich mocha blended with ice and cream.', price: '$4', image: null },
       { name: 'Caramel Frappe', description: 'Smooth caramel blended with ice and coffee.', price: '$4', image: null },
@@ -67,7 +67,7 @@ export const coldDrinksSubcategories: Subcategory[] = [
     description: 'Chilled espresso with cold milk',
     themeColor: '#0ea5e9',
     accentColor: '#7dd3fc',
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_milkshakes_202607240432-5iq6CAWleTgDwTFVYEXSSIIo6znWip.jpeg',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_ice_latte_202607240436-pCXFkaQ79lJybuM2KEHZVqUlyIAJUW.jpeg',
     drinks: [
       { name: 'Iced Spanish Latte', description: 'Condensed milk sweetness over iced espresso.', price: '$3.50', image: null },
       { name: 'Iced Mocha Latte', description: 'Chocolate and espresso over ice.', price: '$3.50', image: null },
