@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Subcategory, SubcategoryDrink } from '../data/subcategories'
+import CurrencyToggle from './CurrencyToggle'
+import { useCurrency } from '../hooks/useCurrency'
+import type { Currency } from '../hooks/useCurrency'
 
 export interface CategoryTheme {
   bgGradient: string
@@ -219,6 +222,8 @@ export default function CategoryListPage({
 
 // ─── Drink popup modal ────────────�����───────────────────────────────────��──────
 function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: CategoryTheme; onClose: () => void }) {
+  const { currency, toggle } = useCurrency('USD')
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -267,10 +272,15 @@ function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: Category
           </button>
         </div>
 
+        {/* Currency toggle — above drink list */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', flexShrink: 0 }}>
+          <CurrencyToggle currency={currency} onToggle={toggle} />
+        </div>
+
         {/* Drink list */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(12px,1.8vh,18px)' }}>
           {sub.drinks.map((drink, i) => (
-            <DrinkCard key={drink.name} drink={drink} sub={sub} theme={theme} index={i} />
+            <DrinkCard key={drink.name} drink={drink} sub={sub} theme={theme} index={i} currency={currency} />
           ))}
         </div>
       </motion.div>
@@ -279,7 +289,10 @@ function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: Category
 }
 
 // ─── Price sticky note ────────────────────────────────────────────────────────
-function PriceStickyNote({ price }: { price: string }) {
+function PriceStickyNote({ price, lbpPrice, currency }: { price: string; lbpPrice: string; currency: Currency }) {
+  const displayedPrice = currency === 'USD' ? price : lbpPrice
+  const isLBP = currency === 'LBP'
+
   return (
     <div style={{ position: 'relative', flexShrink: 0, transform: 'rotate(3deg)', transformOrigin: 'center top' }}>
       {/* Tape strip */}
@@ -293,27 +306,40 @@ function PriceStickyNote({ price }: { price: string }) {
         boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
       }} />
       {/* Note paper */}
-      <div style={{
-        minWidth: 'clamp(52px,8vw,68px)',
-        padding: 'clamp(12px,1.6vw,16px) clamp(12px,1.8vw,18px)',
-        background: 'linear-gradient(155deg, #ffe994, #fcd968)',
-        color: '#3a2c0c',
-        borderRadius: 3,
-        boxShadow: '0 8px 16px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.5)',
-        textAlign: 'center',
-        fontFamily: '"Georgia", "Times New Roman", serif',
-        fontStyle: 'italic',
-        fontWeight: 800,
-        fontSize: 'clamp(17px,2vw,24px)',
-        letterSpacing: '-0.02em',
-        lineHeight: 1,
-      }}>{price}</div>
+      <motion.div
+        key={currency}
+        initial={{ rotateY: 90, opacity: 0, scale: 0.85 }}
+        animate={{ rotateY: 0, opacity: 1, scale: 1 }}
+        transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          minWidth: isLBP ? 'clamp(100px,14vw,140px)' : 'clamp(52px,8vw,68px)',
+          padding: isLBP
+            ? 'clamp(10px,1.4vw,14px) clamp(10px,1.6vw,14px)'
+            : 'clamp(12px,1.6vw,16px) clamp(12px,1.8vw,18px)',
+          background: isLBP
+            ? 'linear-gradient(155deg, #fff5b0, #f5e04a)'
+            : 'linear-gradient(155deg, #ffe994, #fcd968)',
+          color: '#3a2c0c',
+          borderRadius: 3,
+          boxShadow: '0 8px 16px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.5)',
+          textAlign: 'center',
+          fontFamily: '"Georgia", "Times New Roman", serif',
+          fontStyle: 'italic',
+          fontWeight: 800,
+          fontSize: isLBP ? 'clamp(11px,1.3vw,15px)' : 'clamp(17px,2vw,24px)',
+          letterSpacing: '-0.02em',
+          lineHeight: 1.2,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {displayedPrice}
+      </motion.div>
     </div>
   )
 }
 
 // ─── Individual drink card ────────────────────────────────────────────────────
-function DrinkCard({ drink, index }: { drink: SubcategoryDrink; sub: Subcategory; theme: CategoryTheme; index: number }) {
+function DrinkCard({ drink, index, currency }: { drink: SubcategoryDrink; sub: Subcategory; theme: CategoryTheme; index: number; currency: Currency }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -342,7 +368,7 @@ function DrinkCard({ drink, index }: { drink: SubcategoryDrink; sub: Subcategory
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
         }}>
           {drink.image ? (
-            <img src={drink.image} alt={drink.name} draggable={false} crossOrigin="anonymous"
+            <img src={drink.image} alt={drink.name} draggable={false}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
@@ -361,7 +387,7 @@ function DrinkCard({ drink, index }: { drink: SubcategoryDrink; sub: Subcategory
         }}>{drink.name}</h4>
 
         {/* Price sticky note */}
-        <PriceStickyNote price={drink.price} />
+        <PriceStickyNote price={drink.price} lbpPrice={drink.lbpPrice} currency={currency} />
       </div>
     </motion.div>
   )

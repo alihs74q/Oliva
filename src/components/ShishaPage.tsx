@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion'
 import OlivaLogo from './OlivaLogo'
 import { shishaItems } from '../data/shisha'
+import CurrencyToggle from './CurrencyToggle'
+import { useCurrency } from '../hooks/useCurrency'
+import type { Currency } from '../hooks/useCurrency'
 
 type NavRoute = 'home' | 'menu' | 'cold-drinks' | 'desserts' | 'hot-drinks' | 'shisha' | 'shisha-list'
 
@@ -19,7 +22,8 @@ function ImagePlaceholder() {
   )
 }
 
-function ShishaCard({ item, index }: { item: typeof shishaItems[number]; index: number }) {
+function ShishaCard({ item, index, currency }: { item: typeof shishaItems[number]; index: number; currency: Currency }) {
+  const displayedPrice = currency === 'USD' ? item.price : item.lbpPrice
   return (
     <motion.div
       initial={{ opacity: 0, y: 22, filter: 'blur(6px)' }}
@@ -50,7 +54,7 @@ function ShishaCard({ item, index }: { item: typeof shishaItems[number]; index: 
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         {item.image
-          ? <img src={item.image} alt={item.name} draggable={false} crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ? <img src={item.image} alt={item.name} draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           : <ImagePlaceholder />}
       </div>
       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -58,19 +62,21 @@ function ShishaCard({ item, index }: { item: typeof shishaItems[number]; index: 
         <p style={{ margin: 0, fontSize: 'clamp(11px,1vw,13px)', color: 'rgba(0,0,0,0.5)', lineHeight: 1.45 }}>{item.description}</p>
       </div>
       <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: EASE, delay: index * 0.1 + 0.22 }}
-        style={{ margin: 0, flexShrink: 0, fontSize: 'clamp(20px,2.4vw,30px)', fontWeight: 900, color: item.priceColor, letterSpacing: '-0.02em', lineHeight: 1, textShadow: `0 0 20px ${item.priceColor}55` }}
+        key={currency}
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.32, ease: EASE }}
+        style={{ margin: 0, flexShrink: 0, fontSize: currency === 'LBP' ? 'clamp(13px,1.6vw,18px)' : 'clamp(20px,2.4vw,30px)', fontWeight: 900, color: item.priceColor, letterSpacing: '-0.02em', lineHeight: 1, textShadow: `0 0 20px ${item.priceColor}55`, whiteSpace: 'nowrap' }}
       >
-        {item.price}
+        {displayedPrice}
       </motion.p>
     </motion.div>
   )
 }
 
 export default function ShishaPage({ navigate, onBack }: { navigate: (to: NavRoute) => void; onBack?: () => void }) {
+  const { currency, toggle } = useCurrency('USD')
+
   return (
     <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
 
@@ -143,16 +149,19 @@ export default function ShishaPage({ navigate, onBack }: { navigate: (to: NavRou
 
         {/* Products column */}
         <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <motion.p
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            style={{ margin: 0, flexShrink: 0, fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', color: 'rgba(0,0,0,0.38)', textTransform: 'uppercase' }}
-          >
-            Our Flavors
-          </motion.p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
+            <motion.p
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              style={{ margin: 0, fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', color: 'rgba(0,0,0,0.38)', textTransform: 'uppercase' }}
+            >
+              Our Flavors
+            </motion.p>
+            <CurrencyToggle currency={currency} onToggle={toggle} />
+          </div>
           <div className="sp-scroll" style={{ flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden', display: 'flex', flexDirection: 'column', gap: 'clamp(10px,1.8vh,16px)', paddingRight: 2 }}>
             {shishaItems.map((item, i) => (
-              <ShishaCard key={item.id} item={item} index={i} />
+              <ShishaCard key={item.id} item={item} index={i} currency={currency} />
             ))}
             <div style={{ height: 8, flexShrink: 0 }} />
           </div>

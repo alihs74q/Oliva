@@ -11,6 +11,7 @@ export interface HotDrink {
   shortName: string    // short word for the giant background text inside the panel
   description: string
   price: string
+  lbpPrice: string
   image: string | null // null = placeholder; replace with "/your-image.png" or a URL
   themeColor: string   // hex — used as the blended tint over the background photo
   flavors: string[]    // available flavor options shown in the Choose Flavor strip
@@ -26,6 +27,7 @@ export const hotDrinks: HotDrink[] = [
     shortName: 'LATTE',
     description: 'Smooth espresso with silky steamed milk.',
     price: '$3',
+    lbpPrice: '300,000 LBP',
     image: null,
     themeColor: '#7a4820',
     flavors: ['Vanilla', 'Hazelnut'],
@@ -35,6 +37,7 @@ export const hotDrinks: HotDrink[] = [
     shortName: 'CHOCOLATE',
     description: 'Rich dark cocoa with steamed milk and a touch of cream.',
     price: '$3',
+    lbpPrice: '300,000 LBP',
     image: null,
     themeColor: '#3b1208',
     flavors: ['Dark', 'Milk', 'White'],
@@ -44,6 +47,7 @@ export const hotDrinks: HotDrink[] = [
     shortName: 'CAPPUCCINO',
     description: 'Velvety microfoam over a double espresso shot.',
     price: '$3',
+    lbpPrice: '300,000 LBP',
     image: null,
     themeColor: '#6b3010',
     flavors: ['Classic', 'Wet', 'Dry'],
@@ -53,6 +57,7 @@ export const hotDrinks: HotDrink[] = [
     shortName: 'ESPRESSO',
     description: 'Rich single-origin shot, bold and intensely aromatic.',
     price: '$1.50',
+    lbpPrice: '100,000 LBP',
     image: null,
     themeColor: '#2a1000',
     flavors: ['Single Shot', 'Double Shot', 'Ristretto'],
@@ -62,6 +67,7 @@ export const hotDrinks: HotDrink[] = [
     shortName: 'TEA',
     description: 'Fresh garden tea leaves steeped to perfection.',
     price: '$1.50',
+    lbpPrice: '100,000 LBP',
     image: null,
     themeColor: '#0e3018',
     flavors: ['Black', 'Green', 'Mint'],
@@ -71,6 +77,7 @@ export const hotDrinks: HotDrink[] = [
     shortName: 'GINGER',
     description: 'Warm ginger with soothing honey.',
     price: '$1.50',
+    lbpPrice: '150,000 LBP',
     image: null,
     themeColor: '#8B4513',
     flavors: ['Fresh Ginger', 'Ginger & Lemon', 'Honey Ginger'],
@@ -80,6 +87,7 @@ export const hotDrinks: HotDrink[] = [
     shortName: 'CHAMOMILE',
     description: 'Relaxing chamomile flowers steeped to calm.',
     price: '$1.50',
+    lbpPrice: '150,000 LBP',
     image: null,
     themeColor: '#DAA520',
     flavors: ['Pure Chamomile', 'Chamomile & Honey', 'Chamomile & Mint'],
@@ -89,6 +97,7 @@ export const hotDrinks: HotDrink[] = [
     shortName: 'GREEN',
     description: 'Fresh green tea with natural antioxidants.',
     price: '$1.50',
+    lbpPrice: '150,000 LBP',
     image: null,
     themeColor: '#2D5016',
     flavors: ['Pure Green', 'Green & Jasmine', 'Green & Honey'],
