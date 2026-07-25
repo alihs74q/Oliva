@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import type { CategoryTheme } from './CategoryListPage'
+import CurrencyToggle from './CurrencyToggle'
+import { useCurrency } from '../hooks/useCurrency'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
@@ -7,15 +9,16 @@ interface PadelItem {
   title: string
   description: string
   price: string
+  lbpPrice: string
   image: string
 }
 
 const PADEL_ITEMS: PadelItem[] = [
-  { title: '1H Court', description: 'Full hour of play', price: '$20', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9vR3KMaQrDDBQVuX3Ksa5fIbkllRIY.png' },
-  { title: '1.5H Court', description: 'Extended playtime', price: '$30', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bnWlzxcRfj4wXowKGA3LnfM1trFRSt.png' },
-  { title: '1H Coaching', description: 'Professional lessons', price: '$30', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EmI7Im7lNY0MMRPuj1rn3rtLqw3ZsD.png' },
-  { title: 'Grip', description: 'Premium quality', price: '$5', image: 'https://images.pexels.com/photos/3808506/pexels-photo-3808506.jpeg?auto=compress&cs=tinysrgb&w=400' },
-  { title: 'Ball Set', description: '3 professional balls', price: '$9.99', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-tASZy37aAXZT8QHk1CUzw40vUE2xQy.png' },
+  { title: '1H Court', description: 'Full hour of play', price: '$20', lbpPrice: '1,800,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9vR3KMaQrDDBQVuX3Ksa5fIbkllRIY.png' },
+  { title: '1.5H Court', description: 'Extended playtime', price: '$30', lbpPrice: '2,700,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bnWlzxcRfj4wXowKGA3LnfM1trFRSt.png' },
+  { title: '1H Coaching', description: 'Professional lessons', price: '$30', lbpPrice: '2,700,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EmI7Im7lNY0MMRPuj1rn3rtLqw3ZsD.png' },
+  { title: 'Grip', description: 'Premium quality', price: '$5', lbpPrice: '450,000 LBP', image: 'https://images.pexels.com/photos/3808506/pexels-photo-3808506.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { title: 'Ball Set', description: '3 professional balls', price: '$9.99', lbpPrice: '900,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-tASZy37aAXZT8QHk1CUzw40vUE2xQy.png' },
 ]
 
 export default function PadelPage({
@@ -24,6 +27,8 @@ export default function PadelPage({
   theme: CategoryTheme
   onBack: () => void
 }) {
+  const { currency, toggle } = useCurrency('USD')
+
   return (
     <div style={{
       position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column',
@@ -32,7 +37,7 @@ export default function PadelPage({
       {/* Nav */}
       <nav style={{
         position: 'relative', zIndex: 10, height: 68, flexShrink: 0,
-        display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 clamp(16px,4vw,40px)',
       }}>
         <button onClick={onBack}
@@ -51,6 +56,7 @@ export default function PadelPage({
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           BACK
         </button>
+        <CurrencyToggle currency={currency} onToggle={toggle} />
       </nav>
 
       {/* Scrollable content */}
@@ -200,15 +206,22 @@ export default function PadelPage({
                       {item.description}
                     </p>
                   </div>
-                  <p style={{
-                    margin: 0,
-                    fontSize: 'clamp(28px, 5vw, 36px)',
-                    fontWeight: 900,
-                    color: theme.accent,
-                    letterSpacing: '-0.02em',
-                  }}>
-                    {item.price}
-                  </p>
+                  <motion.p
+                    key={currency}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    style={{
+                      margin: 0,
+                      fontSize: currency === 'LBP' ? 'clamp(14px, 2vw, 18px)' : 'clamp(28px, 5vw, 36px)',
+                      fontWeight: 900,
+                      color: theme.accent,
+                      letterSpacing: '-0.02em',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {currency === 'USD' ? item.price : item.lbpPrice}
+                  </motion.p>
                 </div>
 
                 {/* Right side: Image */}

@@ -11,6 +11,7 @@ export interface ColdDrink {
   shortName: string    // short word for the giant background text inside the panel
   description: string
   price: string
+  lbpPrice: string
   image: string | null // null = placeholder; replace with "/your-image.png" or a URL
   themeColor: string   // hex — used as the blended tint over the background photo
   flavors: string[]    // available flavor options shown in the Choose Flavor strip
@@ -26,6 +27,7 @@ export const coldDrinks: ColdDrink[] = [
     shortName: 'SPANISH',
     description: 'Condensed milk sweetness over iced espresso.',
     price: '$3.50',
+    lbpPrice: '400,000 LBP',
     image: null,
     themeColor: '#0d2240',
     flavors: ['Classic'],
@@ -35,6 +37,7 @@ export const coldDrinks: ColdDrink[] = [
     shortName: 'MOCHA',
     description: 'Chocolate and espresso over ice.',
     price: '$3.50',
+    lbpPrice: '400,000 LBP',
     image: null,
     themeColor: '#15102a',
     flavors: ['Dark Chocolate', 'Milk Chocolate'],
@@ -44,6 +47,7 @@ export const coldDrinks: ColdDrink[] = [
     shortName: 'LATTE',
     description: 'Choose your favorite flavor over ice.',
     price: '$3.50',
+    lbpPrice: '300,000 LBP',
     image: null,
     themeColor: '#0e1f35',
     flavors: ['Vanilla', 'Hazelnut', 'Salted Caramel'],
@@ -53,6 +57,7 @@ export const coldDrinks: ColdDrink[] = [
     shortName: 'IRISH',
     description: 'Irish cream flavor over iced espresso.',
     price: '$3.50',
+    lbpPrice: '300,000 LBP',
     image: null,
     themeColor: '#1a1208',
     flavors: ['Classic'],
@@ -62,6 +67,7 @@ export const coldDrinks: ColdDrink[] = [
     shortName: 'MACCHIATO',
     description: 'Vanilla and caramel over iced espresso.',
     price: '$3.50',
+    lbpPrice: '300,000 LBP',
     image: null,
     themeColor: '#2a1c08',
     flavors: ['Classic'],
@@ -71,6 +77,7 @@ export const coldDrinks: ColdDrink[] = [
     shortName: 'MATCHA',
     description: 'Stone-ground matcha whisked with cold milk.',
     price: '$4',
+    lbpPrice: '350,000 LBP',
     image: null,
     themeColor: '#09261a',
     flavors: ['Oat Milk', 'Almond Milk', 'Regular Milk'],
