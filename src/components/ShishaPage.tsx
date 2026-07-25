@@ -54,7 +54,7 @@ function ShishaCard({ item, index, currency }: { item: typeof shishaItems[number
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         {item.image
-          ? <img src={item.image} alt={item.name} draggable={false} crossOrigin="anonymous" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ? <img src={item.image} alt={item.name} draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           : <ImagePlaceholder />}
       </div>
       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>

@@ -368,7 +368,7 @@ function DrinkCard({ drink, index, currency }: { drink: SubcategoryDrink; sub: S
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
         }}>
           {drink.image ? (
-            <img src={drink.image} alt={drink.name} draggable={false} crossOrigin="anonymous"
+            <img src={drink.image} alt={drink.name} draggable={false}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
