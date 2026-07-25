@@ -124,6 +124,7 @@ export const dessertsSubcategories: Subcategory[] = [
     description: 'Freshly baked indulgence',
     themeColor: '#92400e',
     accentColor: '#fcd34d',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-K6gUgR7LVIQfqfrhFECCbnXU5OSVjR.png',
     drinks: [
       { name: 'Lazy Cake', description: 'No-bake indulgence with layers of flavor.', price: '$3.50', lbpPrice: '300,000 LBP', image: null },
       { name: 'Fondant', description: 'Warm chocolate center with delicious fondant.', price: '$5', lbpPrice: '450,000 LBP', image: null },
@@ -136,6 +137,7 @@ export const dessertsSubcategories: Subcategory[] = [
     description: 'Creamy and decadent',
     themeColor: '#be185d',
     accentColor: '#f9a8d4',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Ho4AfGQ6PkQIz94Fxt02tPMtoALL1m.png',
     drinks: [
       { name: 'Oreo Cheesecake', description: 'Creamy cheesecake with Oreo cookie crumble.', price: '$5', lbpPrice: '450,000 LBP', image: null },
       { name: 'Raspberry Cheesecake', description: 'Smooth cheesecake with fresh raspberry sauce.', price: '$5', lbpPrice: '450,000 LBP', image: null },
@@ -147,6 +149,7 @@ export const dessertsSubcategories: Subcategory[] = [
     description: 'Buttery and flaky',
     themeColor: '#15803d',
     accentColor: '#86efac',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8MQK5OawVbs0geKzCztMYmAE5FVBsZ.png',
     drinks: [
       { name: 'Vanilla Mushroom Muffin', description: 'Soft vanilla muffin with mushroom top.', price: '$4', lbpPrice: '350,000 LBP', image: null },
       { name: 'Chocolate Mushroom Muffin', description: 'Rich chocolate muffin with mushroom crown.', price: '$4', lbpPrice: '350,000 LBP', image: null },
