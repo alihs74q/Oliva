@@ -16,6 +16,7 @@ export interface Dessert {
   shortName: string
   description: string
   price: string
+  lbpPrice: string
   image: string | null
   themeColor: string
   flavors: string[]    // available flavor options shown in the Choose Flavor strip
@@ -27,6 +28,7 @@ export const desserts: Dessert[] = [
     shortName: 'LAZY',
     description: 'No-bake indulgence with layers of flavor.',
     price: '$3.50',
+    lbpPrice: '300,000 LBP',
     image: null,
     themeColor: '#5C3220',
     flavors: ['Classic', 'Extra Chocolate', 'With Nuts'],
@@ -36,6 +38,7 @@ export const desserts: Dessert[] = [
     shortName: 'FONDANT',
     description: 'Warm chocolate center with delicious fondant.',
     price: '$5',
+    lbpPrice: '450,000 LBP',
     image: null,
     themeColor: '#3B2414',
     flavors: ['Dark Chocolate', 'Milk Chocolate', 'White Chocolate'],
@@ -45,6 +48,7 @@ export const desserts: Dessert[] = [
     shortName: 'OREO',
     description: 'Creamy cheesecake with Oreo cookie crumble.',
     price: '$5',
+    lbpPrice: '450,000 LBP',
     image: null,
     themeColor: '#1C1C1C',
     flavors: ['Classic Oreo', 'Double Oreo', 'Oreo & Vanilla'],
@@ -54,6 +58,7 @@ export const desserts: Dessert[] = [
     shortName: 'RASPBERRY',
     description: 'Smooth cheesecake with fresh raspberry sauce.',
     price: '$5',
+    lbpPrice: '450,000 LBP',
     image: null,
     themeColor: '#A81C4D',
     flavors: ['Fresh Raspberry', 'Raspberry & Vanilla', 'Triple Berry'],
@@ -63,6 +68,7 @@ export const desserts: Dessert[] = [
     shortName: 'CHOCO',
     description: 'Rich dark chocolate cake perfection.',
     price: '$5',
+    lbpPrice: '450,000 LBP',
     image: null,
     themeColor: '#3D2817',
     flavors: ['Dark Chocolate', 'Milk Chocolate', 'With Ganache'],
@@ -72,6 +78,7 @@ export const desserts: Dessert[] = [
     shortName: 'VANILLA',
     description: 'Soft vanilla muffin with mushroom top.',
     price: '$4',
+    lbpPrice: '350,000 LBP',
     image: null,
     themeColor: '#C9B287',
     flavors: ['Pure Vanilla', 'Vanilla & Chocolate Chips', 'Vanilla & Berry'],
@@ -81,6 +88,7 @@ export const desserts: Dessert[] = [
     shortName: 'CHOCO',
     description: 'Rich chocolate muffin with mushroom crown.',
     price: '$4',
+    lbpPrice: '350,000 LBP',
     image: null,
     themeColor: '#6B4423',
     flavors: ['Dark Chocolate', 'Chocolate & Hazelnut', 'Chocolate & Almond'],
@@ -90,6 +98,7 @@ export const desserts: Dessert[] = [
     shortName: 'CROISSANT',
     description: 'Flaky French-style croissant, baked fresh daily.',
     price: '$3',
+    lbpPrice: '250,000 LBP',
     image: null,
     themeColor: '#D4A373',
     flavors: ['Plain', 'Chocolate', 'Almond'],

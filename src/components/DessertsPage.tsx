@@ -7,6 +7,9 @@ import {
 import { desserts, type Dessert } from '../data/desserts'
 import OlivaLogo from './OlivaLogo'
 import FlavorPicker from './FlavorPicker'
+import CurrencyToggle from './CurrencyToggle'
+import { useCurrency } from '../hooks/useCurrency'
+import type { Currency } from '../hooks/useCurrency'
 
 type View = 'hero' | 'all'
 type NavRoute = 'home' | 'menu' | 'cold-drinks' | 'desserts'
@@ -93,8 +96,8 @@ function ChocoWave({ color, flip, heightPct }: { color: string; flip?: boolean; 
 }
 
 // ─── Product panel (one dissolve unit) ───────────────────────────────────────
-function ProductPanel({ dessert, dir, reducedMotion }: {
-  dessert: Dessert; dir: number; reducedMotion: boolean
+function ProductPanel({ dessert, dir, reducedMotion, currency }: {
+  dessert: Dessert; dir: number; reducedMotion: boolean; currency: Currency
 }) {
   const variants = reducedMotion ? dissolveVReduced : dissolveV
   const dark = shade(dessert.themeColor, -12)
@@ -158,17 +161,25 @@ function ProductPanel({ dessert, dir, reducedMotion }: {
             <div style={{ position: 'absolute', inset: '12%', borderRadius: '50%', background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,0.4) 0%, transparent 55%)', pointerEvents: 'none' }} />
           )}
           {/* Price badge */}
-          <div style={{
-            position: 'absolute', top: dessert.image ? '2%' : '4%', right: dessert.image ? '2%' : '4%', zIndex: 8,
-            padding: 'clamp(7px,1vw,11px) clamp(12px,1.6vw,18px)',
-            borderRadius: 999,
-            background: 'rgba(255,248,236,0.97)',
-            border: `1.5px solid ${rgba(dark, 0.35)}`,
-            boxShadow: '0 8px 22px rgba(60,30,12,0.28)',
-            fontSize: 'clamp(15px,2vw,24px)', fontWeight: 800,
-            color: dessert.themeColor, letterSpacing: '-0.01em',
-            lineHeight: 1, whiteSpace: 'nowrap',
-          }}>{dessert.price}</div>
+          <motion.div
+            key={currency}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: 'absolute', top: dessert.image ? '2%' : '4%', right: dessert.image ? '2%' : '4%', zIndex: 8,
+              padding: currency === 'LBP' ? 'clamp(5px,0.8vw,9px) clamp(8px,1.2vw,12px)' : 'clamp(7px,1vw,11px) clamp(12px,1.6vw,18px)',
+              borderRadius: 999,
+              background: 'rgba(255,248,236,0.97)',
+              border: `1.5px solid ${rgba(dark, 0.35)}`,
+              boxShadow: '0 8px 22px rgba(60,30,12,0.28)',
+              fontSize: currency === 'LBP' ? 'clamp(11px,1.3vw,15px)' : 'clamp(15px,2vw,24px)', fontWeight: 800,
+              color: dessert.themeColor, letterSpacing: '-0.01em',
+              lineHeight: 1, whiteSpace: 'nowrap',
+            }}
+          >
+            {currency === 'USD' ? dessert.price : dessert.lbpPrice}
+          </motion.div>
           {dessert.image && (
             <img src={dessert.image} alt={dessert.name} draggable={false}
               style={{
@@ -248,11 +259,12 @@ function Dots({ total, active, onDot, tone }: { total: number; active: number; o
 
 // ─── Hero view ────────────────────────────────────────────────────────────────
 function HeroView({
-  idx, dir, locked, reducedMotion, tone,
+  idx, dir, locked, reducedMotion, tone, currency, onCurrencyToggle,
   onPrev, onNext, onDot, onShowAll, onPointerDown,
 }: {
   idx: number; dir: number; locked: boolean; reducedMotion: boolean
   tone: { bg: string; fg: string }
+  currency: Currency; onCurrencyToggle: () => void
   onPrev: () => void; onNext: () => void; onDot: (i: number) => void; onShowAll: () => void
   onPointerDown: (e: React.PointerEvent) => void
 }) {
@@ -261,11 +273,16 @@ function HeroView({
       transition={{ duration: 0.5, ease: CINEMATIC }}
       style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column' }}
     >
+      {/* Currency toggle — top-right of the hero content area */}
+      <div style={{ position: 'absolute', top: 12, right: 'clamp(60px,8vw,90px)', zIndex: 25, pointerEvents: 'all' }}>
+        <CurrencyToggle currency={currency} onToggle={onCurrencyToggle} />
+      </div>
+
       <div style={{ flex: 1, position: 'relative', overflow: 'hidden', touchAction: 'pan-y' }}
         onPointerDown={onPointerDown}
       >
         <AnimatePresence custom={dir} mode="sync">
-          <ProductPanel key={idx} dessert={desserts[idx]} dir={dir} reducedMotion={reducedMotion} />
+          <ProductPanel key={idx} dessert={desserts[idx]} dir={dir} reducedMotion={reducedMotion} currency={currency} />
         </AnimatePresence>
         <ArrowBtn dir="left" onClick={onPrev} disabled={locked} tone={tone} />
         <ArrowBtn dir="right" onClick={onNext} disabled={locked} tone={tone} />
@@ -454,6 +471,7 @@ function AllDessertsView({ initialIdx, onSelect, onBack, tone }: {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function DessertsPage({ navigate, onBack, initialSlug }: { navigate: (to: NavRoute) => void; onBack?: () => void; initialSlug?: string }) {
+  const { currency, toggle: toggleCurrency } = useCurrency('USD')
   const [view, setView] = useState<View>('hero')
   const [heroIdx, setHeroIdx] = useState(() => {
     if (!initialSlug) return 0
@@ -596,6 +614,7 @@ export default function DessertsPage({ navigate, onBack, initialSlug }: { naviga
         <AnimatePresence mode="wait">
           {view === 'hero' ? (
             <HeroView key="hero" idx={heroIdx} dir={dir} locked={locked} reducedMotion={reducedMotion.current} tone={tone}
+              currency={currency} onCurrencyToggle={toggleCurrency}
               onPrev={() => paginate(-1)} onNext={() => paginate(1)} onDot={goTo}
               onShowAll={() => { setAllInit(heroIdx); setView('all') }}
               onPointerDown={onPD}

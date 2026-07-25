@@ -11,6 +11,7 @@ export interface ShishaItem {
   shortName: string
   description: string
   price: string
+  lbpPrice: string
   priceColor: string
   image: string | null
   themeColor: string
@@ -28,6 +29,7 @@ export const shishaItems: ShishaItem[] = [
     shortName: 'MINT',
     description: 'Crisp lemon with cooling mint leaves.',
     price: '$5.50',
+    lbpPrice: '500,000 LBP',
     priceColor: '#A4C639',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png',
     themeColor: '#657B52',
@@ -39,6 +41,7 @@ export const shishaItems: ShishaItem[] = [
     shortName: 'APPLE',
     description: 'Classic dual apple flavor, sweet and smooth.',
     price: '$5.50',
+    lbpPrice: '500,000 LBP',
     priceColor: '#C62828',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png',
     themeColor: '#2a0e0e',
@@ -50,6 +53,7 @@ export const shishaItems: ShishaItem[] = [
     shortName: 'GRAPE',
     description: 'Rich and sweet grape flavor.',
     price: '$5.50',
+    lbpPrice: '500,000 LBP',
     priceColor: '#6F42C1',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png',
     themeColor: '#3a1a4a',
@@ -61,6 +65,7 @@ export const shishaItems: ShishaItem[] = [
     shortName: 'TANBAK',
     description: 'Strong traditional tobacco flavor.',
     price: '$7.50',
+    lbpPrice: '700,000 LBP',
     priceColor: '#8D6E63',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png',
     themeColor: '#1a1008',

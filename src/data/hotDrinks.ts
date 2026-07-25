@@ -11,6 +11,7 @@ export interface HotDrink {
   shortName: string    // short word for the giant background text inside the panel
   description: string
   price: string
+  lbpPrice: string
   image: string | null // null = placeholder; replace with "/your-image.png" or a URL
   themeColor: string   // hex — used as the blended tint over the background photo
   flavors: string[]    // available flavor options shown in the Choose Flavor strip
