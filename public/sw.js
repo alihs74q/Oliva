@@ -83,6 +83,8 @@ const IMAGE_URLS = [
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-5rt87GEZDjmTtPCUeSwUExpuGr1KmZ.png', // Kiwi Mojito
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hyEo5w3I433kY7LhTcXbkS1hPiqjYB.png', // Passion Crush
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-o91obZpOJCEwAWMd9n8anVLDsKXoqt.png', // Summer Mix
+  // Shisha - Hero image
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-awRUXZgCUaSRd5LnoYKBVKhnE9Z36Z.png', // Luxury gold shisha hookah
 ];
 
 // ─── HELPERS ────────────────────────────────
