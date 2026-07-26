@@ -52,7 +52,24 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
       minHeight: '100svh', padding: 'clamp(80px,12vh,120px) clamp(16px,4vw,40px) clamp(40px,6vh,80px)',
       background: 'linear-gradient(160deg,#1a2e1a,#0f1f0f 50%,#0a140a)',
       display: 'flex', flexDirection: 'column', alignItems: 'center',
+      position: 'relative', overflow: 'hidden',
     }}>
+      {/* Olive branch decoration — right side, subtle & non-intrusive */}
+      <img
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-iFF9ooBWYdhI40ckFZU0ND7k0YIywp.png"
+        alt="Olive branch decoration"
+        style={{
+          position: 'absolute',
+          right: 'clamp(-20px, -5vw, 60px)',
+          top: 'clamp(140px, 15vh, 280px)',
+          width: 'clamp(280px, 35vw, 500px)',
+          height: 'auto',
+          opacity: 0.7,
+          pointerEvents: 'none',
+          zIndex: 1,
+          filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))',
+        }}
+      />
       {/* Back */}
       {onBack && (
         <button onClick={onBack} style={{
@@ -85,6 +102,7 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
         width: '100%', maxWidth: 960,
         display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
         gap: 'clamp(16px,2.5vw,24px)',
+        position: 'relative', zIndex: 10,
       }}>
         {CARDS.map((card, i) => (
           <motion.button
