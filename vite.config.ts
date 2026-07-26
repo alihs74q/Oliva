@@ -7,19 +7,12 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      // autoUpdate: when the browser detects the SW file has changed it
-      // activates the new version immediately. Combined with skipWaiting()
-      // in sw.js, users always get the latest design on the next page load.
       registerType: 'autoUpdate',
-      // Use our hand-written sw.js without any Workbox injection.
-      // vite-plugin-pwa copies it to dist/ and registers it automatically.
-      strategies: 'injectManifest',
-      srcDir: 'public',
-      filename: 'sw.js',
-      injectRegister: 'auto',
-      injectManifest: {
-        // Don't inject __WB_MANIFEST — our SW doesn't use Workbox precaching
-        injectionPoint: undefined,
+      injectRegister: 'script',
+      // Use our custom hand-written sw.js from public/ — Vite serves it as-is
+      // in dev and copies it to dist/ in production.
+      devOptions: {
+        enabled: false,
       },
       manifest: {
         name: 'Oliva — Padel & Café',
