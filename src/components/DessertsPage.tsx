@@ -10,7 +10,7 @@ import FlavorPicker from './FlavorPicker'
 import CurrencyToggle from './CurrencyToggle'
 import { useCurrency } from '../hooks/useCurrency'
 import type { Currency } from '../hooks/useCurrency'
-import OptimizedImage from './OptimizedImage'
+
 
 type View = 'hero' | 'all'
 type NavRoute = 'home' | 'menu' | 'cold-drinks' | 'desserts'
@@ -182,7 +182,7 @@ function ProductPanel({ dessert, dir, reducedMotion, currency }: {
             {currency === 'USD' ? dessert.price : dessert.lbpPrice}
           </motion.div>
           {dessert.image && (
-            <OptimizedImage
+            <img
               src={dessert.image}
               alt={dessert.name}
               draggable={false}
@@ -328,7 +328,7 @@ function DessertCard({ dessert, dist, cardW, cardH, onClick }: {
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '26px 22px 14px', position: 'relative' }}>
         {!dessert.image && <div style={{ position: 'absolute', inset: '18px', borderRadius: '50% 50% 46% 54% / 54% 48% 52% 46%', background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,0.35) 0%, transparent 60%)', pointerEvents: 'none' }} />}
         {dessert.image && (
-          <OptimizedImage src={dessert.image} alt={dessert.name} draggable={false}
+          <img src={dessert.image} alt={dessert.name} draggable={false}
             style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', userSelect: 'none', filter: 'drop-shadow(0 10px 26px rgba(40,20,8,0.4))', position: 'relative', zIndex: 2 }} />
         )}
       </div>
