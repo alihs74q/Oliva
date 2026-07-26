@@ -63,6 +63,26 @@ const IMAGE_URLS = [
   // Desserts - Cakes
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9UXhz9OicC31LRDeCJeHhsIJN8Yshu.png', // Lazy Cake
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EL1k14PAkXovY7n1gx7fvPdYsbW1wh.png', // Chocolate Cake
+  // Cold Drinks - Frappés
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-BQDkBVR6vWGnbaHOj7SOW5NopJgyKD.png', // Mocha Frappe
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-DD355iO6F299UbnMlZ1HbkfhQNt4Sd.png', // Caramel Frappe
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Q3TPoUv7PqvQEPzIy7QPORCPPdjfeg.png', // Vanilla Frappe
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-V92sw4jPopFJUhY0I6CRopiMhJPd3z.png', // Toffee Nut Frappe
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bbYGextJha6eEyKhj4PdXN57IHwUl6.png', // Oliva Frappe
+  // Cold Drinks - Iced Latte
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-1A9jSkBMZQQTChO85ByHAFjMXR4xFl.png', // Iced Spanish Latte
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Rr4c9LxQmhblzgfiYOvwxMvOIKa6hl.png', // Iced Mocha Latte
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-xTfJ6LFapgpfO1LyhDQWMhHXu9DWu6.png', // Iced Latte (Vanilla, Hazelnut, Salted Caramel)
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9SNq0XJxkj4jDX9BPJYdhro9oBkYfR.png', // Irish Cream Latte
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EzCxMy5OY10OgFIMIO6yp3aNpJLNMS.png', // Caramel Macchiato
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-KEVrxkxgtVF8BYCASuyNzMyJQ9PKK0.png', // Iced Matcha Latte
+  // Cold Drinks - Refreshers
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bRQLbVsikSW2ZWnjqH1VSWWdS4xUdP.png', // Razzlychee Iced Tea
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7i5TcZR6dEALoXdeObmDp45KOg9wU4.png', // Tropical Iced Tea
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8HJ5G3p17tU3Vt5uYpASaP3IpI7Lac.png', // Peach Iced Tea
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-5rt87GEZDjmTtPCUeSwUExpuGr1KmZ.png', // Kiwi Mojito
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hyEo5w3I433kY7LhTcXbkS1hPiqjYB.png', // Passion Crush
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-o91obZpOJCEwAWMd9n8anVLDsKXoqt.png', // Summer Mix
 ];
 
 // ─── HELPERS ────────────────────────────────
