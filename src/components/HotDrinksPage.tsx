@@ -383,19 +383,20 @@ export default function HotDrinksPage({ navigate, onBack, initialSlug }: { navig
       {/* ── Background: white ────────────────────────────────────────────────── */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: '#ffffff' }} />
 
-      {/* Autumn branch decoration — left side, same style as cold drinks */}
+      {/* Autumn branch decoration — right side, visible on page */}
       <img
         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%286%29-N7yS0g2O0cSCxTIHeu8bSWdPNZDdAq.png"
         alt="Autumn branch decoration"
         style={{
           position: 'absolute',
-          left: 'clamp(-20px, -5vw, 60px)',
+          right: 'clamp(-20px, -5vw, 60px)',
           top: 'clamp(80px, 8vh, 180px)',
           width: 'clamp(280px, 35vw, 500px)',
           height: 'auto',
           opacity: 0.85,
           pointerEvents: 'none',
           zIndex: 11,
+          mixBlendMode: 'darken',
           filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))',
         }}
       />
