@@ -10,6 +10,7 @@ import FlavorPicker from './FlavorPicker'
 import CurrencyToggle from './CurrencyToggle'
 import { useCurrency } from '../hooks/useCurrency'
 import type { Currency } from '../hooks/useCurrency'
+import OptimizedImage from './OptimizedImage'
 
 type View = 'hero' | 'all'
 type NavRoute = 'home' | 'menu' | 'cold-drinks' | 'desserts'
@@ -181,7 +182,10 @@ function ProductPanel({ dessert, dir, reducedMotion, currency }: {
             {currency === 'USD' ? dessert.price : dessert.lbpPrice}
           </motion.div>
           {dessert.image && (
-            <img src={dessert.image} alt={dessert.name} draggable={false}
+            <OptimizedImage
+              src={dessert.image}
+              alt={dessert.name}
+              draggable={false}
               style={{
                 width: '100%', height: '100%',
                 objectFit: 'contain',
