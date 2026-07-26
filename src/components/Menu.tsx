@@ -61,7 +61,7 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
         style={{
           position: 'absolute',
           right: 'clamp(-20px, -5vw, 60px)',
-          top: 'clamp(140px, 15vh, 280px)',
+          top: 'clamp(80px, 8vh, 180px)',
           width: 'clamp(280px, 35vw, 500px)',
           height: 'auto',
           opacity: 0.85,
