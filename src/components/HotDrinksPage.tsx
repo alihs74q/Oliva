@@ -395,8 +395,7 @@ export default function HotDrinksPage({ navigate, onBack, initialSlug }: { navig
           height: 'auto',
           opacity: 0.85,
           pointerEvents: 'none',
-          zIndex: 1,
-          mixBlendMode: 'darken',
+          zIndex: 11,
           filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))',
         }}
       />
