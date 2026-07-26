@@ -389,15 +389,15 @@ export default function HotDrinksPage({ navigate, onBack, initialSlug }: { navig
         alt="Autumn branch decoration"
         style={{
           position: 'absolute',
-          left: 'clamp(-20px, -5vw, 60px)',
-          top: 'clamp(80px, 8vh, 180px)',
-          width: 'clamp(280px, 35vw, 500px)',
+          left: 'clamp(-80px, -3vw, 40px)',
+          top: 'clamp(100px, 10vh, 200px)',
+          width: 'clamp(320px, 40vw, 550px)',
           height: 'auto',
-          opacity: 0.85,
+          opacity: 0.8,
           pointerEvents: 'none',
-          zIndex: 1,
-          mixBlendMode: 'darken',
-          filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.15))',
+          zIndex: 5,
+          mixBlendMode: 'multiply',
+          filter: 'drop-shadow(0 8px 20px rgba(0,0,0,0.1))',
         }}
       />
 
