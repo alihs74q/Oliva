@@ -56,7 +56,7 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
     }}>
       {/* Olive branch decoration — right side, subtle & non-intrusive */}
       <img
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-iFF9ooBWYdhI40ckFZU0ND7k0YIywp.png"
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%285%29-I4zRXdmd0oQXqKRice8ElgxI5yEMtN.png"
         alt="Olive branch decoration"
         style={{
           position: 'absolute',
