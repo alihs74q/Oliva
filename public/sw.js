@@ -1,33 +1,39 @@
-const CACHE_NAME = 'oliva-v1';
-const IMAGE_CACHE = 'oliva-images-v1';
-const URLS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-];
+// ─────────────────────────────────────────────
+//  OLIVA SERVICE WORKER  –  v4
+//  Bump this version string every deployment so
+//  users always get the latest design/code.
+// ─────────────────────────────────────────────
+const CACHE_VERSION = 'v4';
+const APP_CACHE    = `oliva-app-${CACHE_VERSION}`;
+const IMAGE_CACHE  = `oliva-images-${CACHE_VERSION}`;
 
-// All images to pre-cache on first visit
+// App shell — cached on install
+const SHELL_URLS = ['/', '/index.html'];
+
+// Every remote image the app uses.
+// Images are downloaded in small parallel batches AFTER the SW activates,
+// so they never block the page and survive page reloads.
 const IMAGE_URLS = [
-  // Subcategory card images
+  // Subcategory cards
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Style_of_cub_cold_drink_202607240431-TrhRjFxd4wxoAx2gsQCFMQNxRLCWI3.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_milkshakes_202607240432-DyeXQYjJj3Qg2lXxkb8gT9y7V0T2mz.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_random_coffee_202607240435-Rqt8wvMWeMz7dwq7AGPXffMLOVnKpd.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_ice_latte_202607240436-pCXFkaQ79lJybuM2KEHZVqUlyIAJUW.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cubs_with_ice_tea_202607240439-nvfxQ18zvpbu66MPvhJBdGmXFLvIPq.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/29484572558483377%20%281%29-1iER0hWvPNuvfPzzBs3dGVMmgG3dos.jpg',
-  // Smoothie drinks
+  // Smoothies
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Remove_cub_keep_berry_202607240514-HSn503Mf9tacmA8abgIBzX6GJZV2aA.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_mango_smoothies_202607240514-6etjX8dIMf211zgwAI0qADkDRfXIYK.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_strawberry_smoothies_202607240515-ErzxOqHxsILoXGGWoxfURuwvjKOfLR.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_passion_fruit_smoothie_202607240515-gcFfTy9CTasTxniOrouIbIFZszEfSE.jpeg',
-  // Milkshake drinks
+  // Milkshakes
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Make_cookies_brown_not_oreo_202607240518-iKktANVkffo9wb6QbbcuqxY2ChOrwx.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Strawberry_whip_milkshakes_202607240519-XGTJ17Ap1la3ozcF0mlFK2Y7N9HQqZ.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_choco_nut_202607240519-6mC8PWh61UYLCgVfOb8SdAZVcD0oJo.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_vanilla_milkshakes_202607240520-CSxRiddqcNF8XKDMaS0NDdhwTaSgYp.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_lotus_milkshake_202607240521-VWPZhDpaqRMBGqeEMWZyjAZrVKWVQA.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Make_drink_sooooo_blur_202607240524-oqfptwROqTmiIQ6F4op2kh9LR8JRA6.jpeg',
-  // Hot drink images
+  // Hot drinks
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_drink_with_cafe_latte_202607232038-sILwH2u7ucm7zxNQAC2O01CToZpFtE.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_hot_chocolat_202607232038-ITId7cFtZGHzdKXocxmd6zYk8ZaNbA.jpeg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_design_with_white_202607232112-q3frxaTSt5VAZ2p4JNC9ZchDWhvYS9.jpeg',
@@ -36,128 +42,146 @@ const IMAGE_URLS = [
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%F0%9F%8D%B5%E2%9C%A8%20Boost%20your%20wellness%20with%20Turmeric%20Ginger%20Detox%E2%80%A6-ZuXGzKnSKAtkGGw6dF8zluNlgAMTZb.jpg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5%20motivos%20para%20tomar%20ch%C3%A1%20de%20camomila-krP5Rh6ygGTtzKuGO8YcYO9HoI9VgX.jpg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Download%20Cup%20of%20tea%20with%20mint%20leaves%20on%20transparent%20background%20for%20free-dVWvZk3WigRlkFEKZQtfcDFOwMcIY0.jpg',
-  // Logo + menu card images
+  // Logo / menu cards
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/oliva-logo-7vdw2NsA2Wofs4TtAyO49iJkZo8nn1.jpg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/27303141487567135-FZOtUqnJn852MBeJeyIeP3bhfQy8iL.jpg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sandwich%20PNG-ALWYL1Ttrugnx7fPbCpNyn3mu4AcTN.jpg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/14988611256100392-VcfSLudrmQ98JzCToSTWUmeOANUBaV.jpg',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Drinks_in_one_photo_202607240530-NwdLjbfbz8vvpIqLwGgdeA8gzsRCXc.jpeg',
-  // Shisha flavor images
+  // Shisha flavors
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png',
 ];
 
-// Install event - cache app shell + pre-cache all images
+// ─── HELPERS ────────────────────────────────
+
+/**
+ * Download and store one image.
+ * Uses cors mode so we get a real (non-opaque) response that can
+ * be read back later. Falls back gracefully if the server blocks CORS.
+ */
+async function cacheImage(cache, url) {
+  // Skip if already cached
+  const existing = await cache.match(url);
+  if (existing) return;
+
+  try {
+    // Try a proper CORS request first (gives status 200, fully readable)
+    const response = await fetch(url, { mode: 'cors', credentials: 'omit' });
+    if (response.ok) {
+      await cache.put(url, response);
+      return;
+    }
+  } catch (_) { /* CORS blocked — fall through */ }
+
+  try {
+    // Fall back to no-cors opaque response (status 0 but still usable in cache)
+    const response = await fetch(url, { mode: 'no-cors' });
+    // Opaque responses always have status 0 — that is expected and fine
+    await cache.put(url, response);
+  } catch (err) {
+    // Network unavailable — will be retried on next SW activation
+  }
+}
+
+/**
+ * Download all images in small parallel batches so we don't saturate
+ * the network. Already-cached images are skipped instantly.
+ */
+async function precacheImages() {
+  const cache = await caches.open(IMAGE_CACHE);
+  const BATCH = 4; // parallel fetches per round
+
+  for (let i = 0; i < IMAGE_URLS.length; i += BATCH) {
+    const batch = IMAGE_URLS.slice(i, i + BATCH);
+    await Promise.all(batch.map((url) => cacheImage(cache, url)));
+  }
+}
+
+// ─── INSTALL ────────────────────────────────
+// Only cache the tiny app shell here so install is instant.
+// Image pre-caching happens in activate (after the SW controls the page).
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(URLS_TO_CACHE);
-    }).then(() => {
-      // Pre-cache all images in background
-      return caches.open(IMAGE_CACHE).then((cache) => {
-        // Download images in chunks to avoid overwhelming the network
-        const chunkSize = 5;
-        const chunks = [];
-        for (let i = 0; i < IMAGE_URLS.length; i += chunkSize) {
-          chunks.push(IMAGE_URLS.slice(i, i + chunkSize));
-        }
-
-        const downloadChunk = (chunkIndex) => {
-          if (chunkIndex >= chunks.length) {
-            self.skipWaiting(); // Activate service worker immediately
-            return Promise.resolve();
-          }
-
-          const chunk = chunks[chunkIndex];
-          return Promise.all(
-            chunk.map((url) =>
-              fetch(url, { mode: 'no-cors' })
-                .then((response) => {
-                  if (response.status === 200) {
-                    cache.put(url, response);
-                  }
-                })
-                .catch(() => {
-                  // Silently fail individual image downloads
-                  console.log(`[v0] Failed to pre-cache: ${url}`);
-                })
-            )
-          ).then(() => downloadChunk(chunkIndex + 1));
-        };
-
-        return downloadChunk(0);
-      });
-    })
+    caches.open(APP_CACHE).then((cache) => cache.addAll(SHELL_URLS))
   );
+  // Take control immediately — don't wait for old SW to die
+  self.skipWaiting();
 });
 
-// Activate event - clean up old caches
+// ─── ACTIVATE ───────────────────────────────
+// 1. Delete ALL caches whose name contains "oliva" but doesn't match
+//    the current version → users always see the new design.
+// 2. Claim all open tabs right away.
+// 3. Start image pre-caching in the background (non-blocking).
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
+    caches.keys().then(async (names) => {
+      await Promise.all(
+        names
           .filter(
-            (name) =>
-              name.includes('oliva') &&
-              name !== CACHE_NAME &&
-              name !== IMAGE_CACHE
+            (n) =>
+              n.startsWith('oliva-') &&
+              n !== APP_CACHE &&
+              n !== IMAGE_CACHE
           )
-          .map((name) => caches.delete(name))
+          .map((n) => caches.delete(n))
       );
+      // Claim all existing tabs without a reload
+      await self.clients.claim();
+      // Download images in the background — does NOT block activation
+      precacheImages();
     })
   );
-  self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
+// ─── FETCH ──────────────────────────────────
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  const url = new URL(request.url);
-
-  // Skip non-GET requests
   if (request.method !== 'GET') return;
 
-  // Strategy: CacheFirst for images, NetworkFirst for others
-  if (
+  const url = new URL(request.url);
+  const isImage =
     url.hostname === 'hebbkx1anhila5yf.public.blob.vercel-storage.com' ||
-    url.pathname.includes('.jpg') ||
-    url.pathname.includes('.jpeg') ||
-    url.pathname.includes('.png') ||
-    url.pathname.includes('.gif')
-  ) {
-    // CacheFirst: try cache first, fallback to network
+    /\.(jpe?g|png|gif|webp|svg)(\?.*)?$/i.test(url.pathname);
+
+  if (isImage) {
+    // CacheFirst — serve instantly from cache; fetch & store if missing
     event.respondWith(
-      caches.match(request).then((response) => {
-        if (response) {
-          return response;
-        }
-        return fetch(request, { mode: 'no-cors' }).then((response) => {
-          // Cache successful responses
-          if (response.status === 200) {
-            const cache = caches.open(IMAGE_CACHE);
-            cache.then((c) => c.put(request, response.clone()));
+      caches.open(IMAGE_CACHE).then(async (cache) => {
+        const cached = await cache.match(request);
+        if (cached) return cached;
+
+        // Not in cache yet — fetch, store, and respond
+        try {
+          const response = await fetch(request, { mode: 'cors', credentials: 'omit' });
+          if (response.ok) {
+            cache.put(request, response.clone());
+            return response;
           }
-          return response;
-        });
+        } catch (_) { /* CORS blocked */ }
+
+        // no-cors fallback
+        const response = await fetch(request, { mode: 'no-cors' });
+        cache.put(request, response.clone());
+        return response;
       })
     );
   } else {
-    // NetworkFirst: try network first, fallback to cache
+    // NetworkFirst for the app shell — ensures updated HTML/JS/CSS is always
+    // delivered when online; falls back to cache when offline.
     event.respondWith(
       fetch(request)
         .then((response) => {
-          if (response.status === 200) {
-            const cache = caches.open(CACHE_NAME);
-            cache.then((c) => c.put(request, response.clone()));
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(APP_CACHE).then((cache) => cache.put(request, clone));
           }
           return response;
         })
-        .catch(() => {
-          return caches.match(request);
-        })
+        .catch(() => caches.match(request))
     );
   }
 });

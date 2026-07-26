@@ -1,94 +1,98 @@
 import { useEffect, useState } from 'react';
-import { Workbox } from 'workbox-window';
 
 interface OfflineSupportStatus {
   isOnline: boolean;
-  isAppInstalled: boolean;
   cacheReady: boolean;
   imagesDownloaded: number;
 }
 
+/**
+ * Registers our custom sw.js and tracks offline / cache status.
+ * Uses the native ServiceWorker API directly — no Workbox dependency needed
+ * because our sw.js is hand-written and handles everything itself.
+ */
 export const useOfflineSupport = () => {
   const [status, setStatus] = useState<OfflineSupportStatus>({
-    isOnline: navigator.onLine,
-    isAppInstalled: false,
+    isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
     cacheReady: false,
     imagesDownloaded: 0,
   });
 
   useEffect(() => {
-    // Register service worker if supported
     const registerServiceWorker = async () => {
-      if ('serviceWorker' in navigator) {
-        try {
-          const wb = new Workbox('/sw.js', { scope: '/' });
+      if (!('serviceWorker' in navigator)) return;
 
-          // Listen for updates
-          wb.addEventListener('installed', () => {
-            setStatus((prev) => ({ ...prev, cacheReady: true }));
-            console.log('[v0] Service Worker installed - offline support ready');
-          });
+      try {
+        const reg = await navigator.serviceWorker.register('/sw.js', {
+          scope: '/',
+          // updateViaCache: 'none' forces the browser to always re-fetch
+          // sw.js from the network so it never serves a stale SW file.
+          updateViaCache: 'none',
+        });
 
-          wb.addEventListener('waiting', () => {
-            console.log('[v0] New service worker waiting to activate');
-          });
+        // Mark cache as ready once the SW is active
+        const markReady = async () => {
+          setStatus((prev) => ({ ...prev, cacheReady: true }));
 
-          // Register the service worker
-          await wb.register();
-          
-          // Get cache status
+          // Count cached images
           if ('caches' in window) {
-            const cacheNames = await caches.keys();
-            const imageCaches = cacheNames.filter((name) =>
-              name.includes('image') || name.includes('oliva')
-            );
-            
-            let totalImages = 0;
-            for (const cacheName of imageCaches) {
-              const cache = await caches.open(cacheName);
-              const keys = await cache.keys();
-              totalImages += keys.length;
-            }
-            
-            setStatus((prev) => ({
-              ...prev,
-              imagesDownloaded: totalImages,
-              cacheReady: true,
-            }));
+            try {
+              const keys = await caches.keys();
+              let total = 0;
+              for (const key of keys) {
+                if (key.startsWith('oliva-images')) {
+                  const cache = await caches.open(key);
+                  total += (await cache.keys()).length;
+                }
+              }
+              setStatus((prev) => ({ ...prev, imagesDownloaded: total }));
+            } catch (_) {}
           }
-        } catch (error) {
-          console.error('[v0] Service Worker registration failed:', error);
+        };
+
+        if (reg.active) {
+          markReady();
+        } else {
+          // Wait for the SW to become active for the first time
+          const worker = reg.installing ?? reg.waiting;
+          worker?.addEventListener('statechange', (e) => {
+            if ((e.target as ServiceWorker).state === 'activated') markReady();
+          });
         }
+
+        // Listen for future updates (new deploy available)
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker?.addEventListener('statechange', () => {
+            if (
+              newWorker.state === 'installed' &&
+              navigator.serviceWorker.controller
+            ) {
+              // New version installed — the SW's skipWaiting() will activate it
+              // on the next navigation automatically (registerType: 'autoUpdate').
+            }
+          });
+        });
+
+        // Check for updates immediately and every 60 s while the tab is open
+        reg.update();
+        const interval = setInterval(() => reg.update(), 60_000);
+        return () => clearInterval(interval);
+      } catch (error) {
+        console.error('Service Worker registration failed:', error);
       }
     };
 
-    // Track online/offline status
-    const handleOnline = () => {
-      setStatus((prev) => ({ ...prev, isOnline: true }));
-      console.log('[v0] Back online');
-    };
+    const handleOnline  = () => setStatus((p) => ({ ...p, isOnline: true }));
+    const handleOffline = () => setStatus((p) => ({ ...p, isOnline: false }));
 
-    const handleOffline = () => {
-      setStatus((prev) => ({ ...prev, isOnline: false }));
-      console.log('[v0] Going offline - cached content available');
-    };
-
-    window.addEventListener('online', handleOnline);
+    window.addEventListener('online',  handleOnline);
     window.addEventListener('offline', handleOffline);
 
     registerServiceWorker();
 
-    // Check if app is installed (PWA)
-    window.addEventListener('beforeinstallprompt', () => {
-      setStatus((prev) => ({ ...prev, isAppInstalled: true }));
-    });
-
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      setStatus((prev) => ({ ...prev, isAppInstalled: true }));
-    }
-
     return () => {
-      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('online',  handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
