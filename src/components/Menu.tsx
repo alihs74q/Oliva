@@ -64,9 +64,10 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
           top: 'clamp(140px, 15vh, 280px)',
           width: 'clamp(280px, 35vw, 500px)',
           height: 'auto',
-          opacity: 0.7,
+          opacity: 0.85,
           pointerEvents: 'none',
           zIndex: 1,
+          mixBlendMode: 'screen',
           filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))',
         }}
       />
