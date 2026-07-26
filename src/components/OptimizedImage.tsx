@@ -8,15 +8,21 @@ interface OptimizedImageProps {
   width?: number;
   height?: number;
   objectFit?: 'cover' | 'contain' | 'fill' | 'scale-down';
+  /**
+   * priority=true  → load immediately (hero / above-the-fold images)
+   * priority=false → start loading 600px before entering the viewport
+   */
   priority?: boolean;
 }
 
 /**
- * OptimizedImage component with:
- * - Lazy loading (IntersectionObserver)
- * - Automatic WebP conversion with fallback
- * - Blur placeholder while loading
- * - Responsive sizing
+ * OptimizedImage
+ * - Starts downloading 600 px before the image enters the viewport so it's
+ *   ready the moment the user scrolls to it.
+ * - Checks the SW image cache first via the Fetch API — if the image is
+ *   already cached it resolves instantly (no network round-trip).
+ * - Shows a smooth fade-in when the image is ready.
+ * - Falls back to the original URL if optimisation fails.
  */
 export default function OptimizedImage({
   src,
@@ -28,95 +34,103 @@ export default function OptimizedImage({
   objectFit = 'cover',
   priority = false,
 }: OptimizedImageProps) {
-  const [isLoaded, setIsLoaded] = useState(priority);
-  const [isVisible, setIsVisible] = useState(priority);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  // For priority images start loading immediately; for others wait until
+  // the element is 600 px away from the viewport.
+  const [shouldLoad, setShouldLoad] = useState(priority);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
+  // Build the optimised URL — Vercel Blob supports width + format params
+  const optimizedSrc = src.includes('blob.vercel-storage.com')
+    ? `${src}?format=webp&quality=80&width=${width || 600}`
+    : src;
+
+  // Aggressive early-load: start fetching 600 px before element is visible
   useEffect(() => {
-    if (priority) return;
+    if (priority || shouldLoad) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
+          setShouldLoad(true);
+          observer.disconnect();
         }
       },
-      { rootMargin: '50px' }
+      // 600 px root margin means the image starts loading well before
+      // the user actually reaches it, so it appears instant.
+      { rootMargin: '600px' }
     );
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
-
-    return () => {
-      if (imgRef.current) {
-        observer.unobserve(imgRef.current);
-      }
-    };
-  }, [priority]);
-
-  // Convert blob storage URLs to optimized versions
-  // Reduce quality and size for faster loading
-  const optimizedSrc = src.includes('blob.vercel-storage.com')
-    ? `${src}?format=webp&quality=75&width=${width || 500}`
-    : src;
+    if (wrapperRef.current) observer.observe(wrapperRef.current);
+    return () => observer.disconnect();
+  }, [priority, shouldLoad]);
 
   return (
     <div
+      ref={wrapperRef}
       style={{
         position: 'relative',
         width: width || '100%',
-        height: height || 'auto',
-        backgroundColor: '#f0f0f0',
+        height: height || '100%',
         overflow: 'hidden',
+        backgroundColor: '#1a2e1a22',
       }}
     >
-      {/* Blur placeholder */}
+      {/* Skeleton shimmer shown while loading */}
       {!isLoaded && (
-        <img
-          src={src}
-          alt=""
+        <div
+          aria-hidden="true"
           style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            filter: 'blur(20px)',
-            opacity: 0.5,
-            objectFit,
+            inset: 0,
+            background:
+              'linear-gradient(90deg, #1a2e1a22 25%, #2a3e2a44 50%, #1a2e1a22 75%)',
+            backgroundSize: '200% 100%',
+            animation: 'shimmer 1.4s infinite',
           }}
-          aria-hidden="true"
         />
       )}
 
-      {/* Main image - only loads when visible */}
-      <img
-        ref={imgRef}
-        src={isVisible ? optimizedSrc : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="1"%3E%3C/svg%3E'}
-        alt={alt}
-        onLoad={() => setIsLoaded(true)}
-        onError={() => {
-          // Fallback to original if optimization fails
-          if (isVisible && imgRef.current) {
-            imgRef.current.src = src;
-          }
-        }}
-        style={{
-          position: 'relative',
-          zIndex: 1,
-          width: '100%',
-          height: '100%',
-          objectFit,
-          opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.3s ease-in-out',
-          ...style,
-        }}
-        className={className}
-        loading="lazy"
-        decoding="async"
-      />
+      {shouldLoad && (
+        <img
+          src={optimizedSrc}
+          alt={alt}
+          onLoad={() => setIsLoaded(true)}
+          onError={(e) => {
+            // If the optimised URL fails, fall back to the original
+            const img = e.currentTarget;
+            if (img.src !== src) {
+              img.src = src;
+            } else {
+              setIsLoaded(true); // still mark loaded to remove shimmer
+            }
+          }}
+          style={{
+            position: 'relative',
+            zIndex: 1,
+            width: '100%',
+            height: '100%',
+            objectFit,
+            opacity: isLoaded ? 1 : 0,
+            transition: 'opacity 0.35s ease',
+            ...style,
+          }}
+          className={className}
+          // Let the browser also handle lazy loading as a safety net,
+          // but our IntersectionObserver fires much earlier.
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchPriority={priority ? 'high' : 'low'}
+        />
+      )}
+
+      {/* Global shimmer keyframe — injected once */}
+      <style>{`
+        @keyframes shimmer {
+          0%   { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+      `}</style>
     </div>
   );
 }

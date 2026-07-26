@@ -3,7 +3,7 @@
 //  Replace this URL with your own shisha photo.
 // ─────────────────────────────────────────────────────────────────────────────
 export const backgroundImage =
-  'https://images.pexels.com/photos/1267693/pexels-photo-1267693.jpeg?auto=compress&cs=tinysrgb&w=1920'
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-awRUXZgCUaSRd5LnoYKBVKhnE9Z36Z.png'
 
 export interface ShishaItem {
   id: string
