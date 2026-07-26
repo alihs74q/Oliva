@@ -53,6 +53,16 @@ const IMAGE_URLS = [
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png',
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png',
+  // Desserts - Pastries
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyyr1osfvSd53tv63b4IO3hsjGWyu6.png', // Vanilla Mushroom Muffin
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-vrzWQm0vPdBhkdfAN3Cplhoyjr5c4p.png', // Chocolate Mushroom Muffin
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lJJOUjm0bUeldmdyrsVfGboEJz3Igr.png', // Croissant
+  // Desserts - Cheesecakes
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Dt52eLBdTVXlatatfFekmMGWynWUW9.png', // Oreo Cheesecake
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Cyy23HENQZpQMA5YM49q4LrdWEJdWL.png', // Raspberry Cheesecake
+  // Desserts - Cakes
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9UXhz9OicC31LRDeCJeHhsIJN8Yshu.png', // Lazy Cake
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EL1k14PAkXovY7n1gx7fvPdYsbW1wh.png', // Chocolate Cake
 ];
 
 // ─── HELPERS ────────────────────────────────
