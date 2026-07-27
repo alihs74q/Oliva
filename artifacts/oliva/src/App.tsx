@@ -125,10 +125,29 @@ export default function App() {
     document.getElementById('menu-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // /#/menu no longer exists — redirect straight to home
+  // Dedicated menu page
   if (route.name === 'menu') {
-    navigateHome();
-    return null;
+    return (
+      <>
+        <div className="relative min-h-screen">
+          <Navbar navigate={(to) => { if (to === 'home') navigateHome(); else navigateMenu(); }} route={'menu'} />
+          <main className="relative z-10">
+            <Menu
+              onBack={navigateHome}
+              onHotDrinks={() => navigateList('hot-drinks')}
+              onColdDrinks={() => navigateList('cold-drinks')}
+              onDesserts={() => navigateList('desserts')}
+              onShisha={() => navigateList('shisha')}
+              onSandwiches={() => navigateList('sandwiches')}
+              onYogurt={() => navigateList('yogurt')}
+              onPadel={() => navigateList('padel')}
+            />
+          </main>
+          <SiteFooter navigate={navigateMenu} />
+          <WhatsAppButton />
+        </div>
+      </>
+    );
   }
 
   // Category list page
@@ -141,7 +160,7 @@ export default function App() {
         <>
           <PadelPage
             theme={data.theme}
-            onBack={navigateHome}
+            onBack={navigateMenu}
           />
           <WhatsAppButton />
         </>
@@ -156,7 +175,7 @@ export default function App() {
           theme={data.theme}
           subcategories={subcategoryData[route.category]}
           navigate={() => navigateHome()}
-          onBack={navigateHome}
+          onBack={navigateMenu}
         />
         <WhatsAppButton />
       </>
