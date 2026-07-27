@@ -123,19 +123,29 @@ export default function PadelPage({
           justifyContent: 'center',
           perspective: '1200px',
         }}>
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
-            alt="Oliva"
-            className="logo-3d"
-            style={{
-              height: 'clamp(120px,16vw,160px)',
-              width: 'auto',
-              objectFit: 'contain',
-              filter: `drop-shadow(0 6px 16px ${theme.glowColor}40)`,
-              transformStyle: 'preserve-3d',
-              backfaceVisibility: 'hidden',
-            }}
-          />
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%',
+            background: 'rgba(89,107,61,0.10)',
+            padding: 'clamp(12px,2vw,22px)',
+          }}>
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
+              alt="Oliva"
+              className="logo-3d"
+              style={{
+                height: 'clamp(100px,13vw,140px)',
+                width: 'auto',
+                objectFit: 'contain',
+                filter: `drop-shadow(0 6px 16px ${theme.glowColor}40)`,
+                transformStyle: 'preserve-3d',
+                backfaceVisibility: 'hidden',
+                display: 'block',
+              }}
+            />
+          </div>
         </div>
 
         {/* Items Grid */}
