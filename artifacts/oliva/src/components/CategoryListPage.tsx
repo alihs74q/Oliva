@@ -203,19 +203,18 @@ export default function CategoryListPage({
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              borderRadius: '50%',
-              background: 'rgba(89,107,61,0.10)',
-              padding: 'clamp(14px,2.5vw,28px)',
+              borderRadius: 16,
+              background: '#596B3D',
+              padding: '6px',
             }}>
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
                 alt="Oliva"
                 className="logo-3d"
                 style={{
-                  height: 'clamp(130px,20vw,240px)',
+                  height: 'clamp(160px,24vw,280px)',
                   width: 'auto',
                   objectFit: 'contain',
-                  filter: `drop-shadow(0 8px 24px ${theme.accent}60)`,
                   transformStyle: 'preserve-3d',
                   backfaceVisibility: 'hidden',
                   display: 'block',
