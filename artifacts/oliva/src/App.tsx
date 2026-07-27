@@ -42,58 +42,58 @@ function parseRoute(): ParsedRoute {
 
 const COLD_THEME: CategoryTheme = {
   bgGradient: 'linear-gradient(160deg,#0e3a5f,#1565a8 55%,#0a4a7a)',
-  glowColor: '#38bdf8',
+  glowColor: '#8ECFE8',
   text: '#f1f5f9',
   subtext: '#94a3b8',
-  accent: '#7dd3fc',
+  accent: '#8ECFE8', // Ice blue
 };
 
 const HOT_THEME: CategoryTheme = {
   bgGradient: 'linear-gradient(160deg,#5c2e0a,#8b4513 55%,#6e3410)',
-  glowColor: '#f59e0b',
+  glowColor: '#E7A05A',
   text: '#fdf6e3',
   subtext: '#c9a57b',
-  accent: '#fbbf24',
+  accent: '#E7A05A', // Light orange
 };
 
 const DESSERT_THEME: CategoryTheme = {
   bgGradient: 'linear-gradient(160deg,#5a1a3a,#8b1a4a 55%,#6e1240)',
-  glowColor: '#ec4899',
+  glowColor: '#E5A4B7',
   text: '#fdf2f8',
   subtext: '#d4a5b8',
-  accent: '#f9a8d4',
+  accent: '#E5A4B7', // Soft pink
 };
 
 const SHISHA_THEME: CategoryTheme = {
   bgGradient: 'linear-gradient(160deg,#3d2e0a,#6b5010 55%,#4a3808)',
-  glowColor: '#d4a017',
+  glowColor: '#C5A342',
   text: '#f5f5f4',
   subtext: '#a8a29e',
-  accent: '#d4a017',
+  accent: '#C5A342', // Elegant gold
 };
 
 const SANDWICHES_THEME: CategoryTheme = {
   bgGradient: 'linear-gradient(160deg,#5c2e0a,#8b4513 55%,#6e3410)',
-  glowColor: '#f59e0b',
+  glowColor: '#D8B84E',
   text: '#fdf6e3',
   subtext: '#c9a57b',
-  accent: '#fbbf24',
+  accent: '#D8B84E', // Warm yellow
 };
 
 const YOGURT_THEME: CategoryTheme = {
   bgGradient: 'linear-gradient(160deg,#4a1a5a,#8b1a7a 55%,#6e1256)',
-  glowColor: '#d946ef',
+  glowColor: '#A78AC4',
   text: '#fdf2f8',
   subtext: '#d4a5d8',
-  accent: '#f472b6',
+  accent: '#A78AC4', // Soft purple
 };
 
 const PADEL_THEME: CategoryTheme = {
   bgGradient: 'linear-gradient(160deg,#003a4d,#006b8f 55%,#004d6b)',
-  glowColor: '#06f6d4',
+  glowColor: '#4F82C5',
   text: '#f0f9fa',
   subtext: '#7dd3fc',
-  accent: '#06f6d4',
+  accent: '#4F82C5', // Clean blue
 };
 
 const CATEGORY_DATA: Record<Category, { title: string; subtitle: string; theme: CategoryTheme; listHash: string }> = {

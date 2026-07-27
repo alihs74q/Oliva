@@ -13,10 +13,127 @@ export interface CategoryTheme {
   accent: string
 }
 
+// ─── Base palette ─────────────────────────────────────────────────────────────
+const PAGE_BG    = '#F7F3E8'  // creamy white — main page background
+const SURFACE    = '#EEF0E4'  // olive white — default button background
+const OLIVA_GRN  = '#596B3D'  // Oliva green — back button, small accents
+const DARK_TEXT  = '#1a1a1a'  // page title
+const MUTED_TEXT = 'rgba(0,0,0,0.58)'
+
 type NavRoute = 'home' | 'menu'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 
+// ─── Subcategory card with hover / selected state ────────────────────────────
+function SubcatCard({ sub, theme, isPlaceholder, onClick, animDelay }: {
+  sub: Subcategory
+  theme: CategoryTheme
+  isPlaceholder: boolean
+  onClick: () => void
+  animDelay: number
+}) {
+  const [hovered, setHovered] = useState(false)
+  const active = hovered && !isPlaceholder
+
+  return (
+    <motion.button
+      onClick={() => !isPlaceholder && onClick()}
+      disabled={isPlaceholder}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: EASE, delay: animDelay }}
+      whileTap={isPlaceholder ? {} : { scale: 0.97, transition: { duration: 0.12 } }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'relative', overflow: 'hidden',
+        background: active ? theme.accent : SURFACE,
+        border: `1.5px solid ${isPlaceholder ? 'rgba(0,0,0,0.1)' : theme.accent}`,
+        borderRadius: 24,
+        padding: 'clamp(16px,2.5vh,24px)',
+        cursor: isPlaceholder ? 'default' : 'pointer',
+        boxShadow: active
+          ? `0 8px 28px ${theme.accent}40`
+          : '0 2px 8px rgba(0,0,0,0.06)',
+        textAlign: 'left',
+        opacity: isPlaceholder ? 0.45 : 1,
+        display: 'flex', flexDirection: 'row', alignItems: 'stretch', gap: 'clamp(12px,2vw,20px)',
+        minHeight: '180px',
+        willChange: 'transform',
+        transition: 'background 300ms ease, box-shadow 300ms ease',
+      }}
+    >
+      {/* Left: Text content */}
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div style={{
+          width: 44, height: 4, borderRadius: 3,
+          background: active ? 'rgba(255,255,255,0.7)' : theme.accent,
+          opacity: 0.8,
+          transition: 'background 300ms ease',
+        }} />
+        <div>
+          <h3 style={{
+            margin: 0, fontSize: 'clamp(22px,3vw,32px)', fontWeight: 900,
+            color: active ? PAGE_BG : theme.accent,
+            letterSpacing: '-0.02em', lineHeight: 1.1,
+            transition: 'color 300ms ease',
+          }}>{sub.name}</h3>
+          <p style={{
+            margin: '6px 0 0', fontSize: 'clamp(14px,1.8vw,18px)',
+            color: active ? 'rgba(255,255,255,0.85)' : MUTED_TEXT,
+            lineHeight: 1.5, fontWeight: 500,
+            transition: 'color 300ms ease',
+          }}>{sub.description}</p>
+        </div>
+        {!isPlaceholder && (
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            color: active ? PAGE_BG : theme.accent,
+            fontSize: 13, fontWeight: 800, letterSpacing: '0.04em',
+            transition: 'color 300ms ease',
+          }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              width: 30, height: 30, borderRadius: '50%',
+              background: active ? 'rgba(255,255,255,0.2)' : `${theme.accent}22`,
+              border: `1px solid ${active ? 'rgba(255,255,255,0.4)' : `${theme.accent}55`}`,
+              transition: 'background 300ms ease, border-color 300ms ease',
+            }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </span>
+            Press to see
+          </div>
+        )}
+      </div>
+
+      {/* Right: Image — solid dark-green border (brand detail) */}
+      <div style={{
+        flexShrink: 0,
+        width: 'clamp(100px,15vw,130px)',
+        height: 'clamp(100px,15vw,130px)',
+        borderRadius: 16,
+        background: sub.image ? '#1a3a2a' : `${theme.accent}18`,
+        border: '2px solid #1a3a2a',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        overflow: 'hidden', position: 'relative',
+        boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
+      }}>
+        {sub.image ? (
+          <img src={sub.image} alt={sub.name} draggable={false}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={theme.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21,15 16,10 5,21" />
+          </svg>
+        )}
+      </div>
+    </motion.button>
+  )
+}
+
+// ─── Main page ────────────────────────────────────────────────────────────────
 export default function CategoryListPage({
   title, subtitle, theme, subcategories, navigate, onBack,
 }: {
@@ -32,7 +149,7 @@ export default function CategoryListPage({
   return (
     <div style={{
       position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column',
-      background: theme.bgGradient,
+      background: PAGE_BG,
     }}>
       {/* Nav */}
       <nav style={{
@@ -43,10 +160,10 @@ export default function CategoryListPage({
         <button onClick={onBack}
           style={{
             display: 'flex', alignItems: 'center', gap: 8,
-            background: 'rgba(255,255,255,0.1)',
-            border: '1px solid rgba(255,255,255,0.15)', borderRadius: 999,
+            background: 'rgba(89,107,61,0.08)',
+            border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
             padding: '10px 20px', cursor: 'pointer',
-            color: theme.text, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
+            color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
             transition: 'transform 0.2s ease, background 0.2s ease',
           }}
           onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.95)')}
@@ -69,37 +186,37 @@ export default function CategoryListPage({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: EASE }}
           style={{ textAlign: 'center', padding: 'clamp(4px,1vh,12px) clamp(16px,4vw,40px) 0' }}
-      >
-        <p style={{
-          margin: 0, fontSize: 'clamp(11px,1.4vw,14px)', fontWeight: 800, letterSpacing: '0.35em',
-          color: theme.accent, textTransform: 'uppercase',
-        }}>{subtitle}</p>
-        
-        {/* Animated Logo */}
-        <div style={{
-          margin: 'clamp(12px,2vh,20px) 0',
-          display: 'flex',
-          justifyContent: 'center',
-          perspective: '1200px',
-        }}>
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
-            alt="Oliva"
-            className="logo-3d"
-            style={{
-              height: 'clamp(160px,24vw,280px)',
-              width: 'auto',
-              objectFit: 'contain',
-              filter: `drop-shadow(0 8px 24px ${theme.glowColor}60)`,
-              transformStyle: 'preserve-3d',
-              backfaceVisibility: 'hidden',
-            }}
-          />
-        </div>
-        
+        >
+          <p style={{
+            margin: 0, fontSize: 'clamp(11px,1.4vw,14px)', fontWeight: 800, letterSpacing: '0.35em',
+            color: theme.accent, textTransform: 'uppercase',
+          }}>{subtitle}</p>
+
+          {/* Animated Logo */}
+          <div style={{
+            margin: 'clamp(12px,2vh,20px) 0',
+            display: 'flex',
+            justifyContent: 'center',
+            perspective: '1200px',
+          }}>
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
+              alt="Oliva"
+              className="logo-3d"
+              style={{
+                height: 'clamp(160px,24vw,280px)',
+                width: 'auto',
+                objectFit: 'contain',
+                filter: `drop-shadow(0 8px 24px ${theme.accent}60)`,
+                transformStyle: 'preserve-3d',
+                backfaceVisibility: 'hidden',
+              }}
+            />
+          </div>
+
           <h1 style={{
             margin: '4px 0 0', fontSize: 'clamp(36px,7vw,72px)', fontWeight: 900,
-            color: theme.text, letterSpacing: '-0.03em', lineHeight: 1,
+            color: DARK_TEXT, letterSpacing: '-0.03em', lineHeight: 1,
           }}>{title}</h1>
         </motion.div>
 
@@ -108,95 +225,26 @@ export default function CategoryListPage({
           padding: 'clamp(12px,2vh,24px) clamp(16px,4vw,40px) clamp(20px,3vh,40px)',
           maxWidth: 960, margin: '0 auto', width: '100%',
         }}>
-        <div className="subcat-grid" style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'clamp(16px,2.5vh,28px)',
-          width: '100%',
-        }}>
-          {subcategories.map((sub, i) => {
-            const isPlaceholder = sub.drinks.length === 0
-            return (
-              <motion.button
-                key={sub.id}
-                onClick={() => !isPlaceholder && setOpenSub(sub)}
-                disabled={isPlaceholder}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease: EASE, delay: Math.min(i * 0.05, 0.3) }}
-                whileTap={isPlaceholder ? {} : { scale: 0.97, transition: { duration: 0.12 } }}
-                style={{
-                  position: 'relative', overflow: 'hidden',
-                  background: `linear-gradient(145deg, ${sub.themeColor}40, ${sub.themeColor}15)`,
-                  border: `1.5px solid ${isPlaceholder ? 'rgba(255,255,255,0.1)' : `${sub.accentColor}55`}`,
-                  borderRadius: 24,
-                  padding: 'clamp(16px,2.5vh,24px)',
-                  cursor: isPlaceholder ? 'default' : 'pointer',
-                  boxShadow: isPlaceholder ? 'none' : `0 8px 24px ${sub.themeColor}30`,
-                  textAlign: 'left',
-                  opacity: isPlaceholder ? 0.45 : 1,
-                  display: 'flex', flexDirection: 'row', alignItems: 'stretch', gap: 'clamp(12px,2vw,20px)',
-                  minHeight: '180px',
-                  willChange: 'transform',
-                }}
-              >
-                {/* Left: Text content */}
-                <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div style={{ width: 44, height: 4, borderRadius: 3, background: sub.accentColor, opacity: 0.8 }} />
-                  <div>
-                    <h3 style={{
-                      margin: 0, fontSize: 'clamp(22px,3vw,32px)', fontWeight: 900,
-                      color: theme.text, letterSpacing: '-0.02em', lineHeight: 1.1,
-                    }}>{sub.name}</h3>
-                    <p style={{
-                      margin: '6px 0 0', fontSize: 'clamp(14px,1.8vw,18px)', color: theme.subtext,
-                      lineHeight: 1.5, fontWeight: 500,
-                    }}>{sub.description}</p>
-                  </div>
-                  {!isPlaceholder && (
-                    <div style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 8,
-                      color: sub.accentColor, fontSize: 13, fontWeight: 800, letterSpacing: '0.04em',
-                    }}>
-                      <span style={{
-                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        width: 30, height: 30, borderRadius: '50%',
-                        background: `${sub.accentColor}22`, border: `1px solid ${sub.accentColor}55`,
-                      }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                      </span>
-                      Press to see
-                    </div>
-                  )}
-                </div>
-
-                {/* Right: Image — smaller, solid bg, modern dark-green border */}
-                <div style={{
-                  flexShrink: 0,
-                  width: 'clamp(100px,15vw,130px)',
-                  height: 'clamp(100px,15vw,130px)',
-                  borderRadius: 16,
-                  background: sub.image ? '#1a3a2a' : `${sub.accentColor}18`,
-                  border: '2px solid #1a3a2a',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  overflow: 'hidden', position: 'relative',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
-                }}>
-                  {sub.image ? (
-                    <img src={sub.image} alt={sub.name} draggable={false}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  ) : (
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={sub.accentColor} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
-                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                      <circle cx="8.5" cy="8.5" r="1.5" />
-                      <polyline points="21,15 16,10 5,21" />
-                    </svg>
-                  )}
-                </div>
-              </motion.button>
-            )
-          })}
-        </div>
+          <div className="subcat-grid" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(16px,2.5vh,28px)',
+            width: '100%',
+          }}>
+            {subcategories.map((sub, i) => {
+              const isPlaceholder = sub.drinks.length === 0
+              return (
+                <SubcatCard
+                  key={sub.id}
+                  sub={sub}
+                  theme={theme}
+                  isPlaceholder={isPlaceholder}
+                  onClick={() => setOpenSub(sub)}
+                  animDelay={Math.min(i * 0.05, 0.3)}
+                />
+              )
+            })}
+          </div>
         </div>
       </div>
 
@@ -210,8 +258,8 @@ export default function CategoryListPage({
       <style>{`
         .clp-scroll::-webkit-scrollbar { width: 4px; }
         .clp-scroll::-webkit-scrollbar-track { background: transparent; }
-        .clp-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
-        .clp-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+        .clp-scroll::-webkit-scrollbar-thumb { background: rgba(89,107,61,0.2); border-radius: 2px; }
+        .clp-scroll { scrollbar-width: thin; scrollbar-color: rgba(89,107,61,0.2) transparent; }
         @media (max-width: 640px) {
           .subcat-grid { grid-template-columns: 1fr !important; }
         }
@@ -220,7 +268,7 @@ export default function CategoryListPage({
   )
 }
 
-// ─── Drink popup modal ────────────�����───────────────────────────────────��──────
+// ─── Drink popup modal ────────────────────────────────────────────────────────
 function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: CategoryTheme; onClose: () => void }) {
   const { currency, toggle } = useCurrency('USD')
 
