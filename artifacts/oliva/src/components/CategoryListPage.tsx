@@ -200,20 +200,22 @@ export default function CategoryListPage({
             perspective: '1200px',
           }}>
             <div style={{
-              display: 'inline-flex',
+              width: 'clamp(200px,26vw,300px)',
+              height: 'clamp(200px,26vw,300px)',
+              borderRadius: '50%',
+              background: theme.accent,
+              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              borderRadius: 16,
-              background: '#596B3D',
-              padding: '6px',
+              flexShrink: 0,
             }}>
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
                 alt="Oliva"
                 className="logo-3d"
                 style={{
-                  height: 'clamp(160px,24vw,280px)',
-                  width: 'auto',
+                  width: '78%',
+                  height: '78%',
                   objectFit: 'contain',
                   transformStyle: 'preserve-3d',
                   backfaceVisibility: 'hidden',
