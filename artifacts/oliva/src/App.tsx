@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
-import Background from './components/Background';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
-import HomepageExperience from './components/HomepageExperience';
 import GalleryPage from './components/GalleryPage';
-import ContactSection from './components/ContactSection';
 import SiteFooter from './components/SiteFooter';
 import WhatsAppButton from './components/WhatsAppButton';
 import ColdDrinksPage from './components/ColdDrinksPage';
@@ -119,42 +116,13 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  // Show/hide the gallery logo based on scroll position
-  useEffect(() => {
-    const onScroll = () => {
-      const transition = document.querySelector('.noh-transition') as HTMLElement | null;
-      const galleryLogo = document.querySelector('.noh-gallery-logo') as HTMLElement | null;
-      if (!transition || !galleryLogo) return;
-      const rect = transition.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      const scrolled = -rect.top;
-      const progress = total > 0 ? Math.min(Math.max(scrolled / total, 0), 1) : 0;
-      // Show when transition is ~90% complete, hide when gallery section is scrolled past
-      const gallery = document.getElementById('gallery');
-      const galleryRect = gallery?.getBoundingClientRect();
-      const galleryVisible = galleryRect ? galleryRect.bottom > 100 : false;
-      if (progress > 0.9 && galleryVisible) {
-        galleryLogo.classList.add('visible');
-      } else {
-        galleryLogo.classList.remove('visible');
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   const navigateHome = () => { window.location.hash = '/'; };
   const navigateMenu = () => { window.location.hash = '/menu'; };
-  const navigateGallery = () => { window.location.hash = '/gallery'; };
   const navigateList = (cat: Category) => { window.location.hash = CATEGORY_DATA[cat].listHash; };
   const navigateDetail = (cat: Category, slug: string) => { window.location.hash = `/menu/${cat}/${slug}`; };
 
-
-  const scrollToBooking = () => {
-    const el = document.getElementById('booking');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-    else document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToMenu = () => {
+    document.getElementById('menu-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   // Dedicated menu page
@@ -175,7 +143,7 @@ export default function App() {
               onPadel={() => navigateList('padel')}
             />
           </main>
-          <SiteFooter navigate={navigateMenu} onBook={scrollToBooking} />
+          <SiteFooter navigate={navigateMenu} />
           <WhatsAppButton />
         </div>
       </>
@@ -244,28 +212,112 @@ export default function App() {
     );
   }
 
+  // Home: compact hero that smooth-scrolls into the menu below
   return (
-    <>
-      <div className="relative min-h-screen" style={{ background: '#1F2B18' }}>
-        <Navbar navigate={(to) => { if (to === 'home') navigateHome(); else navigateMenu(); }} route={'home'} />
-        <main className="relative z-10">
-          <HomepageExperience
-            onViewMenu={navigateMenu}
-            onHotDrinks={() => navigateList('hot-drinks')}
-            onColdDrinks={() => navigateList('cold-drinks')}
-            onDesserts={() => navigateList('desserts')}
-            onShisha={() => navigateList('shisha')}
-            onSandwiches={() => navigateList('sandwiches')}
-            onYogurt={() => navigateList('yogurt')}
+    <div style={{ background: '#faf9f4' }}>
+      {/* ── Mini Hero ── */}
+      <section style={{
+        minHeight: '100svh',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        background: 'linear-gradient(160deg,#1a2612,#2c3a24 60%,#1e2e16)',
+        textAlign: 'center',
+        padding: '60px 24px 80px',
+        position: 'relative', overflow: 'hidden',
+      }}>
+        {/* Olive branch — decorative */}
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%285%29-I4zRXdmd0oQXqKRice8ElgxI5yEMtN.png"
+          alt=""
+          style={{
+            position: 'absolute', right: '-4%', top: '4%',
+            width: 'clamp(180px,28vw,380px)', height: 'auto',
+            opacity: 0.22, pointerEvents: 'none',
+          }}
+        />
+
+        {/* Logo circle */}
+        <div style={{
+          width: 'clamp(130px,16vw,190px)',
+          height: 'clamp(130px,16vw,190px)',
+          borderRadius: '50%',
+          background: '#596B3D',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          marginBottom: 36, flexShrink: 0,
+          boxShadow: '0 8px 40px rgba(89,107,61,0.45)',
+        }}>
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
+            alt="Oliva"
+            style={{ width: '78%', height: '78%', objectFit: 'contain', display: 'block' }}
           />
-          <div style={{ position: 'relative', zIndex: 20 }}>
-            <ContactSection />
-          </div>
-        </main>
-        <SiteFooter navigate={navigateMenu} onBook={scrollToBooking} />
-        <WhatsAppButton />
+        </div>
+
+        {/* Eyebrow */}
+        <p style={{
+          margin: '0 0 14px', fontSize: 'clamp(11px,1.2vw,13px)', fontWeight: 800,
+          letterSpacing: '0.32em', textTransform: 'uppercase', color: '#8aa86a',
+        }}>Padel · Café · Shisha</p>
+
+        {/* Headline */}
+        <h1 style={{
+          margin: '0 0 14px',
+          fontSize: 'clamp(44px,7vw,84px)',
+          fontWeight: 900,
+          color: '#f5f2e8',
+          letterSpacing: '-0.03em',
+          lineHeight: 1.05,
+          maxWidth: 680,
+        }}>
+          From Court<br />to Cup
+        </h1>
+
+        {/* Subline */}
+        <p style={{
+          margin: '0 0 52px',
+          fontSize: 'clamp(15px,1.5vw,18px)',
+          color: 'rgba(245,242,232,0.6)',
+          maxWidth: 460,
+          lineHeight: 1.65,
+        }}>
+          A grove, two courts, and the slowest afternoon you've ever had.
+        </p>
+
+        {/* Scroll CTA */}
+        <button
+          onClick={scrollToMenu}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            background: '#596B3D', color: '#f5f2e8',
+            border: 'none', borderRadius: 999,
+            padding: '16px 38px',
+            fontSize: 15, fontWeight: 800, letterSpacing: '0.06em',
+            cursor: 'pointer',
+            boxShadow: '0 4px 28px rgba(89,107,61,0.45)',
+          }}
+        >
+          View Menu
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </button>
+      </section>
+
+      {/* ── Menu — zero changes inside ── */}
+      <div id="menu-section">
+        <Menu
+          onHotDrinks={() => navigateList('hot-drinks')}
+          onColdDrinks={() => navigateList('cold-drinks')}
+          onDesserts={() => navigateList('desserts')}
+          onShisha={() => navigateList('shisha')}
+          onSandwiches={() => navigateList('sandwiches')}
+          onYogurt={() => navigateList('yogurt')}
+          onPadel={() => navigateList('padel')}
+        />
       </div>
-    </>
+
+      <WhatsAppButton />
+    </div>
   );
 }
 
