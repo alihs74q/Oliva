@@ -81,7 +81,7 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
           opacity: 0.85,
           pointerEvents: 'none',
           zIndex: 1,
-          mixBlendMode: 'screen',
+
           filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))',
         }}
       />
