@@ -131,8 +131,6 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
               initial={{ opacity: 0, y: 24, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.25, ease: EASE, delay: i * 0.03 }}
-              whileHover={{ scale: 1.02, transition: { duration: 0.15 } }}
-              whileTap={{ scale: 0.95, transition: { duration: 0.08 } }}
               style={{
                 position: 'relative', overflow: 'hidden', cursor: 'pointer',
                 background: isHovered ? '#4a6741' : '#f5f3e8',

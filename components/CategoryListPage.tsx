@@ -169,36 +169,36 @@ export default function CategoryListPage({
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 clamp(16px,4vw,40px)',
       }}>
-        <motion.button onClick={handleBackClick}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button onClick={handleBackClick}
           style={{
             display: 'flex', alignItems: 'center', gap: 8,
             background: 'rgba(89,107,61,0.08)',
             border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
             padding: '10px 20px', cursor: 'pointer',
             color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
-            transition: 'background 0.2s ease',
+            transition: 'background 0.15s ease',
           }}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.15)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.08)'}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           BACK
-        </motion.button>
-        <motion.button onClick={onHome}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        </button>
+        <button onClick={onHome}
           style={{
             display: 'flex', alignItems: 'center', gap: 8,
             background: 'rgba(89,107,61,0.08)',
             border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
             padding: '10px 16px', cursor: 'pointer',
             color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
-            transition: 'background 0.2s ease',
+            transition: 'background 0.15s ease',
           }}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.15)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.08)'}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
           HOME
-        </motion.button>
+        </button>
       </nav>
 
       {/* Scrollable content container */}
@@ -373,7 +373,7 @@ function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: Category
   )
 }
 
-// ─── Price sticky note ────────────────────────────────────────────────────────
+// ─── Price sticky note ────────────────────────────────────────────────────���───
 function PriceStickyNote({ price, lbpPrice, currency }: { price: string; lbpPrice: string; currency: Currency }) {
   const displayedPrice = currency === 'USD' ? price : lbpPrice
   const isLBP = currency === 'LBP'
