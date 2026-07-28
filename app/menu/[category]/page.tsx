@@ -85,12 +85,18 @@ export default function CategoryPage() {
 
   const data = CATEGORY_DATA[category];
 
+  const handleBack = () => {
+    // Scroll to top smoothly then navigate
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => router.push('/'), 200);
+  };
+
   if (category === 'padel') {
     return (
       <>
         <PadelPage
           theme={data.theme}
-          onBack={() => router.push('/')}
+          onBack={handleBack}
         />
         <WhatsAppButton />
       </>
@@ -105,7 +111,7 @@ export default function CategoryPage() {
         theme={data.theme}
         subcategories={subcategoryData[category]}
         navigate={() => router.push('/')}
-        onBack={() => router.push('/')}
+        onBack={handleBack}
       />
       <WhatsAppButton />
     </>

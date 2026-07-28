@@ -128,10 +128,11 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
               onClick={() => handlers[card.id]?.()}
               onMouseEnter={() => setHoveredId(card.id)}
               onMouseLeave={() => setHoveredId(null)}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: EASE, delay: i * 0.08 }}
-              whileTap={{ scale: 0.96, transition: { duration: 0.12 } }}
+              initial={{ opacity: 0, y: 24, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.35, ease: EASE, delay: i * 0.06 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.25 } }}
+              whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
               style={{
                 position: 'relative', overflow: 'hidden', cursor: 'pointer',
                 background: isHovered ? '#4a6741' : '#f5f3e8',

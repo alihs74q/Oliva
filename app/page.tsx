@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Menu from '@/components/Menu';
 import SiteFooter from '@/components/SiteFooter';
@@ -19,7 +20,12 @@ export default function Home() {
   };
 
   return (
-    <div style={{ background: '#faf9f4' }}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      style={{ background: '#faf9f4' }}
+    >
       {/* Hero Section */}
       <section style={{
         minHeight: '100svh',
@@ -145,8 +151,11 @@ export default function Home() {
           onPadel={() => handleNavigateList('padel')}
         />
       </div>
-
+      <SiteFooter 
+        navigate={() => {}}
+        onBook={() => {}}
+      />
       <WhatsAppButton />
-    </div>
+    </motion.div>
   );
 }

@@ -4,6 +4,7 @@ import type { Subcategory, SubcategoryDrink } from '@/data/subcategories'
 import CurrencyToggle from './CurrencyToggle'
 import { useCurrency } from '@/hooks/useCurrency'
 import type { Currency } from '@/hooks/useCurrency'
+import { useEffect } from 'react'
 
 export interface CategoryTheme {
   bgGradient: string
@@ -145,34 +146,45 @@ export default function CategoryListPage({
   onBack: () => void
 }) {
   const [openSub, setOpenSub] = useState<Subcategory | null>(null)
+  const [isExiting, setIsExiting] = useState(false)
+
+  const handleBackClick = () => {
+    setIsExiting(true)
+    setTimeout(onBack, 300)
+  }
 
   return (
-    <div style={{
-      position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column',
-      background: PAGE_BG,
-    }}>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+      style={{
+        position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column',
+        background: PAGE_BG,
+      }}
+    >
       {/* Nav */}
       <nav style={{
         position: 'relative', zIndex: 10, height: 68, flexShrink: 0,
         display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
         padding: '0 clamp(16px,4vw,40px)',
       }}>
-        <button onClick={onBack}
+        <motion.button onClick={handleBackClick}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           style={{
             display: 'flex', alignItems: 'center', gap: 8,
             background: 'rgba(89,107,61,0.08)',
             border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
             padding: '10px 20px', cursor: 'pointer',
             color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
-            transition: 'transform 0.2s ease, background 0.2s ease',
+            transition: 'background 0.2s ease',
           }}
-          onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.95)')}
-          onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
-          onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           BACK
-        </button>
+        </motion.button>
       </nav>
 
       {/* Scrollable content container */}
@@ -275,7 +287,7 @@ export default function CategoryListPage({
           .subcat-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
-    </div>
+    </motion.div>
   )
 }
 
