@@ -136,7 +136,7 @@ function SubcatCard({ sub, theme, isPlaceholder, onClick, animDelay }: {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function CategoryListPage({
-  title, subtitle, theme, subcategories, navigate, onBack,
+  title, subtitle, theme, subcategories, navigate, onBack, onHome,
 }: {
   title: string
   subtitle: string
@@ -144,21 +144,20 @@ export default function CategoryListPage({
   subcategories: Subcategory[]
   navigate: (to: NavRoute) => void
   onBack: () => void
+  onHome: () => void
 }) {
   const [openSub, setOpenSub] = useState<Subcategory | null>(null)
-  const [isExiting, setIsExiting] = useState(false)
 
   const handleBackClick = () => {
-    setIsExiting(true)
-    setTimeout(onBack, 300)
+    onBack()
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.15 }}
       style={{
         position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column',
         background: PAGE_BG,
@@ -167,7 +166,7 @@ export default function CategoryListPage({
       {/* Nav */}
       <nav style={{
         position: 'relative', zIndex: 10, height: 68, flexShrink: 0,
-        display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 clamp(16px,4vw,40px)',
       }}>
         <motion.button onClick={handleBackClick}
@@ -184,6 +183,21 @@ export default function CategoryListPage({
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
           BACK
+        </motion.button>
+        <motion.button onClick={onHome}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 8,
+            background: 'rgba(89,107,61,0.08)',
+            border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
+            padding: '10px 16px', cursor: 'pointer',
+            color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
+            transition: 'background 0.2s ease',
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          HOME
         </motion.button>
       </nav>
 

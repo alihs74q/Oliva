@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
-import Menu from '@/components/Menu';
 import SiteFooter from '@/components/SiteFooter';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { useRouter } from 'next/navigation';
@@ -11,19 +10,15 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const router = useRouter();
 
-  const handleScrollToMenu = () => {
-    document.getElementById('menu-section')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleNavigateList = (category: string) => {
-    router.push(`/menu/${category}`);
+  const handleViewMenu = () => {
+    router.push('/menu');
   };
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.15 }}
       style={{ background: '#faf9f4' }}
     >
       {/* Hero Section */}
@@ -115,7 +110,7 @@ export default function Home() {
 
         {/* Scroll CTA */}
         <button
-          onClick={handleScrollToMenu}
+          onClick={handleViewMenu}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -139,18 +134,7 @@ export default function Home() {
         </button>
       </section>
 
-      {/* Menu Section */}
-      <div id="menu-section">
-        <Menu
-          onHotDrinks={() => handleNavigateList('hot-drinks')}
-          onColdDrinks={() => handleNavigateList('cold-drinks')}
-          onDesserts={() => handleNavigateList('desserts')}
-          onShisha={() => handleNavigateList('shisha')}
-          onSandwiches={() => handleNavigateList('sandwiches')}
-          onYogurt={() => handleNavigateList('yogurt')}
-          onPadel={() => handleNavigateList('padel')}
-        />
-      </div>
+
       <SiteFooter 
         navigate={() => {}}
         onBook={() => {}}

@@ -22,10 +22,11 @@ const PADEL_ITEMS: PadelItem[] = [
 ]
 
 export default function PadelPage({
-  theme, onBack,
+  theme, onBack, onHome,
 }: {
   theme: CategoryTheme
   onBack: () => void
+  onHome: () => void
 }) {
   const { currency, toggle } = useCurrency('USD')
 
@@ -40,22 +41,40 @@ export default function PadelPage({
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 clamp(16px,4vw,40px)',
       }}>
-        <button onClick={onBack}
-          style={{
-            display: 'flex', alignItems: 'center', gap: 8,
-            background: 'rgba(255,255,255,0.1)',
-            border: '1px solid rgba(255,255,255,0.15)', borderRadius: 999,
-            padding: '10px 20px', cursor: 'pointer',
-            color: theme.text, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
-            transition: 'transform 0.2s ease, background 0.2s ease',
-          }}
-          onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.95)')}
-          onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
-          onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-          BACK
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button onClick={onBack}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.15)', borderRadius: 999,
+              padding: '10px 20px', cursor: 'pointer',
+              color: theme.text, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
+              transition: 'transform 0.2s ease, background 0.2s ease',
+            }}
+            onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.95)')}
+            onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
+            onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+            BACK
+          </button>
+          <button onClick={onHome}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.15)', borderRadius: 999,
+              padding: '10px 16px', cursor: 'pointer',
+              color: theme.text, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
+              transition: 'transform 0.2s ease, background 0.2s ease',
+            }}
+            onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.95)')}
+            onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
+            onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            HOME
+          </button>
+        </div>
         <CurrencyToggle currency={currency} onToggle={toggle} />
       </nav>
 

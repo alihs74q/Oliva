@@ -86,9 +86,12 @@ export default function CategoryPage() {
   const data = CATEGORY_DATA[category];
 
   const handleBack = () => {
-    // Scroll to top smoothly then navigate
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => router.push('/'), 200);
+    // Navigate back to menu instantly (no scroll delay)
+    router.push('/menu');
+  };
+
+  const handleHome = () => {
+    router.push('/');
   };
 
   if (category === 'padel') {
@@ -97,6 +100,7 @@ export default function CategoryPage() {
         <PadelPage
           theme={data.theme}
           onBack={handleBack}
+          onHome={handleHome}
         />
         <WhatsAppButton />
       </>
@@ -112,6 +116,7 @@ export default function CategoryPage() {
         subcategories={subcategoryData[category]}
         navigate={() => router.push('/')}
         onBack={handleBack}
+        onHome={handleHome}
       />
       <WhatsAppButton />
     </>
