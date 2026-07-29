@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import Menu from '@/components/Menu';
-import WhatsAppButton from '@/components/WhatsAppButton';
 
 export default function MenuPage() {
   const router = useRouter();
@@ -65,8 +64,6 @@ export default function MenuPage() {
           onPadel={() => handleNavigateList('padel')}
         />
       </div>
-
-      <WhatsAppButton />
     </div>
   );
 }

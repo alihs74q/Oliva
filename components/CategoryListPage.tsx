@@ -153,11 +153,7 @@ export default function CategoryListPage({
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.15 }}
+    <div
       style={{
         position: 'fixed', inset: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column',
         background: PAGE_BG,
@@ -301,7 +297,7 @@ export default function CategoryListPage({
           .subcat-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
-    </motion.div>
+    </div>
   )
 }
 

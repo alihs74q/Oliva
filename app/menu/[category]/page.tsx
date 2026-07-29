@@ -4,7 +4,6 @@ import { useParams, useRouter } from 'next/navigation';
 import PadelPage from '@/components/PadelPage';
 import CategoryListPage, { type CategoryTheme } from '@/components/CategoryListPage';
 import { subcategoryData } from '@/data/subcategories';
-import WhatsAppButton from '@/components/WhatsAppButton';
 
 type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha' | 'sandwiches' | 'yogurt' | 'padel';
 
@@ -96,29 +95,23 @@ export default function CategoryPage() {
 
   if (category === 'padel') {
     return (
-      <>
-        <PadelPage
-          theme={data.theme}
-          onBack={handleBack}
-          onHome={handleHome}
-        />
-        <WhatsAppButton />
-      </>
+      <PadelPage
+        theme={data.theme}
+        onBack={handleBack}
+        onHome={handleHome}
+      />
     );
   }
 
   return (
-    <>
-      <CategoryListPage
-        title={data.title}
-        subtitle={data.subtitle}
-        theme={data.theme}
-        subcategories={subcategoryData[category]}
-        navigate={() => router.push('/')}
-        onBack={handleBack}
-        onHome={handleHome}
-      />
-      <WhatsAppButton />
-    </>
+    <CategoryListPage
+      title={data.title}
+      subtitle={data.subtitle}
+      theme={data.theme}
+      subcategories={subcategoryData[category]}
+      navigate={() => router.push('/')}
+      onBack={handleBack}
+      onHome={handleHome}
+    />
   );
 }

@@ -1,10 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import SiteFooter from '@/components/SiteFooter';
-import WhatsAppButton from '@/components/WhatsAppButton';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
@@ -15,12 +13,7 @@ export default function Home() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.15 }}
-      style={{ background: '#faf9f4' }}
-    >
+    <div style={{ background: '#faf9f4' }}>
       {/* Hero Section */}
       <section style={{
         minHeight: '100svh',
@@ -73,73 +66,29 @@ export default function Home() {
             }}
           />
         </div>
-
-        {/* Eyebrow */}
-        <p style={{
-          margin: '0 0 14px',
-          fontSize: 'clamp(11px,1.2vw,13px)',
-          fontWeight: 800,
-          letterSpacing: '0.32em',
-          textTransform: 'uppercase',
-          color: '#8aa86a',
-        }}>Padel · Café · Shisha</p>
-
-        {/* Headline */}
-        <h1 style={{
-          margin: '0 0 14px',
-          fontSize: 'clamp(44px,7vw,84px)',
-          fontWeight: 900,
-          color: '#f5f2e8',
-          letterSpacing: '-0.03em',
-          lineHeight: 1.05,
-          maxWidth: 680,
-        }}>
-          From Court<br />to Cup
-        </h1>
-
-        {/* Subline */}
-        <p style={{
-          margin: '0 0 52px',
-          fontSize: 'clamp(15px,1.5vw,18px)',
-          color: 'rgba(245,242,232,0.6)',
-          maxWidth: 460,
-          lineHeight: 1.65,
-        }}>
-          A grove, two courts, and the slowest afternoon you&apos;ve ever had.
-        </p>
-
-        {/* Scroll CTA */}
-        <button
-          onClick={handleViewMenu}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 10,
-            background: '#596B3D',
-            color: '#f5f2e8',
-            border: 'none',
-            borderRadius: 999,
-            padding: '16px 38px',
-            fontSize: 15,
-            fontWeight: 800,
-            letterSpacing: '0.06em',
-            cursor: 'pointer',
-            boxShadow: '0 4px 28px rgba(89,107,61,0.45)',
-          }}
+        <button onClick={handleViewMenu} style={{
+          marginTop: 48,
+          padding: '14px 36px',
+          background: '#596B3D',
+          color: '#faf9f4',
+          border: 'none',
+          borderRadius: 8,
+          fontSize: 15,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          cursor: 'pointer',
+          transition: 'background 0.3s ease',
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.background = '#4a5630'}
+        onMouseLeave={(e) => e.currentTarget.style.background = '#596B3D'}
         >
-          View Menu
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 5v14M5 12l7 7 7-7" />
-          </svg>
+          VIEW MENU
         </button>
       </section>
-
-
       <SiteFooter 
         navigate={() => {}}
         onBook={() => {}}
       />
-      <WhatsAppButton />
-    </motion.div>
+    </div>
   );
 }
