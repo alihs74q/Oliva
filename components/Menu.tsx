@@ -1,7 +1,18 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
+
+const ID_TO_SLUG: Record<string, string> = {
+  hot: 'hot-drinks',
+  cold: 'cold-drinks',
+  dessert: 'desserts',
+  shisha: 'shisha',
+  sandwiches: 'sandwiches',
+  yogurt: 'yogurt',
+  padel: 'padel',
+}
 
 interface CatCard {
   id: string
@@ -123,26 +134,25 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
           const isHovered = hoveredId === card.id
           const accentColor = TEXT_ACCENT[card.id] ?? '#6b7c4a'
           return (
-            <motion.button
-              key={card.id}
-              onClick={() => handlers[card.id]?.()}
-              onMouseEnter={() => setHoveredId(card.id)}
-              onMouseLeave={() => setHoveredId(null)}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, ease: 'easeOut', delay: i * 0.02 }}
-              style={{
-                position: 'relative', overflow: 'hidden', cursor: 'pointer',
-                background: isHovered ? '#4a6741' : '#f5f3e8',
-                borderRadius: 28,
-                border: '1.5px solid #7a9055',
-                padding: 'clamp(24px,3vw,36px)', textAlign: 'left',
-                minHeight: 260, display: 'flex', flexDirection: 'column', gap: 14,
-                boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
-                willChange: 'transform',
-                transition: 'background 0.3s ease',
-              }}
-            >
+            <Link key={card.id} href={`/menu/${ID_TO_SLUG[card.id] || card.id}`} prefetch={true} style={{ textDecoration: 'none' }}>
+              <motion.button
+                onMouseEnter={() => setHoveredId(card.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, ease: 'easeOut', delay: i * 0.02 }}
+                style={{
+                  position: 'relative', overflow: 'hidden', cursor: 'pointer',
+                  background: isHovered ? '#4a6741' : '#f5f3e8',
+                  borderRadius: 28,
+                  border: '1.5px solid #7a9055',
+                  padding: 'clamp(24px,3vw,36px)', textAlign: 'left',
+                  minHeight: 260, display: 'flex', flexDirection: 'column', gap: 14,
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+                  willChange: 'transform',
+                  transition: 'background 0.3s ease',
+                }}
+              >
               {/* Image — unchanged: size, cropping, quality, position, border */}
               <div style={{
                 width: 'clamp(58px,8vw,72px)', height: 'clamp(58px,8vw,72px)',
@@ -189,6 +199,7 @@ export default function Menu({ onBack, onHotDrinks, onColdDrinks, onDesserts, on
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </div>
             </motion.button>
+            </Link>
           )
         })}
       </div>

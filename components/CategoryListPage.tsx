@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 import type { Subcategory, SubcategoryDrink } from '@/data/subcategories'
 import CurrencyToggle from './CurrencyToggle'
 import { useCurrency } from '@/hooks/useCurrency'
@@ -165,36 +166,40 @@ export default function CategoryListPage({
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 clamp(16px,4vw,40px)',
       }}>
-        <button onClick={handleBackClick}
-          style={{
-            display: 'flex', alignItems: 'center', gap: 8,
-            background: 'rgba(89,107,61,0.08)',
-            border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
-            padding: '10px 20px', cursor: 'pointer',
-            color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
-            transition: 'background 0.15s ease',
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.15)'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.08)'}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-          BACK
-        </button>
-        <button onClick={onHome}
-          style={{
-            display: 'flex', alignItems: 'center', gap: 8,
-            background: 'rgba(89,107,61,0.08)',
-            border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
-            padding: '10px 16px', cursor: 'pointer',
-            color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
-            transition: 'background 0.15s ease',
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.15)'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.08)'}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-          HOME
-        </button>
+        <Link href="/menu" prefetch={true} style={{ textDecoration: 'none' }}>
+          <button
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              background: 'rgba(89,107,61,0.08)',
+              border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
+              padding: '10px 20px', cursor: 'pointer',
+              color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
+              transition: 'background 0.15s ease',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.15)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.08)'}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+            BACK
+          </button>
+        </Link>
+        <Link href="/" prefetch={true} style={{ textDecoration: 'none' }}>
+          <button
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              background: 'rgba(89,107,61,0.08)',
+              border: `1px solid ${OLIVA_GRN}`, borderRadius: 999,
+              padding: '10px 16px', cursor: 'pointer',
+              color: OLIVA_GRN, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em',
+              transition: 'background 0.15s ease',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.15)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(89,107,61,0.08)'}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            HOME
+          </button>
+        </Link>
       </nav>
 
       {/* Scrollable content container */}
