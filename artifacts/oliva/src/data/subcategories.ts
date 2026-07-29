@@ -4,6 +4,7 @@ export interface SubcategoryDrink {
   price: string
   lbpPrice: string
   image: string | null
+  recipe?: string
 }
 
 export interface Subcategory {
@@ -25,10 +26,10 @@ export const coldDrinksSubcategories: Subcategory[] = [
     accentColor: '#86efac',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Style_of_cub_cold_drink_202607240431-TrhRjFxd4wxoAx2gsQCFMQNxRLCWI3.jpeg',
     drinks: [
-      { name: 'Foral Fusion', description: 'A vibrant blend of fresh fruit flavors.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Remove_cub_keep_berry_202607240514-HSn503Mf9tacmA8abgIBzX6GJZV2aA.jpeg' },
-      { name: 'Mango', description: 'Ripe mango blended to perfection.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_mango_smoothies_202607240514-6etjX8dIMf211zgwAI0qADkDRfXIYK.jpeg' },
-      { name: 'Strawberry', description: 'Fresh strawberries, creamy and sweet.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_strawberry_smoothies_202607240515-ErzxOqHxsILoXGGWoxfURuwvjKOfLR.jpeg' },
-      { name: 'Passion Fruit', description: 'Tropical passion fruit, tangy and refreshing.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_passion_fruit_smoothie_202607240515-gcFfTy9CTasTxniOrouIbIFZszEfSE.jpeg' },
+      { name: 'Foral Fusion', description: 'A vibrant blend of fresh fruit flavors.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Remove_cub_keep_berry_202607240514-HSn503Mf9tacmA8abgIBzX6GJZV2aA.jpeg', recipe: 'Mixed berries · Fresh strawberries · Blueberries · Banana · Honey · Fresh orange juice · Ice' },
+      { name: 'Mango', description: 'Ripe mango blended to perfection.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_mango_smoothies_202607240514-6etjX8dIMf211zgwAI0qADkDRfXIYK.jpeg', recipe: 'Fresh mango · Banana · Greek yogurt · Honey · Fresh lime juice · Ice' },
+      { name: 'Strawberry', description: 'Fresh strawberries, creamy and sweet.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_strawberry_smoothies_202607240515-ErzxOqHxsILoXGGWoxfURuwvjKOfLR.jpeg', recipe: 'Fresh strawberries · Banana · Milk · Vanilla extract · Honey · Ice' },
+      { name: 'Passion Fruit', description: 'Tropical passion fruit, tangy and refreshing.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_passion_fruit_smoothie_202607240515-gcFfTy9CTasTxniOrouIbIFZszEfSE.jpeg', recipe: 'Passion fruit pulp · Mango · Pineapple juice · Coconut water · Honey · Ice' },
     ],
   },
   {
@@ -39,12 +40,12 @@ export const coldDrinksSubcategories: Subcategory[] = [
     accentColor: '#fcd34d',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_milkshakes_202607240432-DyeXQYjJj3Qg2lXxkb8gT9y7V0T2mz.jpeg',
     drinks: [
-      { name: 'Cookies & Cream', description: 'Crushed cookies blended into silky cream.', price: '$4.50', lbpPrice: '400,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Make_cookies_brown_not_oreo_202607240518-iKktANVkffo9wb6QbbcuqxY2ChOrwx.jpeg' },
-      { name: 'Strawberry Whip', description: 'Fresh strawberries with whipped cream.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Strawberry_whip_milkshakes_202607240519-XGTJ17Ap1la3ozcF0mlFK2Y7N9HQqZ.jpeg' },
-      { name: 'Choco-Nut Milkshake', description: 'Chocolate and nut blend, rich and creamy.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_choco_nut_202607240519-6mC8PWh61UYLCgVfOb8SdAZVcD0oJo.jpeg' },
-      { name: 'Vanilla Milkshake', description: 'Classic vanilla bean milkshake.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_vanilla_milkshakes_202607240520-CSxRiddqcNF8XKDMaS0NDdhwTaSgYp.jpeg' },
-      { name: 'Lotus Milkshake', description: 'Lotus biscuit blended into creamy indulgence.', price: '$4.50', lbpPrice: '400,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_lotus_milkshake_202607240521-VWPZhDpaqRMBGqeEMWZyjAZrVKWVQA.jpeg' },
-      { name: 'Oliva Milkshake', description: '??????????????', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Make_drink_sooooo_blur_202607240524-oqfptwROqTmiIQ6F4op2kh9LR8JRA6.jpeg' },
+      { name: 'Cookies & Cream', description: 'Crushed cookies blended into silky cream.', price: '$4.50', lbpPrice: '400,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Make_cookies_brown_not_oreo_202607240518-iKktANVkffo9wb6QbbcuqxY2ChOrwx.jpeg', recipe: 'Vanilla ice cream · Crushed chocolate cookies · Whole milk · Whipped cream · Cookie crumble topping' },
+      { name: 'Strawberry Whip', description: 'Fresh strawberries with whipped cream.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Strawberry_whip_milkshakes_202607240519-XGTJ17Ap1la3ozcF0mlFK2Y7N9HQqZ.jpeg', recipe: 'Fresh strawberries · Vanilla ice cream · Whole milk · Honey · Whipped cream · Strawberry slices on top' },
+      { name: 'Choco-Nut Milkshake', description: 'Chocolate and nut blend, rich and creamy.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_choco_nut_202607240519-6mC8PWh61UYLCgVfOb8SdAZVcD0oJo.jpeg', recipe: 'Chocolate ice cream · Hazelnut spread · Whole milk · Crushed mixed nuts · Whipped cream · Chocolate drizzle' },
+      { name: 'Vanilla Milkshake', description: 'Classic vanilla bean milkshake.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_vanilla_milkshakes_202607240520-CSxRiddqcNF8XKDMaS0NDdhwTaSgYp.jpeg', recipe: 'Vanilla bean ice cream · Whole milk · Pure vanilla extract · Whipped cream · Vanilla wafer garnish' },
+      { name: 'Lotus Milkshake', description: 'Lotus biscuit blended into creamy indulgence.', price: '$4.50', lbpPrice: '400,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_lotus_milkshake_202607240521-VWPZhDpaqRMBGqeEMWZyjAZrVKWVQA.jpeg', recipe: 'Vanilla ice cream · Lotus Biscoff spread · Crushed Lotus biscuits · Whole milk · Whipped cream · Caramel drizzle' },
+      { name: 'Oliva Milkshake', description: 'Our secret house-special signature shake.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Make_drink_sooooo_blur_202607240524-oqfptwROqTmiIQ6F4op2kh9LR8JRA6.jpeg', recipe: '🤫 That\'s our secret — come in and find out!' },
     ],
   },
   {
@@ -55,11 +56,11 @@ export const coldDrinksSubcategories: Subcategory[] = [
     accentColor: '#fdba74',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_with_random_coffee_202607240435-Rqt8wvMWeMz7dwq7AGPXffMLOVnKpd.jpeg',
     drinks: [
-      { name: 'Mocha Frappe', description: 'Rich mocha blended with ice and cream.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-BQDkBVR6vWGnbaHOj7SOW5NopJgyKD.png' },
-      { name: 'Caramel Frappe', description: 'Smooth caramel blended with ice and coffee.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-DD355iO6F299UbnMlZ1HbkfhQNt4Sd.png' },
-      { name: 'Vanilla Frappe', description: 'Classic vanilla blended with ice and coffee.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Q3TPoUv7PqvQEPzIy7QPORCPPdjfeg.png' },
-      { name: 'Toffee Nut Frappe', description: 'Toffee nut blended with ice and coffee.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-V92sw4jPopFJUhY0I6CRopiMhJPd3z.png' },
-      { name: 'Oliva Frappe', description: 'Our signature house-special frappe.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bbYGextJha6eEyKhj4PdXN57IHwUl6.png' },
+      { name: 'Mocha Frappe', description: 'Rich mocha blended with ice and cream.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-BQDkBVR6vWGnbaHOj7SOW5NopJgyKD.png', recipe: 'Double espresso · Dark chocolate sauce · Whole milk · Ice · Whipped cream · Chocolate powder dusting' },
+      { name: 'Caramel Frappe', description: 'Smooth caramel blended with ice and coffee.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-DD355iO6F299UbnMlZ1HbkfhQNt4Sd.png', recipe: 'Double espresso · Caramel sauce · Whole milk · Ice · Whipped cream · Caramel drizzle on top' },
+      { name: 'Vanilla Frappe', description: 'Classic vanilla blended with ice and coffee.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Q3TPoUv7PqvQEPzIy7QPORCPPdjfeg.png', recipe: 'Double espresso · Vanilla syrup · Whole milk · Ice · Whipped cream · Vanilla bean dust' },
+      { name: 'Toffee Nut Frappe', description: 'Toffee nut blended with ice and coffee.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-V92sw4jPopFJUhY0I6CRopiMhJPd3z.png', recipe: 'Double espresso · Toffee nut syrup · Whole milk · Ice · Whipped cream · Crushed toffee bits' },
+      { name: 'Oliva Frappe', description: 'Our signature house-special frappe.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bbYGextJha6eEyKhj4PdXN57IHwUl6.png', recipe: '🤫 Oliva\'s secret recipe — come taste the mystery!' },
     ],
   },
   {
@@ -70,12 +71,12 @@ export const coldDrinksSubcategories: Subcategory[] = [
     accentColor: '#7dd3fc',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_ice_latte_202607240436-pCXFkaQ79lJybuM2KEHZVqUlyIAJUW.jpeg',
     drinks: [
-      { name: 'Iced Spanish Latte', description: 'Condensed milk sweetness over iced espresso.', price: '$3.50', lbpPrice: '400,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-1A9jSkBMZQQTChO85ByHAFjMXR4xFl.png' },
-      { name: 'Iced Mocha Latte', description: 'Chocolate and espresso over ice.', price: '$3.50', lbpPrice: '400,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Rr4c9LxQmhblzgfiYOvwxMvOIKa6hl.png' },
-      { name: 'Iced Latte (Vanilla, Hazelnut, Salted Caramel)', description: 'Choose your favorite flavor over ice.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-xTfJ6LFapgpfO1LyhDQWMhHXu9DWu6.png' },
-      { name: 'Irish Cream Latte', description: 'Irish cream flavor over iced espresso.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9SNq0XJxkj4jDX9BPJYdhro9oBkYfR.png' },
-      { name: 'Caramel Macchiato', description: 'Vanilla and caramel over iced espresso.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EzCxMy5OY10OgFIMIO6yp3aNpJLNMS.png' },
-      { name: 'Iced Matcha Latte', description: 'Stone-ground matcha whisked with cold milk.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-KEVrxkxgtVF8BYCASuyNzMyJQ9PKK0.png' },
+      { name: 'Iced Spanish Latte', description: 'Condensed milk sweetness over iced espresso.', price: '$3.50', lbpPrice: '400,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-1A9jSkBMZQQTChO85ByHAFjMXR4xFl.png', recipe: 'Double espresso · Sweetened condensed milk · Whole milk · Ice' },
+      { name: 'Iced Mocha Latte', description: 'Chocolate and espresso over ice.', price: '$3.50', lbpPrice: '400,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Rr4c9LxQmhblzgfiYOvwxMvOIKa6hl.png', recipe: 'Double espresso · Dark chocolate sauce · Cold whole milk · Ice · Chocolate drizzle' },
+      { name: 'Iced Latte (Vanilla, Hazelnut, Salted Caramel)', description: 'Choose your favorite flavor over ice.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-xTfJ6LFapgpfO1LyhDQWMhHXu9DWu6.png', recipe: 'Double espresso · Choice of syrup (Vanilla / Hazelnut / Salted Caramel) · Cold whole milk · Ice' },
+      { name: 'Irish Cream Latte', description: 'Irish cream flavor over iced espresso.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9SNq0XJxkj4jDX9BPJYdhro9oBkYfR.png', recipe: 'Double espresso · Irish cream syrup · Cold whole milk · Ice' },
+      { name: 'Caramel Macchiato', description: 'Vanilla and caramel over iced espresso.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EzCxMy5OY10OgFIMIO6yp3aNpJLNMS.png', recipe: 'Double espresso · Vanilla syrup · Cold whole milk · Ice · Caramel sauce drizzle' },
+      { name: 'Iced Matcha Latte', description: 'Stone-ground matcha whisked with cold milk.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-KEVrxkxgtVF8BYCASuyNzMyJQ9PKK0.png', recipe: 'Ceremonial-grade matcha powder · Hot water (to whisk) · Choice of milk (Oat / Almond / Regular) · Ice · Optional honey' },
     ],
   },
   {
@@ -86,12 +87,12 @@ export const coldDrinksSubcategories: Subcategory[] = [
     accentColor: '#67e8f9',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cubs_with_ice_tea_202607240439-nvfxQ18zvpbu66MPvhJBdGmXFLvIPq.jpeg',
     drinks: [
-      { name: 'Razzlychee Iced Tea', description: 'Raspberry and lychee iced tea.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bRQLbVsikSW2ZWnjqH1VSWWdS4xUdP.png' },
-      { name: 'Tropical Iced Tea', description: 'Tropical fruit iced tea.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7i5TcZR6dEALoXdeObmDp45KOg9wU4.png' },
-      { name: 'Peach Iced Tea', description: 'Refreshing peach iced tea.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8HJ5G3p17tU3Vt5uYpASaP3IpI7Lac.png' },
-      { name: 'Kiwi Mojito', description: 'Kiwi and mint mocktail, crisp and cool.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-5rt87GEZDjmTtPCUeSwUExpuGr1KmZ.png' },
-      { name: 'Passion Crush', description: 'Passion fruit crushed with ice.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hyEo5w3I433kY7LhTcXbkS1hPiqjYB.png' },
-      { name: 'Summer Mix', description: 'A refreshing blend of summer fruits.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-o91obZpOJCEwAWMd9n8anVLDsKXoqt.png' },
+      { name: 'Razzlychee Iced Tea', description: 'Raspberry and lychee iced tea.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bRQLbVsikSW2ZWnjqH1VSWWdS4xUdP.png', recipe: 'Black tea · Fresh raspberries · Lychee syrup · Lemon juice · Ice · Mint leaves' },
+      { name: 'Tropical Iced Tea', description: 'Tropical fruit iced tea.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7i5TcZR6dEALoXdeObmDp45KOg9wU4.png', recipe: 'Green tea · Mango juice · Pineapple juice · Passion fruit syrup · Ice · Lime slice' },
+      { name: 'Peach Iced Tea', description: 'Refreshing peach iced tea.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8HJ5G3p17tU3Vt5uYpASaP3IpI7Lac.png', recipe: 'Black tea · Fresh peach purée · Peach syrup · Lemon juice · Ice · Peach slice garnish' },
+      { name: 'Kiwi Mojito', description: 'Kiwi and mint mocktail, crisp and cool.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-5rt87GEZDjmTtPCUeSwUExpuGr1KmZ.png', recipe: 'Fresh kiwi · Lime juice · Fresh mint leaves · Simple syrup · Sparkling water · Ice · Kiwi slice' },
+      { name: 'Passion Crush', description: 'Passion fruit crushed with ice.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hyEo5w3I433kY7LhTcXbkS1hPiqjYB.png', recipe: 'Passion fruit pulp · Lemon juice · Simple syrup · Sparkling water · Crushed ice' },
+      { name: 'Summer Mix', description: 'A refreshing blend of summer fruits.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-o91obZpOJCEwAWMd9n8anVLDsKXoqt.png', recipe: 'Watermelon · Strawberry · Lemon juice · Fresh mint · Simple syrup · Sparkling water · Ice' },
     ],
   },
 ]
@@ -105,14 +106,14 @@ export const hotDrinksSubcategories: Subcategory[] = [
     accentColor: '#fdba74',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/29484572558483377%20%281%29-1iER0hWvPNuvfPzzBs3dGVMmgG3dos.jpg',
     drinks: [
-      { name: 'Café Latte (Vanilla, Hazelnut)', description: 'Smooth espresso with silky steamed milk.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_drink_with_cafe_latte_202607232038-sILwH2u7ucm7zxNQAC2O01CToZpFtE.jpeg' },
-      { name: 'Hot Chocolate', description: 'Rich dark cocoa with steamed milk and a touch of cream.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_hot_chocolat_202607232038-ITId7cFtZGHzdKXocxmd6zYk8ZaNbA.jpeg' },
-      { name: 'Cappuccino', description: 'Velvety microfoam over a double espresso shot.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_design_with_white_202607232112-q3frxaTSt5VAZ2p4JNC9ZchDWhvYS9.jpeg' },
-      { name: 'Espresso', description: 'Rich single-origin shot, bold and intensely aromatic.', price: '$1.50', lbpPrice: '100,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_espresso_cub_202607232041-DuTLgmfeNonKK3t469sh1OztnIlMS8.jpeg' },
-      { name: 'Tea', description: 'Fresh garden tea leaves steeped to perfection.', price: '$1.50', lbpPrice: '100,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Mint%20Tea%20-%20Healthier%20Steps-K09FCIl8LarX2J4jW8Xjz2jdz4SGtN.jpg' },
-      { name: 'Ginger and Honey', description: 'Warm ginger with soothing honey.', price: '$1.50', lbpPrice: '150,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%F0%9F%8D%B5%E2%9C%A8%20Boost%20your%20wellness%20with%20Turmeric%20Ginger%20Detox%E2%80%A6-ZuXGzKnSKAtkGGw6dF8zluNlgAMTZb.jpg' },
-      { name: 'Chamomile', description: 'Relaxing chamomile flowers steeped to calm.', price: '$1.50', lbpPrice: '150,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5%20motivos%20para%20tomar%20ch%C3%A1%20de%20camomila-krP5Rh6ygGTtzKuGO8YcYO9HoI9VgX.jpg' },
-      { name: 'Green Tea', description: 'Fresh green tea with natural antioxidants.', price: '$1.50', lbpPrice: '150,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Download%20Cup%20of%20tea%20with%20mint%20leaves%20on%20transparent%20background%20for%20free-dVWvZk3WigRlkFEKZQtfcDFOwMcIY0.jpg' },
+      { name: 'Café Latte (Vanilla, Hazelnut)', description: 'Smooth espresso with silky steamed milk.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_drink_with_cafe_latte_202607232038-sILwH2u7ucm7zxNQAC2O01CToZpFtE.jpeg', recipe: 'Double espresso · Choice of syrup (Vanilla / Hazelnut) · Steamed whole milk · Light milk foam' },
+      { name: 'Hot Chocolate', description: 'Rich dark cocoa with steamed milk and a touch of cream.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_hot_chocolat_202607232038-ITId7cFtZGHzdKXocxmd6zYk8ZaNbA.jpeg', recipe: 'Dark chocolate sauce · Steamed whole milk · Touch of heavy cream · Whipped cream · Cocoa powder dusting' },
+      { name: 'Cappuccino', description: 'Velvety microfoam over a double espresso shot.', price: '$3', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_design_with_white_202607232112-q3frxaTSt5VAZ2p4JNC9ZchDWhvYS9.jpeg', recipe: 'Double espresso · Steamed whole milk · Thick velvety microfoam · Equal parts espresso, milk & foam' },
+      { name: 'Espresso', description: 'Rich single-origin shot, bold and intensely aromatic.', price: '$1.50', lbpPrice: '100,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Replace_cub_with_espresso_cub_202607232041-DuTLgmfeNonKK3t469sh1OztnIlMS8.jpeg', recipe: 'Single-origin espresso beans · Finely ground · Pulled at 9 bar pressure · 25–30 second extraction' },
+      { name: 'Tea', description: 'Fresh garden tea leaves steeped to perfection.', price: '$1.50', lbpPrice: '100,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Mint%20Tea%20-%20Healthier%20Steps-K09FCIl8LarX2J4jW8Xjz2jdz4SGtN.jpg', recipe: 'Fresh garden tea leaves · Hot water at 90°C · Steeped 3–4 minutes · Optional honey or lemon' },
+      { name: 'Ginger and Honey', description: 'Warm ginger with soothing honey.', price: '$1.50', lbpPrice: '150,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%F0%9F%8D%B5%E2%9C%A8%20Boost%20your%20wellness%20with%20Turmeric%20Ginger%20Detox%E2%80%A6-ZuXGzKnSKAtkGGw6dF8zluNlgAMTZb.jpg', recipe: 'Fresh ginger root · Raw honey · Lemon juice · Hot water · Optional turmeric pinch' },
+      { name: 'Chamomile', description: 'Relaxing chamomile flowers steeped to calm.', price: '$1.50', lbpPrice: '150,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5%20motivos%20para%20tomar%20ch%C3%A1%20de%20camomila-krP5Rh6ygGTtzKuGO8YcYO9HoI9VgX.jpg', recipe: 'Dried chamomile flowers · Hot water at 85°C · Steeped 5 minutes · Optional honey' },
+      { name: 'Green Tea', description: 'Fresh green tea with natural antioxidants.', price: '$1.50', lbpPrice: '150,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Download%20Cup%20of%20tea%20with%20mint%20leaves%20on%20transparent%20background%20for%20free-dVWvZk3WigRlkFEKZQtfcDFOwMcIY0.jpg', recipe: 'Premium green tea leaves · Hot water at 75°C · Steeped 2–3 minutes · Optional mint leaves' },
     ],
   },
 ]
@@ -126,9 +127,9 @@ export const dessertsSubcategories: Subcategory[] = [
     accentColor: '#fcd34d',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-K6gUgR7LVIQfqfrhFECCbnXU5OSVjR.png',
     drinks: [
-      { name: 'Lazy Cake', description: 'No-bake indulgence with layers of flavor.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9UXhz9OicC31LRDeCJeHhsIJN8Yshu.png' },
-      { name: 'Fondant', description: 'Warm chocolate center with delicious fondant.', price: '$5', lbpPrice: '450,000 LBP', image: null },
-      { name: 'Chocolate Cake', description: 'Rich dark chocolate cake perfection.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EL1k14PAkXovY7n1gx7fvPdYsbW1wh.png' },
+      { name: 'Lazy Cake', description: 'No-bake indulgence with layers of flavor.', price: '$3.50', lbpPrice: '300,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9UXhz9OicC31LRDeCJeHhsIJN8Yshu.png', recipe: 'Chocolate biscuits · Dark chocolate · Butter · Condensed milk · Cocoa powder · Crushed nuts · Chilled overnight' },
+      { name: 'Fondant', description: 'Warm chocolate center with delicious fondant.', price: '$5', lbpPrice: '450,000 LBP', image: null, recipe: 'Dark chocolate · Butter · Eggs · Sugar · Flour · Baked 10 min at 200°C · Served warm with ice cream' },
+      { name: 'Chocolate Cake', description: 'Rich dark chocolate cake perfection.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EL1k14PAkXovY7n1gx7fvPdYsbW1wh.png', recipe: 'Dark chocolate sponge · Chocolate ganache layers · Belgian dark chocolate frosting · Cocoa dusting' },
     ],
   },
   {
@@ -139,8 +140,8 @@ export const dessertsSubcategories: Subcategory[] = [
     accentColor: '#f9a8d4',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Ho4AfGQ6PkQIz94Fxt02tPMtoALL1m.png',
     drinks: [
-      { name: 'Oreo Cheesecake', description: 'Creamy cheesecake with Oreo cookie crumble.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Dt52eLBdTVXlatatfFekmMGWynWUW9.png' },
-      { name: 'Raspberry Cheesecake', description: 'Smooth cheesecake with fresh raspberry sauce.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Cyy23HENQZpQMA5YM49q4LrdWEJdWL.png' },
+      { name: 'Oreo Cheesecake', description: 'Creamy cheesecake with Oreo cookie crumble.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Dt52eLBdTVXlatatfFekmMGWynWUW9.png', recipe: 'Oreo cookie crust · Cream cheese · Heavy cream · Sugar · Vanilla · Crushed Oreo topping · Chilled 4 hours' },
+      { name: 'Raspberry Cheesecake', description: 'Smooth cheesecake with fresh raspberry sauce.', price: '$5', lbpPrice: '450,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Cyy23HENQZpQMA5YM49q4LrdWEJdWL.png', recipe: 'Graham cracker crust · Cream cheese · Heavy cream · Sugar · Fresh raspberry coulis · Raspberry garnish' },
     ],
   },
   {
@@ -151,9 +152,9 @@ export const dessertsSubcategories: Subcategory[] = [
     accentColor: '#86efac',
     image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8MQK5OawVbs0geKzCztMYmAE5FVBsZ.png',
     drinks: [
-      { name: 'Vanilla Mushroom Muffin', description: 'Soft vanilla muffin with mushroom top.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyyr1osfvSd53tv63b4IO3hsjGWyu6.png' },
-      { name: 'Chocolate Mushroom Muffin', description: 'Rich chocolate muffin with mushroom crown.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-vrzWQm0vPdBhkdfAN3Cplhoyjr5c4p.png' },
-      { name: 'Croissant', description: 'Flaky French-style croissant, baked fresh daily.', price: '$3', lbpPrice: '250,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lJJOUjm0bUeldmdyrsVfGboEJz3Igr.png' },
+      { name: 'Vanilla Mushroom Muffin', description: 'Soft vanilla muffin with mushroom top.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyyr1osfvSd53tv63b4IO3hsjGWyu6.png', recipe: 'Flour · Sugar · Butter · Eggs · Vanilla extract · Milk · Baking powder · Vanilla buttercream topping' },
+      { name: 'Chocolate Mushroom Muffin', description: 'Rich chocolate muffin with mushroom crown.', price: '$4', lbpPrice: '350,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-vrzWQm0vPdBhkdfAN3Cplhoyjr5c4p.png', recipe: 'Flour · Cocoa powder · Sugar · Butter · Eggs · Milk · Dark chocolate chips · Chocolate ganache crown' },
+      { name: 'Croissant', description: 'Flaky French-style croissant, baked fresh daily.', price: '$3', lbpPrice: '250,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lJJOUjm0bUeldmdyrsVfGboEJz3Igr.png', recipe: 'Butter dough · Layered & folded 3 times · Proofed overnight · Egg-washed · Baked fresh every morning' },
     ],
   },
 ]
@@ -166,10 +167,10 @@ export const shishaSubcategories: Subcategory[] = [
     themeColor: '#a16207',
     accentColor: '#fcd34d',
     drinks: [
-      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png' },
-      { name: 'Double Apple', description: 'Classic dual apple flavor, sweet and smooth.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png' },
-      { name: 'Grape', description: 'Rich and sweet grape flavor.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png' },
-      { name: 'Tanbak', description: 'Strong traditional tobacco flavor.', price: '$7.50', lbpPrice: '700,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png' },
+      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png', recipe: 'Premium Al Fakher tobacco · Lemon flavoring · Fresh mint leaves · Natural cooling agents · Served with premium charcoal' },
+      { name: 'Double Apple', description: 'Classic dual apple flavor, sweet and smooth.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png', recipe: 'Premium tobacco · Red & green apple blend · Anise notes · Natural fruit essence · Served with premium charcoal' },
+      { name: 'Grape', description: 'Rich and sweet grape flavor.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png', recipe: 'Premium tobacco · Concord grape flavor · Natural fruit essence · Sweet finish · Served with premium charcoal' },
+      { name: 'Tanbak', description: 'Strong traditional tobacco flavor.', price: '$7.50', lbpPrice: '700,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png', recipe: 'Pure unwashed Tanbak tobacco · Traditional preparation · Bold raw flavor · For experienced shisha lovers · Served with premium charcoal' },
     ],
   },
 ]
@@ -182,11 +183,11 @@ export const sandwichesSubcategories: Subcategory[] = [
     themeColor: '#8b4513',
     accentColor: '#fbbf24',
     drinks: [
-      { name: 'Tuna Cado', description: 'Fresh tuna with creamy avocado.', price: '$5', lbpPrice: '450,000 LBP', image: null },
-      { name: 'Turkey and Cheese', description: 'Sliced turkey with melted cheese.', price: '$5', lbpPrice: '450,000 LBP', image: null },
-      { name: 'Hallum Pesto', description: 'Grilled halloumi with fresh pesto.', price: '$6', lbpPrice: '550,000 LBP', image: null },
-      { name: 'Chicken Cesar Salad', description: 'Grilled chicken with Caesar dressing.', price: '$6.50', lbpPrice: '600,000 LBP', image: null },
-      { name: 'Nuts', description: 'Mixed nuts and seeds blend.', price: '$2.50', lbpPrice: '250,000 LBP', image: null },
+      { name: 'Tuna Cado', description: 'Fresh tuna with creamy avocado.', price: '$5', lbpPrice: '450,000 LBP', image: null, recipe: 'Tuna fillet · Ripe avocado · Lemon juice · Olive oil · Arugula · Sourdough bread · Sea salt & pepper' },
+      { name: 'Turkey and Cheese', description: 'Sliced turkey with melted cheese.', price: '$5', lbpPrice: '450,000 LBP', image: null, recipe: 'Smoked turkey breast · Melted cheddar · Lettuce · Tomato · Mustard mayo · Toasted ciabatta' },
+      { name: 'Hallum Pesto', description: 'Grilled halloumi with fresh pesto.', price: '$6', lbpPrice: '550,000 LBP', image: null, recipe: 'Grilled halloumi · Homemade basil pesto · Sun-dried tomatoes · Rocket leaves · Toasted sourdough' },
+      { name: 'Chicken Cesar Salad', description: 'Grilled chicken with Caesar dressing.', price: '$6.50', lbpPrice: '600,000 LBP', image: null, recipe: 'Grilled chicken breast · Romaine lettuce · Parmesan shavings · Caesar dressing · Croutons · Ciabatta wrap' },
+      { name: 'Nuts', description: 'Mixed nuts and seeds blend.', price: '$2.50', lbpPrice: '250,000 LBP', image: null, recipe: 'Roasted almonds · Cashews · Walnuts · Pistachios · Sunflower seeds · Light sea salt seasoning' },
     ],
   },
 ]
@@ -199,9 +200,9 @@ export const yogurtSubcategories: Subcategory[] = [
     themeColor: '#d946ef',
     accentColor: '#f9a8d4',
     drinks: [
-      { name: 'Greek Yogurt', description: 'Smooth and creamy Greek yogurt.', price: '$3', lbpPrice: '300,000 LBP', image: null },
-      { name: 'Mango Greek Yogurt', description: 'Greek yogurt with fresh mango flavor.', price: '$3', lbpPrice: '300,000 LBP', image: null },
-      { name: 'Toppings', description: 'Granola, nuts, and fruit toppings.', price: '$1', lbpPrice: '100,000 LBP', image: null },
+      { name: 'Greek Yogurt', description: 'Smooth and creamy Greek yogurt.', price: '$3', lbpPrice: '300,000 LBP', image: null, recipe: 'Full-fat Greek yogurt · Honey drizzle · Optional: granola, walnuts, or fresh berries' },
+      { name: 'Mango Greek Yogurt', description: 'Greek yogurt with fresh mango flavor.', price: '$3', lbpPrice: '300,000 LBP', image: null, recipe: 'Full-fat Greek yogurt · Fresh mango purée · Honey · Dried mango pieces · Optional coconut flakes' },
+      { name: 'Toppings', description: 'Granola, nuts, and fruit toppings.', price: '$1', lbpPrice: '100,000 LBP', image: null, recipe: 'Homemade granola · Mixed nuts · Seasonal fresh fruit · Honey · Chia seeds' },
     ],
   },
 ]
@@ -214,11 +215,11 @@ export const padelSubcategories: Subcategory[] = [
     themeColor: '#06b6d4',
     accentColor: '#06f6d4',
     drinks: [
-      { name: '1 Hour Court', description: 'Full hour of padel court play for up to 4 players', price: '$20', lbpPrice: '1,800,000 LBP', image: null },
-      { name: '1.5 Hours Court', description: 'Extended session with 1.5 hours of court time', price: '$30', lbpPrice: '2,700,000 LBP', image: null },
-      { name: '1 Hour Coaching', description: 'Professional padel coaching session for skill development', price: '$30', lbpPrice: '2,700,000 LBP', image: null },
-      { name: 'Premium Grip', description: 'High-quality grip tape for enhanced racket control', price: '$5', lbpPrice: '450,000 LBP', image: null },
-      { name: 'Professional Ball Set', description: 'Pack of 3 official padel balls', price: '$9.99', lbpPrice: '900,000 LBP', image: null },
+      { name: '1 Hour Court', description: 'Full hour of padel court play for up to 4 players', price: '$20', lbpPrice: '1,800,000 LBP', image: null, recipe: 'Up to 4 players · Includes court lighting · Rackets available on request · Book in advance recommended' },
+      { name: '1.5 Hours Court', description: 'Extended session with 1.5 hours of court time', price: '$30', lbpPrice: '2,700,000 LBP', image: null, recipe: 'Up to 4 players · Includes court lighting · Ideal for longer matches or warm-up + play · Rackets available on request' },
+      { name: '1 Hour Coaching', description: 'Professional padel coaching session for skill development', price: '$30', lbpPrice: '2,700,000 LBP', image: null, recipe: 'Certified padel coach · 1-on-1 or group (up to 4) · Technique, footwork & strategy · Suitable for all levels' },
+      { name: 'Premium Grip', description: 'High-quality grip tape for enhanced racket control', price: '$5', lbpPrice: '450,000 LBP', image: null, recipe: 'Professional-grade grip tape · Non-slip texture · Moisture-absorbing · Easy self-apply · Available at the desk' },
+      { name: 'Professional Ball Set', description: 'Pack of 3 official padel balls', price: '$9.99', lbpPrice: '900,000 LBP', image: null, recipe: 'Pack of 3 official padel balls · ITF approved · Pressurized for consistent bounce · Compatible with all court surfaces' },
     ],
   },
 ]

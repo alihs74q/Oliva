@@ -398,24 +398,30 @@ function PriceStickyNote({ price, lbpPrice, currency }: { price: string; lbpPric
 }
 
 // ─── Individual drink card ────────────────────────────────────────────────────
-function DrinkCard({ drink, index, currency }: { drink: SubcategoryDrink; sub: Subcategory; theme: CategoryTheme; index: number; currency: Currency }) {
+function DrinkCard({ drink, sub, index, currency }: { drink: SubcategoryDrink; sub: Subcategory; theme: CategoryTheme; index: number; currency: Currency }) {
+  const [open, setOpen] = useState(false)
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: EASE, delay: 0.08 + index * 0.05 }}
       style={{
-        display: 'flex', flexDirection: 'column', gap: 'clamp(12px,1.8vh,16px)',
+        display: 'flex', flexDirection: 'column',
         background: '#f8f8f8',
-        border: '1px solid rgba(0,0,0,0.07)',
+        border: `1px solid ${open ? sub.accentColor + '60' : 'rgba(0,0,0,0.07)'}`,
         borderRadius: 20,
-        padding: 'clamp(14px,2vh,20px)',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.07)',
+        overflow: 'hidden',
+        boxShadow: open ? `0 6px 24px ${sub.accentColor}22` : '0 4px 16px rgba(0,0,0,0.07)',
+        transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
       }}
     >
       {/* Top row: image · name · price sticky note */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'clamp(12px,2vw,18px)' }}>
-        {/* Image — smaller, modern light rim */}
+      <div style={{
+        display: 'flex', alignItems: 'flex-start', gap: 'clamp(12px,2vw,18px)',
+        padding: 'clamp(14px,2vh,20px)',
+      }}>
+        {/* Image */}
         <div style={{
           flexShrink: 0,
           width: 'clamp(72px,12vw,96px)', height: 'clamp(72px,12vw,96px)',
@@ -448,6 +454,110 @@ function DrinkCard({ drink, index, currency }: { drink: SubcategoryDrink; sub: S
         {/* Price sticky note */}
         <PriceStickyNote price={drink.price} lbpPrice={drink.lbpPrice} currency={currency} />
       </div>
+
+      {/* See More button — only shown when recipe exists */}
+      {drink.recipe && (
+        <div style={{ padding: '0 clamp(14px,2vh,20px) clamp(14px,2vh,20px)' }}>
+          <button
+            onClick={() => setOpen(prev => !prev)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              width: '100%',
+              padding: '13px 18px',
+              borderRadius: 14,
+              background: open ? sub.accentColor + '18' : 'rgba(0,0,0,0.04)',
+              border: `1.5px solid ${open ? sub.accentColor + '55' : 'rgba(0,0,0,0.1)'}`,
+              cursor: 'pointer',
+              transition: 'background 0.25s ease, border-color 0.25s ease',
+            }}
+            onMouseOver={e => { if (!open) e.currentTarget.style.background = 'rgba(0,0,0,0.07)' }}
+            onMouseOut={e => { if (!open) e.currentTarget.style.background = 'rgba(0,0,0,0.04)' }}
+          >
+            {/* Icon */}
+            <span style={{
+              flexShrink: 0,
+              width: 30, height: 30, borderRadius: '50%',
+              background: open ? sub.accentColor + '30' : 'rgba(0,0,0,0.08)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'background 0.25s ease',
+            }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke={open ? sub.accentColor : '#555'} strokeWidth="2.5"
+                strokeLinecap="round" strokeLinejoin="round"
+                style={{
+                  transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), stroke 0.25s ease',
+                  transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+                }}>
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </span>
+
+            <span style={{
+              fontSize: 'clamp(13px,1.5vw,15px)', fontWeight: 800,
+              color: open ? sub.accentColor : '#444',
+              letterSpacing: '0.04em', textTransform: 'uppercase',
+              transition: 'color 0.25s ease',
+            }}>
+              {open ? 'Hide Recipe' : 'See Recipe'}
+            </span>
+
+            {!open && (
+              <span style={{
+                marginLeft: 'auto', fontSize: 11, fontWeight: 600,
+                color: 'rgba(0,0,0,0.35)', letterSpacing: '0.06em',
+              }}>
+                tap to expand ↓
+              </span>
+            )}
+          </button>
+
+          {/* Smooth animated recipe panel */}
+          <AnimatePresence initial={false}>
+            {open && (
+              <motion.div
+                key="recipe"
+                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                animate={{ opacity: 1, height: 'auto', marginTop: 10 }}
+                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                transition={{ duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div style={{
+                  padding: '16px 18px',
+                  background: `linear-gradient(135deg, ${sub.accentColor}12, ${sub.accentColor}06)`,
+                  border: `1px solid ${sub.accentColor}30`,
+                  borderRadius: 12,
+                }}>
+                  <p style={{
+                    margin: '0 0 8px',
+                    fontSize: 10, fontWeight: 800,
+                    letterSpacing: '0.25em', textTransform: 'uppercase',
+                    color: sub.accentColor,
+                    opacity: 0.85,
+                  }}>Ingredients</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 10px' }}>
+                    {drink.recipe.split(' · ').map((item, i) => (
+                      <span key={i} style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 5,
+                        padding: '5px 12px',
+                        background: '#fff',
+                        border: `1px solid ${sub.accentColor}30`,
+                        borderRadius: 999,
+                        fontSize: 'clamp(12px,1.3vw,14px)',
+                        fontWeight: 600,
+                        color: '#333',
+                      }}>
+                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: sub.accentColor, flexShrink: 0 }} />
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
     </motion.div>
   )
 }
