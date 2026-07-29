@@ -67,20 +67,36 @@ export default function Home() {
           />
         </div>
         <button onClick={handleViewMenu} style={{
-          marginTop: 48,
-          padding: '14px 36px',
-          background: '#596B3D',
+          marginTop: 64,
+          padding: '18px 56px',
+          background: 'linear-gradient(135deg, #596B3D 0%, #4a5630 100%)',
           color: '#faf9f4',
           border: 'none',
-          borderRadius: 8,
-          fontSize: 15,
-          fontWeight: 700,
-          letterSpacing: '0.08em',
+          borderRadius: 12,
+          fontSize: 18,
+          fontWeight: 800,
+          letterSpacing: '0.12em',
           cursor: 'pointer',
-          transition: 'background 0.3s ease',
+          transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          boxShadow: '0 8px 24px rgba(89, 107, 61, 0.3)',
+          textTransform: 'uppercase',
         }}
-        onMouseEnter={(e) => e.currentTarget.style.background = '#4a5630'}
-        onMouseLeave={(e) => e.currentTarget.style.background = '#596B3D'}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(135deg, #4a5630 0%, #3a4220 100%)'
+          e.currentTarget.style.transform = 'translateY(-4px)'
+          e.currentTarget.style.boxShadow = '0 16px 40px rgba(89, 107, 61, 0.4)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(135deg, #596B3D 0%, #4a5630 100%)'
+          e.currentTarget.style.transform = 'translateY(0px)'
+          e.currentTarget.style.boxShadow = '0 8px 24px rgba(89, 107, 61, 0.3)'
+        }}
+        onMouseDown={(e) => {
+          e.currentTarget.style.transform = 'translateY(-1px)'
+        }}
+        onMouseUp={(e) => {
+          e.currentTarget.style.transform = 'translateY(-4px)'
+        }}
         >
           VIEW MENU
         </button>

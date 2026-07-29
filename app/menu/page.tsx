@@ -1,16 +1,16 @@
 'use client';
 
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import Menu from '@/components/Menu';
 
 export default function MenuPage() {
-  const handleNavigateList = (category: string) => {
-    // Link components handle prefetch, no need for router.push
-    return `/menu/${category}`;
-  };
-
   return (
-    <div style={{ background: '#faf9f4', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.1 }}
+      style={{ background: '#faf9f4', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Header with Home Button */}
       <div
         style={{
@@ -51,15 +51,15 @@ export default function MenuPage() {
       {/* Menu Section */}
       <div style={{ flex: 1, padding: '24px' }}>
         <Menu
-          onHotDrinks={() => handleNavigateList('hot-drinks')}
-          onColdDrinks={() => handleNavigateList('cold-drinks')}
-          onDesserts={() => handleNavigateList('desserts')}
-          onShisha={() => handleNavigateList('shisha')}
-          onSandwiches={() => handleNavigateList('sandwiches')}
-          onYogurt={() => handleNavigateList('yogurt')}
-          onPadel={() => handleNavigateList('padel')}
+          onHotDrinks={() => {}}
+          onColdDrinks={() => {}}
+          onDesserts={() => {}}
+          onShisha={() => {}}
+          onSandwiches={() => {}}
+          onYogurt={() => {}}
+          onPadel={() => {}}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
