@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import hotDrinksMenuBoard from './assets/hot-drinks/hot-drinks-menu-board.jpeg';
 import greenTeaPromo from './assets/hot-drinks/green-tea-promo.jpeg';
 import classicTeaPromo from './assets/hot-drinks/classic-tea-promo.jpeg';
+import threeFlavorsCafe from './assets/hot-drinks/three-flavors-cafe.jpeg';
+import icedLatteMenu from './assets/cold-drinks/iced-latte-menu.jpeg';
+import coffeeFrappeMenu from './assets/cold-drinks/coffee-frappe-menu.jpeg';
+import refreshersMenu from './assets/cold-drinks/refreshers-menu.jpeg';
+import smoothiesMenu from './assets/cold-drinks/smoothies-menu.jpeg';
+import milkshakesMenu from './assets/cold-drinks/milkshakes-menu.jpeg';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
 import GalleryPage from './components/GalleryPage';
@@ -175,17 +181,14 @@ export default function App() {
         hotDrinksMenuBoard,
         greenTeaPromo,
         classicTeaPromo,
+        threeFlavorsCafe,
       ],
       'cold-drinks': [
-        '/mango-smoothie.png',
-        '/strawberry-smoothie.png',
-        '/floral-fusion.png',
-        '/passion-fruit-smoothie.png',
-        '/vanilla-milkshake.png',
-        '/strawberry-whip-milkshake.png',
-        '/lotus-milkshake.png',
-        '/cookies-cream-milkshake.png',
-        '/choconut-milkshake.png',
+        icedLatteMenu,
+        coffeeFrappeMenu,
+        refreshersMenu,
+        smoothiesMenu,
+        milkshakesMenu,
       ],
     };
 
