@@ -175,9 +175,9 @@ function HeroGallery({ images, accent }: { images: string[]; accent: string }) {
       onTouchEnd={onTouchEnd}
       style={{
         position: 'relative',
-        width: 'clamp(200px,26vw,300px)',
-        height: 'clamp(200px,26vw,300px)',
-        borderRadius: 24,
+        width: 'clamp(380px,66vw,760px)',
+        aspectRatio: '16/9',
+        borderRadius: 18,
         overflow: 'hidden',
         background: '#111',
         boxShadow: `0 8px 40px rgba(0,0,0,0.22), 0 0 0 3px ${accent}40`,
