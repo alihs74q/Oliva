@@ -167,10 +167,10 @@ export const shishaSubcategories: Subcategory[] = [
     themeColor: '#a16207',
     accentColor: '#fcd34d',
     drinks: [
-      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png', recipe: 'Premium Al Fakher tobacco · Lemon flavoring · Fresh mint leaves · Natural cooling agents · Served with premium charcoal' },
-      { name: 'Double Apple', description: 'Classic dual apple flavor, sweet and smooth.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png', recipe: 'Premium tobacco · Red & green apple blend · Anise notes · Natural fruit essence · Served with premium charcoal' },
-      { name: 'Grape', description: 'Rich and sweet grape flavor.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png', recipe: 'Premium tobacco · Concord grape flavor · Natural fruit essence · Sweet finish · Served with premium charcoal' },
-      { name: 'Tanbak', description: 'Strong traditional tobacco flavor.', price: '$7.50', lbpPrice: '700,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png', recipe: 'Pure unwashed Tanbak tobacco · Traditional preparation · Bold raw flavor · For experienced shisha lovers · Served with premium charcoal' },
+      { name: 'Lemon Mint', description: 'Crisp lemon with cooling mint leaves.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-klpHNUnY3MwHeGKY7cAgyUCnpsvMwk.png' },
+      { name: 'Double Apple', description: 'Classic dual apple flavor, sweet and smooth.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bg1AzOAvlolWak7jtcGIl6Qo9Cw0yt.png' },
+      { name: 'Grape', description: 'Rich and sweet grape flavor.', price: '$5.50', lbpPrice: '500,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OYNiRMMx8o2JWCECpBiReXveE9b4YZ.png' },
+      { name: 'Tanbak', description: 'Strong traditional tobacco flavor.', price: '$7.50', lbpPrice: '700,000 LBP', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-jyDHjO5Wx9Z8uD1yNioltR69Ne0J5w.png' },
     ],
   },
 ]
