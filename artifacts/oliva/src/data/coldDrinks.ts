@@ -13,6 +13,7 @@ export interface ColdDrink {
   price: string
   lbpPrice: string
   image: string | null // null = placeholder; replace with "/your-image.png" or a URL
+  images?: string[]    // gallery photos — leave empty or omit to hide gallery
   themeColor: string   // hex — used as the blended tint over the background photo
   flavors: string[]    // available flavor options shown in the Choose Flavor strip
 }

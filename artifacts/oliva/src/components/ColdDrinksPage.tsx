@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { coldDrinks } from '../data/coldDrinks'
 import OlivaLogo from './OlivaLogo'
 import FlavorPicker from './FlavorPicker'
+import DrinkGallery from './DrinkGallery'
 
 type View = 'hero' | 'all'
 type NavRoute = 'home' | 'menu' | 'cold-drinks' | 'desserts' | 'hot-drinks'
@@ -122,9 +123,11 @@ function ProductPanel({ drink, dir, reducedMotion }: {
           </div>
         </div>
 
-        {/* Right: image */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          {drink.image ? (
+        {/* Right: gallery */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'clamp(180px,40vh,420px)' }}>
+          {(drink.images && drink.images.length > 0) ? (
+            <DrinkGallery images={drink.images} alt={drink.name} />
+          ) : drink.image ? (
             <img src={drink.image} alt={drink.name} draggable={false}
               style={{ maxHeight: 'clamp(140px,34vh,380px)', objectFit: 'contain', filter: 'drop-shadow(0 24px 64px rgba(0,0,0,0.55))', userSelect: 'none' }} />
           ) : (
