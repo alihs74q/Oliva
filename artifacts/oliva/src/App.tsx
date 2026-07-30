@@ -48,10 +48,10 @@ function parseRoute(): ParsedRoute {
 
 const COLD_THEME: CategoryTheme = {
   bgGradient: 'linear-gradient(160deg,#0e3a5f,#1565a8 55%,#0a4a7a)',
-  glowColor: '#8ECFE8',
+  glowColor: '#D4A843',
   text: '#f1f5f9',
   subtext: '#94a3b8',
-  accent: '#8ECFE8', // Ice blue
+  accent: '#D4A843', // Warm golden cream
 };
 
 const HOT_THEME: CategoryTheme = {
