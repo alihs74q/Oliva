@@ -167,6 +167,30 @@ export default function App() {
       );
     }
     
+    const HERO_IMAGES: Partial<Record<Category, string[]>> = {
+      'hot-drinks': [
+        '/cappuccino.jpeg',
+        '/cafe-latte.png',
+        '/hot-chocolate.png',
+        '/espresso.png',
+        '/ginger-honey.png',
+        '/tea.png',
+        '/green-tea.png',
+        '/chamomile.png',
+      ],
+      'cold-drinks': [
+        '/mango-smoothie.png',
+        '/strawberry-smoothie.png',
+        '/floral-fusion.png',
+        '/passion-fruit-smoothie.png',
+        '/vanilla-milkshake.png',
+        '/strawberry-whip-milkshake.png',
+        '/lotus-milkshake.png',
+        '/cookies-cream-milkshake.png',
+        '/choconut-milkshake.png',
+      ],
+    };
+
     return (
       <>
         <CategoryListPage
@@ -176,6 +200,7 @@ export default function App() {
           subcategories={subcategoryData[route.category]}
           navigate={() => navigateHome()}
           onBack={navigateMenu}
+          heroImages={HERO_IMAGES[route.category]}
         />
         <WhatsAppButton />
       </>

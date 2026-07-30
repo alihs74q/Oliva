@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Subcategory, SubcategoryDrink } from '../data/subcategories'
 import CurrencyToggle from './CurrencyToggle'
@@ -133,9 +133,125 @@ function SubcatCard({ sub, theme, isPlaceholder, onClick, animDelay }: {
   )
 }
 
+// ─── Hero Gallery ─────────────────────────────────────────────────────────────
+function HeroGallery({ images, accent }: { images: string[]; accent: string }) {
+  const [index, setIndex] = useState(0)
+  const [dir, setDir] = useState(1)
+  const [hovered, setHovered] = useState(false)
+  const touchStartX = useRef<number | null>(null)
+  const total = images.length
+
+  const go = useCallback((next: number, direction: number) => {
+    setDir(direction)
+    setIndex((next + total) % total)
+  }, [total])
+
+  useEffect(() => {
+    if (hovered) return
+    const id = setInterval(() => go(index + 1, 1), 3500)
+    return () => clearInterval(id)
+  }, [hovered, index, go])
+
+  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const dx = e.changedTouches[0].clientX - touchStartX.current
+    touchStartX.current = null
+    if (Math.abs(dx) < 40) return
+    dx < 0 ? go(index + 1, 1) : go(index - 1, -1)
+  }
+
+  const slideV = {
+    enter: (d: number) => ({ x: d > 0 ? '55%' : '-55%', opacity: 0, scale: 0.88 }),
+    center: { x: 0, opacity: 1, scale: 1, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] } },
+    exit: (d: number) => ({ x: d > 0 ? '-55%' : '55%', opacity: 0, scale: 0.88, transition: { duration: 0.3, ease: [0.4, 0, 0.8, 1] as [number,number,number,number] } }),
+  }
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      style={{
+        position: 'relative',
+        width: 'clamp(200px,26vw,300px)',
+        height: 'clamp(200px,26vw,300px)',
+        borderRadius: 24,
+        overflow: 'hidden',
+        background: '#111',
+        boxShadow: `0 8px 40px rgba(0,0,0,0.22), 0 0 0 3px ${accent}40`,
+        flexShrink: 0,
+      }}
+    >
+      {/* Slides */}
+      <AnimatePresence custom={dir} mode="popLayout" initial={false}>
+        <motion.img
+          key={index}
+          src={images[index]}
+          alt={`gallery ${index + 1}`}
+          draggable={false}
+          custom={dir}
+          variants={slideV}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', willChange: 'transform, opacity' }}
+        />
+      </AnimatePresence>
+
+      {/* Left arrow */}
+      <button
+        onClick={() => go(index - 1, -1)}
+        aria-label="Previous"
+        style={{
+          position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)',
+          width: 32, height: 32, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(8px)',
+          border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          opacity: hovered ? 1 : 0.45, transition: 'opacity 0.25s', zIndex: 10, padding: 0,
+        }}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      {/* Right arrow */}
+      <button
+        onClick={() => go(index + 1, 1)}
+        aria-label="Next"
+        style={{
+          position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)',
+          width: 32, height: 32, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(8px)',
+          border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          opacity: hovered ? 1 : 0.45, transition: 'opacity 0.25s', zIndex: 10, padding: 0,
+        }}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'scaleX(-1)' }}><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      {/* Dots */}
+      <div style={{
+        position: 'absolute', bottom: 10, left: 0, right: 0,
+        display: 'flex', justifyContent: 'center', gap: 5, zIndex: 10,
+      }}>
+        {images.map((_, i) => (
+          <button key={i} onClick={() => go(i, i > index ? 1 : -1)}
+            style={{
+              width: i === index ? 18 : 6, height: 6, borderRadius: 3, padding: 0, border: 'none', cursor: 'pointer',
+              background: i === index ? '#fff' : 'rgba(255,255,255,0.5)',
+              transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function CategoryListPage({
-  title, subtitle, theme, subcategories, navigate, onBack,
+  title, subtitle, theme, subcategories, navigate, onBack, heroImages,
 }: {
   title: string
   subtitle: string
@@ -143,6 +259,7 @@ export default function CategoryListPage({
   subcategories: Subcategory[]
   navigate: (to: NavRoute) => void
   onBack: () => void
+  heroImages?: string[]
 }) {
   const [openSub, setOpenSub] = useState<Subcategory | null>(null)
 
@@ -192,37 +309,41 @@ export default function CategoryListPage({
             color: theme.accent, textTransform: 'uppercase',
           }}>{subtitle}</p>
 
-          {/* Animated Logo */}
+          {/* Hero: gallery or logo */}
           <div style={{
             margin: 'clamp(12px,2vh,20px) 0',
             display: 'flex',
             justifyContent: 'center',
             perspective: '1200px',
           }}>
-            <div style={{
-              width: 'clamp(200px,26vw,300px)',
-              height: 'clamp(200px,26vw,300px)',
-              borderRadius: '50%',
-              background: theme.accent,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}>
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
-                alt="Oliva"
-                className="logo-3d"
-                style={{
-                  width: '78%',
-                  height: '78%',
-                  objectFit: 'contain',
-                  transformStyle: 'preserve-3d',
-                  backfaceVisibility: 'hidden',
-                  display: 'block',
-                }}
-              />
-            </div>
+            {heroImages && heroImages.length > 0 ? (
+              <HeroGallery images={heroImages} accent={theme.accent} />
+            ) : (
+              <div style={{
+                width: 'clamp(200px,26vw,300px)',
+                height: 'clamp(200px,26vw,300px)',
+                borderRadius: '50%',
+                background: theme.accent,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <img
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design%20%284%29-XnkqrdTFPK1XQiDPMZmAUqfH4w4IPy.png"
+                  alt="Oliva"
+                  className="logo-3d"
+                  style={{
+                    width: '78%',
+                    height: '78%',
+                    objectFit: 'contain',
+                    transformStyle: 'preserve-3d',
+                    backfaceVisibility: 'hidden',
+                    display: 'block',
+                  }}
+                />
+              </div>
+            )}
           </div>
 
           <h1 style={{
