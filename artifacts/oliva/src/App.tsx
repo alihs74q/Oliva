@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import hotDrinksMenuBoard from './assets/hot-drinks/hot-drinks-menu-board.jpeg';
+import greenTeaPromo from './assets/hot-drinks/green-tea-promo.jpeg';
+import classicTeaPromo from './assets/hot-drinks/classic-tea-promo.jpeg';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
 import GalleryPage from './components/GalleryPage';
@@ -169,14 +172,9 @@ export default function App() {
     
     const HERO_IMAGES: Partial<Record<Category, string[]>> = {
       'hot-drinks': [
-        '/cappuccino.jpeg',
-        '/cafe-latte.png',
-        '/hot-chocolate.png',
-        '/espresso.png',
-        '/ginger-honey.png',
-        '/tea.png',
-        '/green-tea.png',
-        '/chamomile.png',
+        hotDrinksMenuBoard,
+        greenTeaPromo,
+        classicTeaPromo,
       ],
       'cold-drinks': [
         '/mango-smoothie.png',

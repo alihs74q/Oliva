@@ -146,6 +146,11 @@ function HeroGallery({ images, accent }: { images: string[]; accent: string }) {
     setIndex((next + total) % total)
   }, [total])
 
+  // Preload all images immediately so they're in browser cache before the slide arrives
+  useEffect(() => {
+    images.forEach(src => { const img = new Image(); img.src = src; })
+  }, [images])
+
   useEffect(() => {
     if (hovered) return
     const id = setInterval(() => go(index + 1, 1), 3500)
@@ -196,6 +201,8 @@ function HeroGallery({ images, accent }: { images: string[]; accent: string }) {
           initial="enter"
           animate="center"
           exit="exit"
+          loading="eager"
+          fetchPriority={index === 0 ? 'high' : 'auto'}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', willChange: 'transform, opacity' }}
         />
       </AnimatePresence>
