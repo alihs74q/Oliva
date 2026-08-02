@@ -21,6 +21,7 @@ import CategoryListPage, { type CategoryTheme } from './components/CategoryListP
 import { subcategoryData } from './data/subcategories';
 import PadelPage from './components/PadelPage';
 import { useOfflineSupport } from './hooks/useOfflineSupport';
+import { useImagePreloader, useCategoryPreload } from './hooks/useImagePreloader';
 
 
 type Category = 'cold-drinks' | 'hot-drinks' | 'desserts' | 'shisha' | 'sandwiches' | 'yogurt' | 'padel';
@@ -115,6 +116,12 @@ const CATEGORY_DATA: Record<Category, { title: string; subtitle: string; theme: 
 export default function App() {
   const [route, setRoute] = useState<ParsedRoute>(parseRoute);
   const offlineStatus = useOfflineSupport();
+  const imagePreloader = useImagePreloader();
+  
+  // Preload category images when navigating to list
+  const { isReady: categoryReady } = useCategoryPreload(
+    route.name === 'list' ? route.category : ''
+  );
 
   useEffect(() => {
     const onHashChange = () => {
@@ -152,7 +159,7 @@ export default function App() {
               onPadel={() => navigateList('padel')}
             />
           </main>
-          <SiteFooter navigate={navigateMenu} />
+          <SiteFooter navigate={navigateMenu} onBook={navigateMenu} />
           <WhatsAppButton />
         </div>
       </>

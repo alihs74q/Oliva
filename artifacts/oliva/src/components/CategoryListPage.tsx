@@ -4,6 +4,8 @@ import type { Subcategory, SubcategoryDrink } from '../data/subcategories'
 import CurrencyToggle from './CurrencyToggle'
 import { useCurrency } from '../hooks/useCurrency'
 import type { Currency } from '../hooks/useCurrency'
+import { getImageForProduct } from '../utils/imageMatching'
+import { ViewRecipeButton } from './ViewRecipeButton'
 
 export interface CategoryTheme {
   bgGradient: string
@@ -23,115 +25,6 @@ const MUTED_TEXT = 'rgba(0,0,0,0.58)'
 type NavRoute = 'home' | 'menu'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
-
-// ─── Subcategory card with hover / selected state ────────────────────────────
-function SubcatCard({ sub, theme, isPlaceholder, onClick, animDelay }: {
-  sub: Subcategory
-  theme: CategoryTheme
-  isPlaceholder: boolean
-  onClick: () => void
-  animDelay: number
-}) {
-  const [hovered, setHovered] = useState(false)
-  const active = hovered && !isPlaceholder
-
-  return (
-    <motion.button
-      onClick={() => !isPlaceholder && onClick()}
-      disabled={isPlaceholder}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: EASE, delay: animDelay }}
-      whileTap={isPlaceholder ? {} : { scale: 0.97, transition: { duration: 0.12 } }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        position: 'relative', overflow: 'hidden',
-        background: active ? theme.accent : SURFACE,
-        border: `1.5px solid ${isPlaceholder ? 'rgba(0,0,0,0.1)' : theme.accent}`,
-        borderRadius: 24,
-        padding: 'clamp(16px,2.5vh,24px)',
-        cursor: isPlaceholder ? 'default' : 'pointer',
-        boxShadow: active
-          ? `0 8px 28px ${theme.accent}40`
-          : '0 2px 8px rgba(0,0,0,0.06)',
-        textAlign: 'left',
-        opacity: isPlaceholder ? 0.45 : 1,
-        display: 'flex', flexDirection: 'row', alignItems: 'stretch', gap: 'clamp(12px,2vw,20px)',
-        minHeight: '180px',
-        willChange: 'transform',
-        transition: 'background 300ms ease, box-shadow 300ms ease',
-      }}
-    >
-      {/* Left: Text content */}
-      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-        <div style={{
-          width: 44, height: 4, borderRadius: 3,
-          background: active ? 'rgba(255,255,255,0.7)' : theme.accent,
-          opacity: 0.8,
-          transition: 'background 300ms ease',
-        }} />
-        <div>
-          <h3 style={{
-            margin: 0, fontSize: 'clamp(22px,3vw,32px)', fontWeight: 900,
-            color: active ? PAGE_BG : theme.accent,
-            letterSpacing: '-0.02em', lineHeight: 1.1,
-            transition: 'color 300ms ease',
-          }}>{sub.name}</h3>
-          <p style={{
-            margin: '6px 0 0', fontSize: 'clamp(14px,1.8vw,18px)',
-            color: active ? 'rgba(255,255,255,0.85)' : MUTED_TEXT,
-            lineHeight: 1.5, fontWeight: 500,
-            transition: 'color 300ms ease',
-          }}>{sub.description}</p>
-        </div>
-        {!isPlaceholder && (
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            color: active ? PAGE_BG : theme.accent,
-            fontSize: 13, fontWeight: 800, letterSpacing: '0.04em',
-            transition: 'color 300ms ease',
-          }}>
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              width: 30, height: 30, borderRadius: '50%',
-              background: active ? 'rgba(255,255,255,0.2)' : `${theme.accent}22`,
-              border: `1px solid ${active ? 'rgba(255,255,255,0.4)' : `${theme.accent}55`}`,
-              transition: 'background 300ms ease, border-color 300ms ease',
-            }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </span>
-            Press to see
-          </div>
-        )}
-      </div>
-
-      {/* Right: Image — solid dark-green border (brand detail) */}
-      <div style={{
-        flexShrink: 0,
-        width: 'clamp(100px,15vw,130px)',
-        height: 'clamp(100px,15vw,130px)',
-        borderRadius: 16,
-        background: sub.image ? '#1a3a2a' : `${theme.accent}18`,
-        border: '2px solid #1a3a2a',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        overflow: 'hidden', position: 'relative',
-        boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
-      }}>
-        {sub.image ? (
-          <img src={sub.image} alt={sub.name} draggable={false}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        ) : (
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={theme.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <polyline points="21,15 16,10 5,21" />
-          </svg>
-        )}
-      </div>
-    </motion.button>
-  )
-}
 
 // ─── Hero Gallery ─────────────────────────────────────────────────────────────
 function HeroGallery({ images, accent }: { images: string[]; accent: string }) {
@@ -256,6 +149,175 @@ function HeroGallery({ images, accent }: { images: string[]; accent: string }) {
   )
 }
 
+// ─── Price sticky note ────────────────────────────────────────────────────────
+function PriceStickyNote({ price, lbpPrice, currency }: { price: string; lbpPrice: string; currency: Currency }) {
+  const displayedPrice = currency === 'USD' ? price : lbpPrice
+  const isLBP = currency === 'LBP'
+
+  return (
+    <div style={{ position: 'relative', flexShrink: 0, transform: 'rotate(3deg)', transformOrigin: 'center top' }}>
+      {/* Tape strip */}
+      <div style={{
+        position: 'absolute', top: -9, left: '50%',
+        transform: 'translateX(-50%) rotate(-5deg)',
+        width: 40, height: 16,
+        background: 'rgba(255,255,255,0.34)',
+        borderLeft: '1px solid rgba(255,255,255,0.25)',
+        borderRight: '1px solid rgba(255,255,255,0.25)',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+      }} />
+      {/* Note paper */}
+      <motion.div
+        key={currency}
+        initial={{ rotateY: 90, opacity: 0, scale: 0.85 }}
+        animate={{ rotateY: 0, opacity: 1, scale: 1 }}
+        transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          minWidth: isLBP ? 'clamp(100px,14vw,140px)' : 'clamp(52px,8vw,68px)',
+          padding: isLBP
+            ? 'clamp(10px,1.4vw,14px) clamp(10px,1.6vw,14px)'
+            : 'clamp(12px,1.6vw,16px) clamp(12px,1.8vw,18px)',
+          background: isLBP
+            ? 'linear-gradient(155deg, #fff5b0, #f5e04a)'
+            : 'linear-gradient(155deg, #ffe994, #fcd968)',
+          color: '#3a2c0c',
+          borderRadius: 3,
+          boxShadow: '0 8px 16px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.5)',
+          textAlign: 'center',
+          fontFamily: '"Georgia", "Times New Roman", serif',
+          fontStyle: 'italic',
+          fontWeight: 800,
+          fontSize: isLBP ? 'clamp(11px,1.3vw,15px)' : 'clamp(17px,2vw,24px)',
+          letterSpacing: '-0.02em',
+          lineHeight: 1.2,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {displayedPrice}
+      </motion.div>
+    </div>
+  )
+}
+
+// ─── Individual drink card ────────────────────────────────────────────────────
+function DrinkCard({ drink, sub, index, currency }: { drink: SubcategoryDrink; sub: Subcategory; theme?: CategoryTheme; index: number; currency: Currency }) {
+  const [open, setOpen] = useState(false)
+  const displayImage = getImageForProduct(drink.name, drink.image ?? undefined)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: EASE, delay: 0.08 + index * 0.05 }}
+      style={{
+        display: 'flex', flexDirection: 'column',
+        background: '#f8f8f8',
+        border: `1px solid ${open ? sub.accentColor + '60' : 'rgba(0,0,0,0.07)'}`,
+        borderRadius: 20,
+        overflow: 'hidden',
+        boxShadow: open ? `0 6px 24px ${sub.accentColor}22` : '0 4px 16px rgba(0,0,0,0.07)',
+        transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+      }}
+    >
+      {/* Top row: image · name · price sticky note */}
+      <div style={{
+        display: 'flex', alignItems: 'flex-start', gap: 'clamp(12px,2vw,18px)',
+        padding: 'clamp(14px,2vh,20px)',
+      }}>
+        {/* Image */}
+        <div style={{
+          flexShrink: 0,
+          width: 'clamp(72px,12vw,96px)', height: 'clamp(72px,12vw,96px)',
+          borderRadius: 14,
+          background: '#e8f0eb',
+          border: '1px solid rgba(0,0,0,0.1)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          overflow: 'hidden', position: 'relative',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+        }}>
+          {displayImage ? (
+            <img src={displayImage} alt={drink.name} draggable={false}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ) : (
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21,15 16,10 5,21" />
+            </svg>
+          )}
+        </div>
+
+        {/* Name */}
+        <h4 style={{
+          flex: 1, minWidth: 0, margin: 0, alignSelf: 'center',
+          fontSize: 'clamp(18px,2.6vw,26px)', fontWeight: 800, color: '#111',
+          lineHeight: 1.2, letterSpacing: '-0.01em',
+        }}>{drink.name}</h4>
+
+        {/* Price sticky note */}
+        <PriceStickyNote price={drink.price} lbpPrice={drink.lbpPrice} currency={currency} />
+      </div>
+
+      {/* View Recipe button — only shown when recipe exists */}
+      {drink.recipe && (
+        <div style={{ padding: '0 clamp(14px,2vh,20px) clamp(14px,2vh,20px)' }}>
+          <ViewRecipeButton
+            isExpanded={open}
+            onClick={() => setOpen(prev => !prev)}
+            themeColor={sub.accentColor}
+          />
+
+          {/* Smooth animated recipe panel */}
+          <AnimatePresence initial={false}>
+            {open && (
+              <motion.div
+                key="recipe"
+                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                animate={{ opacity: 1, height: 'auto', marginTop: 10 }}
+                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div style={{
+                  padding: '16px 18px',
+                  background: `linear-gradient(135deg, ${sub.accentColor}12, ${sub.accentColor}06)`,
+                  border: `1px solid ${sub.accentColor}30`,
+                  borderRadius: 12,
+                }}>
+                  <p style={{
+                    margin: '0 0 8px',
+                    fontSize: 10, fontWeight: 800,
+                    letterSpacing: '0.25em', textTransform: 'uppercase',
+                    color: sub.accentColor,
+                    opacity: 0.85,
+                  }}>Ingredients</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 10px' }}>
+                    {drink.recipe.split(' · ').map((item, i) => (
+                      <span key={i} style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 5,
+                        padding: '5px 12px',
+                        background: '#fff',
+                        border: `1px solid ${sub.accentColor}30`,
+                        borderRadius: 999,
+                        fontSize: 'clamp(12px,1.3vw,14px)',
+                        fontWeight: 600,
+                        color: '#333',
+                      }}>
+                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: sub.accentColor, flexShrink: 0 }} />
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function CategoryListPage({
   title, subtitle, theme, subcategories, navigate, onBack, heroImages,
@@ -268,7 +330,16 @@ export default function CategoryListPage({
   onBack: () => void
   heroImages?: string[]
 }) {
-  const [openSub, setOpenSub] = useState<Subcategory | null>(null)
+  const { currency, toggle } = useCurrency('USD')
+  const subcategoryRefs = useRef<Record<string, HTMLDivElement | null>>({})
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
+
+  const scrollToSubcategory = (subcategoryId: string) => {
+    const element = subcategoryRefs.current[subcategoryId]
+    if (element && scrollContainerRef.current) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   return (
     <div style={{
@@ -300,7 +371,7 @@ export default function CategoryListPage({
       </nav>
 
       {/* Scrollable content container */}
-      <div className="clp-scroll" style={{
+      <div ref={scrollContainerRef} className="clp-scroll" style={{
         flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
         WebkitOverflowScrolling: 'touch',
       }}>
@@ -359,333 +430,155 @@ export default function CategoryListPage({
           }}>{title}</h1>
         </motion.div>
 
-        {/* Subcategory grid */}
+        {/* Subcategory Navigation */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: EASE, delay: 0.1 }}
+          style={{
+            padding: 'clamp(8px,1.5vh,14px) clamp(16px,4vw,40px)',
+            display: 'flex',
+            gap: 'clamp(6px,1vw,12px)',
+            overflowX: 'auto',
+            overflowY: 'hidden',
+            scrollBehavior: 'smooth',
+            WebkitOverflowScrolling: 'touch',
+          }}
+          className="subcat-nav"
+        >
+          {subcategories.map((sub) => (
+            <button
+              key={sub.id}
+              onClick={() => scrollToSubcategory(sub.id)}
+              style={{
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                padding: 'clamp(8px,1.2vh,12px) clamp(14px,2vw,18px)',
+                borderRadius: 20,
+                border: `1.5px solid ${theme.accent}`,
+                background: SURFACE,
+                color: theme.accent,
+                fontSize: 'clamp(12px,1.4vw,14px)',
+                fontWeight: 700,
+                letterSpacing: '0.02em',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = theme.accent
+                e.currentTarget.style.color = PAGE_BG
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = SURFACE
+                e.currentTarget.style.color = theme.accent
+              }}
+            >
+              {sub.name}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Currency Toggle */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          padding: 'clamp(12px,2vh,18px) clamp(16px,4vw,40px) 0',
+        }}>
+          <CurrencyToggle currency={currency} onToggle={toggle} />
+        </div>
+
+        {/* Grouped Product List */}
         <div style={{
           padding: 'clamp(12px,2vh,24px) clamp(16px,4vw,40px) clamp(20px,3vh,40px)',
-          maxWidth: 960, margin: '0 auto', width: '100%',
+          maxWidth: 960,
+          margin: '0 auto',
+          width: '100%',
         }}>
-          <div className="subcat-grid" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(16px,2.5vh,28px)',
-            width: '100%',
-          }}>
-            {subcategories.map((sub, i) => {
-              const isPlaceholder = sub.drinks.length === 0
-              return (
-                <SubcatCard
-                  key={sub.id}
-                  sub={sub}
-                  theme={theme}
-                  isPlaceholder={isPlaceholder}
-                  onClick={() => setOpenSub(sub)}
-                  animDelay={Math.min(i * 0.05, 0.3)}
+          {subcategories.map((sub, i) => (
+            <motion.div
+              key={sub.id}
+              ref={(el) => {
+                if (el) subcategoryRefs.current[sub.id] = el
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: EASE, delay: Math.min(i * 0.08, 0.4) }}
+              style={{
+                marginBottom: 'clamp(28px,4vh,48px)',
+                scrollMarginTop: '100px',
+              }}
+            >
+              {/* Subcategory Header */}
+              <div style={{
+                marginBottom: 'clamp(16px,2.5vh,24px)',
+              }}>
+                <div
+                  style={{
+                    width: 44,
+                    height: 4,
+                    borderRadius: 3,
+                    background: sub.accentColor,
+                    marginBottom: 10,
+                  }}
                 />
-              )
-            })}
-          </div>
+                <h3
+                  style={{
+                    margin: '4px 0 0',
+                    fontSize: 'clamp(26px,3.4vw,36px)',
+                    fontWeight: 900,
+                    color: sub.accentColor,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  {sub.name}
+                </h3>
+                {sub.description && (
+                  <p
+                    style={{
+                      margin: '4px 0 0',
+                      fontSize: 'clamp(13px,1.6vw,16px)',
+                      color: MUTED_TEXT,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {sub.description}
+                  </p>
+                )}
+              </div>
+
+              {/* Products Grid */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'clamp(12px,1.8vh,18px)',
+                }}
+              >
+                {sub.drinks.map((drink, index) => (
+                  <DrinkCard
+                    key={drink.name}
+                    drink={drink}
+                    sub={sub}
+                    index={index}
+                    currency={currency}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
-
-      {/* Drink popup modal */}
-      <AnimatePresence>
-        {openSub && (
-          <DrinkModal sub={openSub} theme={theme} onClose={() => setOpenSub(null)} />
-        )}
-      </AnimatePresence>
 
       <style>{`
         .clp-scroll::-webkit-scrollbar { width: 4px; }
         .clp-scroll::-webkit-scrollbar-track { background: transparent; }
         .clp-scroll::-webkit-scrollbar-thumb { background: rgba(89,107,61,0.2); border-radius: 2px; }
         .clp-scroll { scrollbar-width: thin; scrollbar-color: rgba(89,107,61,0.2) transparent; }
-        @media (max-width: 640px) {
-          .subcat-grid { grid-template-columns: 1fr !important; }
-        }
+        .subcat-nav::-webkit-scrollbar { height: 3px; }
+        .subcat-nav::-webkit-scrollbar-track { background: transparent; }
+        .subcat-nav::-webkit-scrollbar-thumb { background: rgba(89,107,61,0.15); border-radius: 2px; }
+        .subcat-nav { scrollbar-width: thin; scrollbar-color: rgba(89,107,61,0.15) transparent; }
       `}</style>
     </div>
-  )
-}
-
-// ─── Drink popup modal ────────────────────────────────────────────────────────
-function DrinkModal({ sub, theme, onClose }: { sub: Subcategory; theme: CategoryTheme; onClose: () => void }) {
-  const { currency, toggle } = useCurrency('USD')
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.25, ease: EASE }}
-      style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(12px,2vw,24px)' }}
-    >
-      {/* Backdrop */}
-      <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)' }} />
-
-      {/* Modal card */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 24 }}
-        transition={{ duration: 0.3, ease: EASE }}
-        style={{
-          position: 'relative', zIndex: 1,
-          width: 'min(620px, 94vw)',
-          maxHeight: 'calc(100svh - 48px)',
-          background: '#ffffff',
-          border: `1.5px solid ${sub.accentColor}33`,
-          borderRadius: 'clamp(22px,3vw,32px)',
-          padding: 'clamp(20px,3vw,36px)',
-          display: 'flex', flexDirection: 'column', gap: 'clamp(14px,2vh,20px)',
-          overflowY: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          boxShadow: `0 20px 60px rgba(0,0,0,0.25)`,
-          willChange: 'transform',
-        }}
-      >
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexShrink: 0 }}>
-          <div>
-            <div style={{ width: 44, height: 4, borderRadius: 3, background: sub.accentColor, marginBottom: 10 }} />
-            <p style={{ margin: 0, fontSize: 11, fontWeight: 800, letterSpacing: '0.3em', color: '#888', textTransform: 'uppercase' }}>Menu</p>
-            <h3 style={{ margin: '4px 0 0', fontSize: 'clamp(26px,3.4vw,36px)', fontWeight: 900, color: '#111', letterSpacing: '-0.02em' }}>{sub.name}</h3>
-          </div>
-          <button onClick={onClose} aria-label="Close"
-            style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.1)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#333', transition: 'background 0.2s ease' }}
-            onMouseOver={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.12)')}
-            onMouseOut={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.06)')}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
-          </button>
-        </div>
-
-        {/* Currency toggle — above drink list */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', flexShrink: 0 }}>
-          <CurrencyToggle currency={currency} onToggle={toggle} />
-        </div>
-
-        {/* Drink list */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(12px,1.8vh,18px)' }}>
-          {sub.drinks.map((drink, i) => (
-            <DrinkCard key={drink.name} drink={drink} sub={sub} theme={theme} index={i} currency={currency} />
-          ))}
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-// ─── Price sticky note ────────────────────────────────────────────────────────
-function PriceStickyNote({ price, lbpPrice, currency }: { price: string; lbpPrice: string; currency: Currency }) {
-  const displayedPrice = currency === 'USD' ? price : lbpPrice
-  const isLBP = currency === 'LBP'
-
-  return (
-    <div style={{ position: 'relative', flexShrink: 0, transform: 'rotate(3deg)', transformOrigin: 'center top' }}>
-      {/* Tape strip */}
-      <div style={{
-        position: 'absolute', top: -9, left: '50%',
-        transform: 'translateX(-50%) rotate(-5deg)',
-        width: 40, height: 16,
-        background: 'rgba(255,255,255,0.34)',
-        borderLeft: '1px solid rgba(255,255,255,0.25)',
-        borderRight: '1px solid rgba(255,255,255,0.25)',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-      }} />
-      {/* Note paper */}
-      <motion.div
-        key={currency}
-        initial={{ rotateY: 90, opacity: 0, scale: 0.85 }}
-        animate={{ rotateY: 0, opacity: 1, scale: 1 }}
-        transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          minWidth: isLBP ? 'clamp(100px,14vw,140px)' : 'clamp(52px,8vw,68px)',
-          padding: isLBP
-            ? 'clamp(10px,1.4vw,14px) clamp(10px,1.6vw,14px)'
-            : 'clamp(12px,1.6vw,16px) clamp(12px,1.8vw,18px)',
-          background: isLBP
-            ? 'linear-gradient(155deg, #fff5b0, #f5e04a)'
-            : 'linear-gradient(155deg, #ffe994, #fcd968)',
-          color: '#3a2c0c',
-          borderRadius: 3,
-          boxShadow: '0 8px 16px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.5)',
-          textAlign: 'center',
-          fontFamily: '"Georgia", "Times New Roman", serif',
-          fontStyle: 'italic',
-          fontWeight: 800,
-          fontSize: isLBP ? 'clamp(11px,1.3vw,15px)' : 'clamp(17px,2vw,24px)',
-          letterSpacing: '-0.02em',
-          lineHeight: 1.2,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {displayedPrice}
-      </motion.div>
-    </div>
-  )
-}
-
-// ─── Individual drink card ────────────────────────────────────────────────────
-function DrinkCard({ drink, sub, index, currency }: { drink: SubcategoryDrink; sub: Subcategory; theme: CategoryTheme; index: number; currency: Currency }) {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: EASE, delay: 0.08 + index * 0.05 }}
-      style={{
-        display: 'flex', flexDirection: 'column',
-        background: '#f8f8f8',
-        border: `1px solid ${open ? sub.accentColor + '60' : 'rgba(0,0,0,0.07)'}`,
-        borderRadius: 20,
-        overflow: 'hidden',
-        boxShadow: open ? `0 6px 24px ${sub.accentColor}22` : '0 4px 16px rgba(0,0,0,0.07)',
-        transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-      }}
-    >
-      {/* Top row: image · name · price sticky note */}
-      <div style={{
-        display: 'flex', alignItems: 'flex-start', gap: 'clamp(12px,2vw,18px)',
-        padding: 'clamp(14px,2vh,20px)',
-      }}>
-        {/* Image */}
-        <div style={{
-          flexShrink: 0,
-          width: 'clamp(72px,12vw,96px)', height: 'clamp(72px,12vw,96px)',
-          borderRadius: 14,
-          background: '#e8f0eb',
-          border: '1px solid rgba(0,0,0,0.1)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          overflow: 'hidden', position: 'relative',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-        }}>
-          {drink.image ? (
-            <img src={drink.image} alt={drink.name} draggable={false}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          ) : (
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <polyline points="21,15 16,10 5,21" />
-            </svg>
-          )}
-        </div>
-
-        {/* Name */}
-        <h4 style={{
-          flex: 1, minWidth: 0, margin: 0, alignSelf: 'center',
-          fontSize: 'clamp(18px,2.6vw,26px)', fontWeight: 800, color: '#111',
-          lineHeight: 1.2, letterSpacing: '-0.01em',
-        }}>{drink.name}</h4>
-
-        {/* Price sticky note */}
-        <PriceStickyNote price={drink.price} lbpPrice={drink.lbpPrice} currency={currency} />
-      </div>
-
-      {/* See More button — only shown when recipe exists */}
-      {drink.recipe && (
-        <div style={{ padding: '0 clamp(14px,2vh,20px) clamp(14px,2vh,20px)' }}>
-          <button
-            onClick={() => setOpen(prev => !prev)}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 10,
-              width: '100%',
-              padding: '13px 18px',
-              borderRadius: 14,
-              background: open ? sub.accentColor + '18' : 'rgba(0,0,0,0.04)',
-              border: `1.5px solid ${open ? sub.accentColor + '55' : 'rgba(0,0,0,0.1)'}`,
-              cursor: 'pointer',
-              transition: 'background 0.25s ease, border-color 0.25s ease',
-            }}
-            onMouseOver={e => { if (!open) e.currentTarget.style.background = 'rgba(0,0,0,0.07)' }}
-            onMouseOut={e => { if (!open) e.currentTarget.style.background = 'rgba(0,0,0,0.04)' }}
-          >
-            {/* Icon */}
-            <span style={{
-              flexShrink: 0,
-              width: 30, height: 30, borderRadius: '50%',
-              background: open ? sub.accentColor + '30' : 'rgba(0,0,0,0.08)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              transition: 'background 0.25s ease',
-            }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke={open ? sub.accentColor : '#555'} strokeWidth="2.5"
-                strokeLinecap="round" strokeLinejoin="round"
-                style={{
-                  transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), stroke 0.25s ease',
-                  transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-                }}>
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </span>
-
-            <span style={{
-              fontSize: 'clamp(13px,1.5vw,15px)', fontWeight: 800,
-              color: open ? sub.accentColor : '#444',
-              letterSpacing: '0.04em', textTransform: 'uppercase',
-              transition: 'color 0.25s ease',
-            }}>
-              {open ? 'Hide Recipe' : 'See Recipe'}
-            </span>
-
-            {!open && (
-              <span style={{
-                marginLeft: 'auto', fontSize: 11, fontWeight: 600,
-                color: 'rgba(0,0,0,0.35)', letterSpacing: '0.06em',
-              }}>
-                tap to expand ↓
-              </span>
-            )}
-          </button>
-
-          {/* Smooth animated recipe panel */}
-          <AnimatePresence initial={false}>
-            {open && (
-              <motion.div
-                key="recipe"
-                initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                animate={{ opacity: 1, height: 'auto', marginTop: 10 }}
-                exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                transition={{ duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] }}
-                style={{ overflow: 'hidden' }}
-              >
-                <div style={{
-                  padding: '16px 18px',
-                  background: `linear-gradient(135deg, ${sub.accentColor}12, ${sub.accentColor}06)`,
-                  border: `1px solid ${sub.accentColor}30`,
-                  borderRadius: 12,
-                }}>
-                  <p style={{
-                    margin: '0 0 8px',
-                    fontSize: 10, fontWeight: 800,
-                    letterSpacing: '0.25em', textTransform: 'uppercase',
-                    color: sub.accentColor,
-                    opacity: 0.85,
-                  }}>Ingredients</p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 10px' }}>
-                    {drink.recipe.split(' · ').map((item, i) => (
-                      <span key={i} style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 5,
-                        padding: '5px 12px',
-                        background: '#fff',
-                        border: `1px solid ${sub.accentColor}30`,
-                        borderRadius: 999,
-                        fontSize: 'clamp(12px,1.3vw,14px)',
-                        fontWeight: 600,
-                        color: '#333',
-                      }}>
-                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: sub.accentColor, flexShrink: 0 }} />
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      )}
-    </motion.div>
   )
 }
