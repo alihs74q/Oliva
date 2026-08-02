@@ -202,7 +202,7 @@ function PriceStickyNote({ price, lbpPrice, currency }: { price: string; lbpPric
 // ─── Individual drink card ────────────────────────────────────────────────────
 function DrinkCard({ drink, sub, index, currency }: { drink: SubcategoryDrink; sub: Subcategory; theme?: CategoryTheme; index: number; currency: Currency }) {
   const [open, setOpen] = useState(false)
-  const displayImage = getImageForProduct(drink.name, drink.image)
+  const displayImage = getImageForProduct(drink.name, drink.image ?? undefined)
 
   return (
     <motion.div

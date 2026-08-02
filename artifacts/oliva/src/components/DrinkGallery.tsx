@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, Variants } from 'framer-motion'
 
 interface DrinkGalleryProps {
   images: string[]
@@ -7,7 +7,7 @@ interface DrinkGalleryProps {
   autoPlayMs?: number
 }
 
-const slideVariants = {
+const slideVariants: Variants = {
   enter: (dir: number) => ({
     x: dir > 0 ? '60%' : '-60%',
     opacity: 0,
@@ -17,13 +17,13 @@ const slideVariants = {
     x: 0,
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const },
   },
   exit: (dir: number) => ({
     x: dir > 0 ? '-60%' : '60%',
     opacity: 0,
     scale: 0.92,
-    transition: { duration: 0.32, ease: [0.4, 0, 0.8, 1] },
+    transition: { duration: 0.32, ease: [0.4, 0, 0.8, 1] as const },
   }),
 }
 

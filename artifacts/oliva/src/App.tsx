@@ -152,7 +152,7 @@ export default function App() {
               onPadel={() => navigateList('padel')}
             />
           </main>
-          <SiteFooter navigate={navigateMenu} />
+          <SiteFooter navigate={navigateMenu} onBook={navigateMenu} />
           <WhatsAppButton />
         </div>
       </>
